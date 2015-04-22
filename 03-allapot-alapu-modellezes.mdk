@@ -31,6 +31,8 @@ Kiindulásként a jelzőlámpa alábbi egyszerű állapotterével dolgozunk.
 * ![tl_green] _Go_: zöld jelzés
 * ![tl_yellow] _Continue_: sárga jelzés
 
+[compass_icon]: images/compass_icon.png "compass_icon" { width=auto max-width=90% }
+
 Kezdetben a rendszer legyen kikapcsolva, vagyis a rendszer egyetlen kezdőállapota legyen _Off_.
 ~
 
