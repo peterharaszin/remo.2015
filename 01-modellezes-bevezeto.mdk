@@ -1,0 +1,64 @@
+Title         : Modellezés és metamodellezés
+.LogoMadoko   : after=" [A segédanyag forrása](https://github.com/FTSRG/remo/blob/gh-pages/01-modellezes-bevezeto.mdk)"
+
+[INCLUDE="header.mdk"]
+
+Az alábbi dokumentum a rendszermodellezés tárgy első előadásához kapcsolódó segédanyag, mely tartalmazza az elhangzott definíciókat és a hozzájuk tartozó egyszerűbb magyarázazokat.
+
+# Modellezés
+
+Mi értelme van modellezni? Fejben szinte mindig modellezünk bármilyen probléma kerül elénk. Legyen az egy szoftver fejlesztése (tervezése), leírása. Legfőbb szerepe a kommunikáció:
+
+~ RemoDef
+Egy valós vagy hipotetikus világ (a "rendszer") egy részének egyszerűsített képe, amely a rendszert helyettesíti bizonyos megfontolásokban.
+~
+
+Egy adott probléma modellé történő leképezésének általában két fontos előnye van: _áttekinthetőbb_, _kisebb (véges)_.
+
+ * _kisebb_, hiszen a problémához nem kapcsolódó, elhanyagolható információk nem jelennek meg benne.
+ * _áttekinthetőbb_, hiszen csak az adott problémával kapcsolatos, releváns információkat kell vizsgálni.
+
+Fontos azt is megjegyezni, hogy nem minden modell, ami modellnek látszik.
+
+ * _A modell nem a valóság_: az általunk definiált modellen bizonyos állítások igazak lehetnek, amik a valóságban nem állják meg a helyüket.
+ * _A modell nem a diagram_: A diagram csak egy ábrázolás módja a modellnek, amivel olvashatóvá tesszük. 
+
+# Modellezési nyelvek
+
+Segítségükkel modelleket építhetünk, amik lehetnek szöveges (pl.: Verilog, VHDL, Java stb.), vagy grafikusak is (pl.: webes konyhatervező, UML diagrammok, UPPAAL stb.). Céljuk a kommunikáció gép-gép, ember-gép vagy akár ember-ember között is. A nyelveknek két fő aspektusa van:
+
+ * _szintaxis_: hogyan írom a le a modellt? Egy szabályrendszer, ami meghatározza, hogy a nyelv milyen elemekből épül fel és azok hogyan kombinálhatóak.
+ * _szemantika_: mit jelent a modell? A szintaxis által definált nyelvi elemek jelentését definiáló szabályrendszer.
+
+~ RemoExample
+A C nyelv egy szöveges nyelv, melyben elemeknek tekinthetjük az _if_, _for_, _switch_, _változó nevek_, _metódus nevek_, _típusok_ stb. részeket. Ezek azonban nem tetszőleges sorrendben állhatnak egymás mellett, hanem egy jól meghatározott szabályrendszer szerint. Ez a szintaxis. Azt, hogy a _if_ kulcsszóval elágazást, a _for_ kulcsszóval pedig egy ciklust definiálunk és nem pedig valami teljesen más dolgot, a szemantika határozza meg. Vagyis a szemantika jelentéssel tölti meg a nyelvi elemeket.
+~
+
+~ RemoExample
+A "Yakindu" bizonyos szinten egy grafikus nyelvet határoz meg, ahol a nyelvi elemek a dobozok, nyilak (a részletes leírás a később előadásokon fog elhangozni a Yakindu nyelvvel kapcsolatban). A szintaxis meghatározza, hogy a dobozokból csak nyilakkal lehet összekötni más dobozokat. A szemantikus jelentésük pedig, hogy a dobozok állapotok, a nyilak pedig megmutatják, hogy az alkalmazásunk mely állapotból mely állapotba kerülhet. 
+~
+
+~ RemoRemark
+Szintaktikailag leírhatunk olyan kifejezéseket a nyelvben, aminek szemantikailag nincs értelme.
+~
+
+# Metamodellezés
+
+_Definíció_: Egy modellezési nyelv modellje. Meghatározza, hogy a nyelvnek milyen típusú elemei vannak, milyen kapcsolatban állhatnak egymással, és a típusoknak mi a viszonya egymáshoz.
+
+Tipikus, későbbi tanulmányaitokban előkerülő illusztrációk:
+
+ * Egyed-kapcsolat, EK modell (entity-relationship, ER)
+ * UML objektum diagram (modell) $\leftrightarrow$ osztálydiagram (metamodell)
+ * Adatbázis tábla (modell) $\leftrightarrow$ relációs adatbázisséma
+ * XML dokumentum (modell) $\leftrightarrow$ XML séma (metamodell)
+
+
+# Alapfogalmak
+ 
+_Rendszer és külvilág_: A külvilág a rendszerre ható tényezők összessége. A rendszer pedig a komponensei és a közöttük lévő kapcsolatok.
+ (Fehér doboz: ismerjük a rendszer belső működését; Fekete doboz: nem ismerjük a belső működés, csak a kimenetei alapján vizsgálhatjuk a működését.)
+
+_Finomítás_: a modell gazdagítása részletekkel úgy, hogy az eredeti modell absztrakció megmaradjon. (Nem irreleváns adatokkal bővítjük, hanem pontosítjuk a modellünket)
+
+_Absztrakció_: a finomítás inverz művelete. (Nem a releváns dolgokról találjuk ki, hogy most már nem relevánsak, hanem a releváns részleteket egyszerűsítjük)

@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="generator" content="Madoko, version 0.9.5-beta" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <title>Struktúra alapú modellezés</title>
+  <style  class="link">
+  /* ---------------------------------------------------
+     Various settings to display madoko elements correctly.
+     For example, lines in tables or a table of contents.
+  
+     All rules use specific madoko classes and never just
+     a generic element. This means one can safely include
+     this CSS into any web page without affecting non-madoko
+     content.
+  ----------------------------------------------------*/
+  
+  /* The table of  contents */
+  .madoko .toc>.tocblock .tocblock .tocblock {
+    margin-left: 2.5em;
+  }
+  
+  .madoko .toc>.tocblock .tocblock {
+    margin-left: 1.7em;
+  }
+  
+  .madoko .toc>.tocblock>.tocitem {
+    font-weight: bold;
+  }
+  
+  .madoko .toc {
+    margin-top: 1em;
+  }
+  
+  /* Paragraphs */
+  .madoko p.para-continue {
+    margin-bottom: 0pt;
+  }
+  
+  .madoko .para-block+p {
+    margin-top: 0pt;
+  }
+  
+  .madoko ul.para-block, .madoko ol.para-block {
+    margin-top: 0pt;
+    margin-bottom: 0pt;
+  }
+  
+  .madoko ul.para-end, .madoko ol.para-end {
+    margin-bottom: 1em;
+  }
+  
+  .madoko dl {
+    margin-left: 0em;
+  }
+  
+  .madoko blockquote {
+    font-style: italic;
+  }
+  
+  /* Local page links do not get an underline unless hovering */
+  .madoko a.localref {
+    text-decoration: none;
+  }
+  .madoko a.localref:hover {
+    text-decoration: underline;
+  }
+  
+  /* Footnotes */
+  .madoko .footnotes {
+    font-size: smaller;
+    margin-top: 2em;
+  }
+  
+  .madoko .footnotes hr {
+    width: 50%;
+    text-align: left;
+  }
+  
+  .madoko .footnote { 
+    margin-left: 1em;
+  }
+  .madoko .footnote-before {
+    margin-left: -1em;
+    width: 1em;
+    display: inline-block;
+  }
+  
+  /* Abstract */
+  .madoko .abstract>p:first-child:before {
+    content: "Abstract. ";
+    font-weight: bold;
+  }
+  
+  .madoko .abstract {
+    margin-left: 2.7em;
+    margin-right: 2.7em;
+    font-size: small;
+  }
+  
+  
+  /* Alignment */
+  .madoko .align-center, .madoko .align-center>p {
+    text-align: center !important;
+  }
+  
+  .madoko .align-center pre {
+    text-align: left;
+  }
+  
+  .madoko .align-center>* {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  .madoko .align-left, .madoko .align-left>p {
+    text-align: left !important;
+  }
+  
+  .madoko .align-left>* {
+    margin-left: 0pt !important;
+    margin-right: auto !important;
+  }
+  
+  .madoko .align-right, .madoko .align-right>p {
+    text-align: right !important;
+  }
+  
+  .madoko .align-right>* {
+    margin-left: auto !important;
+    margin-right: 0pt !important;
+  }
+  
+  .madoko .align-center>table,
+  .madoko .align-left>table,
+  .madoko .align-right>table {
+    text-align: left !important;
+  }
+  
+  
+  /* Equations, Figure's etc. */
+  .madoko .equation-before {
+    float: right;
+  }
+  
+  
+  /* Bibliography */
+  .madoko .bibitem {
+    font-size: smaller;
+  }
+  
+  .madoko .bib-numeric .bibitem {
+    margin-left: 3em;
+    text-indent: -3em;
+  }
+  
+  .madoko .bibitem-before {
+    display: none;
+  }
+  
+  .madoko .bib-numeric .bibitem-before {
+    display: inline-block;
+    width: 3em;
+    text-align: right;
+  }
+  
+  .madoko .bibliography {
+  }
+  
+  .madoko .bibsearch {
+    font-size: x-small;
+    text-decoration:none;
+    color: black;
+    font-family: "Segoe UI Symbol", Symbola;
+  }
+  
+  /* General */
+  .madoko .block, .madoko .figure, .madoko .bibitem, .madoko .equation, .madoko div.math {
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .figure {
+    padding: 0.5em;
+    margin-left: 0pt;
+    margin-right: 0pt;
+  }
+  
+  .madoko .hidden {
+    display: none;
+  }
+  
+  .madoko .invisible {
+    visibility: hidden;
+  }
+  
+  .madoko.preview .invisible {
+    visibility: visible;
+    opacity: 0.5;
+  }
+  
+  .madoko code.code, .madoko span.code {
+    white-space: pre-wrap;
+  }
+  
+  .madoko hr, hr.madoko {
+    border: none;
+    border-bottom: black solid 1px;
+    margin-bottom: 0.5ex;
+  }
+  
+  .madoko .framed>*:first-child {
+    margin-top: 0pt;
+  }
+  .madoko .framed>*:last-child {
+    margin-bottom: 0pt;
+  }
+  
+  
+  /* Title, authors */
+  /*
+  .madoko .title {
+    font-size: xx-large;
+    font-weight: bold;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .subtitle {
+    font-size: x-large;
+    margin-bottom: 1ex;
+    margin-top: -1ex;
+  }
+  
+  .madoko .titleblock>* {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  
+  .madoko .titleblock table {
+    width: 80%;
+  }
+  
+  .madoko .authorblock .author {
+    font-size: large;
+  }
+  
+  .madoko .titlenote {
+    margin-top: -0.5ex;
+    margin-bottom: 1.5ex;
+  }
+  */
+  
+  /* Lists */
+  
+  .madoko ul.list-star {
+    list-style-type: disc;
+  }
+  
+  .madoko ul.list-dash {
+      list-style-type: none !important;
+  }
+  
+  .madoko ul.list-dash > li:before {
+      content: "\2013"; 
+      position: absolute;
+      margin-left: -1em; 
+  }
+  
+  .madoko ul.list-plus {
+    list-style-type: square;
+  }
+  
+  /* Tables */
+  .madoko table.madoko {
+    border-collapse: collapse;
+  }
+  .madoko td, .madoko th {
+    padding: 0ex 0.5ex;
+    margin: 0pt;
+    vertical-align: top;
+  }
+  
+  .madoko .cell-border-left {
+    border-left: 1px solid black;
+  }
+  .madoko .cell-border-right {
+    border-right: 1px solid black;
+  }
+  
+  
+  .madoko thead>tr:first-child>.cell-line,
+  .madoko tbody:first-child>tr:first-child>.cell-line {
+    border-top: 1px solid black;
+    border-bottom: none;
+  }
+  
+  .madoko .cell-line, .madoko .cell-double-line {
+    border-bottom: 1px solid black;
+    border-top: none;
+  }
+  
+  .madoko .cell-double-line {
+    border-top: 1px solid black;
+    padding-top: 1.5px !important;
+  }
+  
+  
+  /* Math Pre */
+  .madoko .input-mathpre .MathJax_Display {
+    text-align: left !important;
+  }
+  
+  .madoko div.input-mathpre {
+    text-align: left;
+    margin-top: 1.5ex;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .math-rendering {
+    color: gray;
+  }
+  
+  /* Math */
+  .madoko .mathdisplay {
+    text-align: center;
+  }
+  
+  
+  /*---------------------------------------------------------------------------
+    Default style for syntax highlighting
+  ---------------------------------------------------------------------------*/
+  
+  .highlighted                        { color: black; }
+  .highlighted .token.identifier      { }
+  .highlighted .token.operators       { }
+  .highlighted .token.keyword         { color: blue }
+  .highlighted .token.string          { color: maroon } 
+  .highlighted .token.string.escape   { color: gray }
+  .highlighted .token.comment         { color: darkgreen }
+  .highlighted .token.comment.doc     { font-style: normal }
+  .highlighted .token.constant        { color: purple; }
+  .highlighted .token.entity          {  }
+  .highlighted .token.tag             { color: blue }
+  .highlighted .token.info-token      { color: black }
+  .highlighted .token.warn-token      { color: black }
+  .highlighted .token.error-token     { color: darkred }
+  .highlighted .token.debug-token     { color: gray }
+  .highlighted .token.regexp          { color: maroon }
+  .highlighted .token.attribute.name  { color: navy }
+  .highlighted .token.attribute.value { color: maroon }
+  .highlighted .token.constructor     { color: purple }
+  .highlighted .token.namespace       { color: navy }
+  .highlighted .token.header          { color: navy }
+  .highlighted .token.type            { color: teal } 
+  .highlighted .token.type.delimiter  { color: teal; } 
+  .highlighted .token.predefined      { color: navy }
+  .highlighted .token.invalid         { border-bottom: red dotted 1px }
+  .highlighted .token.code            { color: maroon }
+  .highlighted .token.code.keyword    { color: navy }
+  .highlighted .token.typevar         { font-style: italic; }
+  
+  .highlighted .token.delimiter   {  } /* .[curly,square,parenthesis,angle,array,bracket] */
+  .highlighted .token.number      {  }    /* .[hex,octal,binary,float] */
+  .highlighted .token.variable    {  }  /* .[name,value]  */
+  .highlighted .token.meta        { color: navy }      /* .[content] */
+  
+  .highlighted .token.bold            { font-weight: bold; }
+  .highlighted .token.italic          { font-style: italic; }
+  
+  
+  /* Pretty formatting of code */
+  .madoko pre.pretty, .madoko code.pretty { 
+    font-family: Cambria,Times,Georgia,serif;
+    font-size: 100%;
+  }
+  
+  .madoko .pretty table {
+    border-collapse: collapse;
+  }
+  .madoko .pretty td {
+    padding: 0em;
+  }
+  .madoko .pretty td.empty {
+    min-width: 1.5ex;
+  }
+  .madoko .pretty td.expander {
+    width: 100em;
+  }
+  .madoko .pretty .token.identifier         { font-style: italic }
+  .madoko .pretty .token.constructor        { font-style: italic }
+  
+  
+  /* ---------------------------------------------------
+     Styling for full documents
+  ----------------------------------------------------*/
+  body.madoko {
+    font-family: Cambria,"Times New Roman","Liberation Serif","Times",serif;
+    -webkit-text-size-adjust: 100%; /* so math displays well on mobile devices */
+  }
+  
+  body.madoko {
+    max-width: 88ex; /* about 88 characters */
+    margin: 1em auto;
+    padding: 0em 2em;  
+  }
+  
+  body.preview.madoko {
+    padding: 0em 1em;
+  }
+  
+  .madoko p,
+  .madoko li {
+    text-align: justify;
+  }
+  
+  /* style headings nicer, especially h5 and h6 */
+  .madoko h1, .madoko h2, .madoko h3, .madoko h4 { 
+    margin-top: 1.22em; 
+    margin-bottom: 1ex;
+  }
+  .madoko h1+p, .madoko h2+p, .madoko h3+p, .madoko h4+p, .madoko h5+p  { 
+    margin-top: 1ex;    
+  }
+  .madoko h5, .madoko h6 { 
+    margin-top: 1ex;
+    font-size: 1em;
+  }
+  .madoko h5 { 
+    margin-bottom: 0.5ex;
+  }
+  .madoko h5 + p {
+    margin-top: 0.5ex;
+  }
+  .madoko h6 { 
+    margin-bottom: 0pt;
+  }
+  .madoko h6 + p {
+    margin-top: 0pt;
+  }
+  
+  
+  /* Fix monospace display (see http://code.stephenmorley.org/html-and-css/fixing-browsers-broken-monospace-font-handling/) */
+  .madoko pre, .madoko code, .madoko kbd, .madoko samp, .madoko tt, .madoko .monospace, .madoko .token.indent, .madoko .reveal pre, .madoko .reveal code, .madoko .email {
+    font-family: Consolas,"Andale Mono WT","Andale Mono",Lucida Console,Monaco,monospace,monospace;
+    font-size: 0.85em;
+  }
+  .madoko pre code, .madoko .token.indent {
+    font-size: 0.95em;
+  }
+  
+  .madoko pre code {
+    font-family: inherit !important;
+  }
+  
+  /* Code prettify */
+  .madoko ol.linenums li {
+    background-color: white;
+    list-style-type: decimal;
+  }
+  
+  /* Merging */
+  .madoko .remote {
+    background-color: #F0FFF0;
+  }
+  .madoko .remote + * {
+    margin-top: 0pt;
+  }
+  
+  /* ---------------------------------------------------
+     Print settings
+  ----------------------------------------------------*/
+  
+  @media print {
+    body.madoko {
+      font-size: 10pt;
+    }
+    @page {
+      margin: 1in 1.5in;
+    }
+  }
+  
+  /* ---------------------------------------------------
+     Mobile device settings
+  ----------------------------------------------------*/
+  
+  @media only screen and (max-device-width:1024px) {
+    body.madoko {
+      padding: 0em 1em;
+    }
+  }
+  
+    </style>
+  <script src="../js/analytics.js"  class="script"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$']]},
+       TeX: { 
+         Macros: { mathid: ['\\mathit{#1\\hspace{0.1ex}}',1], mathkw: ['\\mathsf{#1}',1],
+                   mdMathspace: ['\\hspace{#1pt}\\hspace{#1pt}\\hspace{#1pt}',1], mdMathindent: ['\\hspace{#1ex}',1], mdMathbr: ['\\\\'],
+                 },
+  
+       }
+    });
+    MathJax.Hub.Register.StartupHook('TeX AMSmath Ready',function () { 
+      MathJax.InputJax.TeX.Definitions.environment['mdMathprearray'] = ['AMSarray',null,null,null,'l','0em','0em'];
+    });
+  </script>
+  <script type="text/javascript" class="preview"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  
+  </head>
+<body class="madoko">
+
+<div class="body madoko" style="line-adjust:0">
+<style>
+body.madoko, .madoko-body {
+  max-width: 90%;
+}
+
+.remodef-before {
+  color: blue;
+}
+
+.remoexample-before {
+  color: green;
+}
+</style>
+
+
+
+<div class="titleblock align-center para-block" style="line-adjust:0">
+<div class="titleheader align-center" style="line-adjust:0">
+<div class="title para-block" style="font-size:xx-large;font-weight:bold;margin-bottom:0.5ex;line-adjust:0">Struktúra alapú modellezés</div></div></div><span data-line=""></span>
+<nav id="toc" class="toc">
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-bevezets" class="localref"><span class="heading-before"><span class="heading-label">1</span>.&#8194;</span>Bevezetés</a></div>
+<div class="tocitem"  ><a href="#sec-strukturlis-modell" class="localref"><span class="heading-before"><span class="heading-label">2</span>.&#8194;</span>Strukturális modell</a></div>
+<div class="tocitem"  ><a href="#sec-fogalmak" class="localref"><span class="heading-before"><span class="heading-label">3</span>.&#8194;</span>Fogalmak</a></div>
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-grf" class="localref"><span class="heading-before"><span class="heading-label">3.1</span>.&#8194;</span>Gráf</a></div>
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-grftpusok" class="localref"><span class="heading-before"><span class="heading-label">3.1.1</span>.&#8194;</span>Gráftípusok</a></div>
+<div class="tocitem"  ><a href="#sec-navigci-grfokban" class="localref"><span class="heading-before"><span class="heading-label">3.1.2</span>.&#8194;</span>Navigáció gráfokban</a></div>
+<div class="tocitem"  ><a href="#sec-kiterjesztsek" class="localref"><span class="heading-before"><span class="heading-label">3.1.3</span>.&#8194;</span>Kiterjesztések</a></div>
+<div class="tocitem"  ><a href="#sec-mveletek-grfokon" class="localref"><span class="heading-before"><span class="heading-label">3.1.4</span>.&#8194;</span>Műveletek gráfokon</a></div></div></div>
+<div class="tocitem"  ><a href="#sec-tulajdonsgmodellezs" class="localref"><span class="heading-before"><span class="heading-label">4</span>.&#8194;</span>Tulajdonságmodellezés</a></div>
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-tblzatos-brzols" class="localref"><span class="heading-before"><span class="heading-label">4.1</span>.&#8194;</span>Táblázatos ábrázolás</a></div>
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-mveletek" class="localref"><span class="heading-before"><span class="heading-label">4.1.1</span>.&#8194;</span>Műveletek</a></div></div>
+<div class="tocitem"  ><a href="#sec-tpusgrf" class="localref"><span class="heading-before"><span class="heading-label">4.2</span>.&#8194;</span>Típusgráf</a></div></div>
+<div class="tocitem"  ><a href="#sec-kitekints" class="localref"><span class="heading-before"><span class="heading-label">5</span>.&#8194;</span>Kitekintés</a></div>
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-modellezsi-nyelvek" class="localref"><span class="heading-before"><span class="heading-label">5.1</span>.&#8194;</span>Modellezési nyelvek</a></div>
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-uml-unified-modeling-language" class="localref"><span class="heading-before"><span class="heading-label">5.1.1</span>.&#8194;</span>UML (Unified Modeling Language)</a></div>
+<div class="tocitem"  ><a href="#sec-aadl-architecture-analysis-design-language" class="localref"><span class="heading-before"><span class="heading-label">5.1.2</span>.&#8194;</span>AADL (Architecture Analysis &amp; Design Language)</a></div>
+<div class="tocitem"  ><a href="#sec-sysml-systems-modeling-language" class="localref"><span class="heading-before"><span class="heading-label">5.1.3</span>.&#8194;</span>SysML (Systems Modeling Language)</a></div>
+<div class="tocitem"  ><a href="#sec-emf-eclipse-modeling-framework" class="localref"><span class="heading-before"><span class="heading-label">5.1.4</span>.&#8194;</span>EMF (Eclipse Modeling Framework)</a></div>
+<div class="tocitem"  ><a href="#sec-autosar-automotive-open-system-architecture" class="localref"><span class="heading-before"><span class="heading-label">5.1.5</span>.&#8194;</span>AUTOSAR (AUTomotive Open System ARchitecture)</a></div></div>
+<div class="tocitem"  ><a href="#sec-refaktoring" class="localref"><span class="heading-before"><span class="heading-label">5.2</span>.&#8194;</span>Refaktoring</a></div>
+<div class="tocitem"  ><a href="#sec-eszkzk" class="localref"><span class="heading-before"><span class="heading-label">5.3</span>.&#8194;</span>Eszközök</a></div>
+<div class="tocitem"  ><a href="#sec-relcik-tulajdonsgai" class="localref"><span class="heading-before"><span class="heading-label">5.4</span>.&#8194;</span>Relációk tulajdonságai</a></div>
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-tranzitivits" class="localref"><span class="heading-before"><span class="heading-label">5.4.1</span>.&#8194;</span>Tranzitivitás</a></div>
+<div class="tocitem"  ><a href="#sec-tovbbi-tulajdonsgok" class="localref"><span class="heading-before"><span class="heading-label">5.4.2</span>.&#8194;</span>További tulajdonságok</a></div></div>
+<div class="tocitem"  ><a href="#sec-ontolgia" class="localref"><span class="heading-before"><span class="heading-label">5.5</span>.&#8194;</span>Ontológia</a></div></div>
+<div class="tocitem"  ><a href="#sec-ajnlott-irodalom" class="localref"><span class="heading-before"><span class="heading-label">6</span>.&#8194;</span>Ajánlott irodalom</a></div>
+<div class="tocitem"  ><a href="#sec-sztr" class="localref"><span class="heading-before"><span class="heading-label">7</span>.&#8194;</span>Szótár</a></div>
+<div class="tocitem"  ><a href="#sec-hivatkozsok" class="localref">Hivatkozások</a></div></div></nav><h2 id="sec-bevezets"   style="bookmark:1.&#8194;Bevezet\E9 s"><span class="heading-before"><span class="heading-label">1</span>.&#8194;</span>Bevezetés</h2>
+<p>A modellezés során egy rendszert jellemezhetünk annak statikus, ill. dinamikus jellemzői alapján. A statikus jellemzés esetén a rendszer felépítését, <em>struktúráját</em> írjuk le, míg dinamikus jellemzés esetén a rendszer <em>viselkedésével</em> foglalkozunk.
+</p>
+<p class="indent">Jelene anyag témája a <em>struktúra alapú modellezés</em>. Célja, hogy bemutatassa a strukturális modellezés matematikai alapjait, a hierarchikus modellezés ötletét stb.
+</p><h2 id="sec-strukturlis-modell"   style="bookmark:2.&#8194;Struktur\E1 lis modell"><span class="heading-before"><span class="heading-label">2</span>.&#8194;</span>Strukturális modell</h2>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">1</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>A <span data-line="1"></span><em>strukturális modell</em><span data-line="1"></span> a rendszer felépítésére vonatkozó tudás.</p></div>
+<p>A strukturális modell alkalmas arra, hogy az alábbi kérdéseikre nyújtson valamilyen (nem feltétlenül kimerítő) választ:
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li">Milyen elemekből áll a rendszer?
+</li>
+<li class="li ul-li list-star-li compact-li">Hogyan kapcsolódnak egymáshoz az elemek?
+</li>
+<li class="li ul-li list-star-li compact-li">Milyen tulajdonságúak az elemek?
+</li></ul>
+
+<p>Egy rendszer strukturális modellje a rendszer dekompozíciójával állítható elő.
+</p>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">2</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>A dekompozíció (<span data-line="1"></span>&#8220;faktoring&#8221;<span data-line="1"></span>) egy összetett probléma vagy rendszer kisebb részekre bontása, amelyek könnyebben érthetők, fejleszthetők és karbantarthatók.</p></div>
+<p>Természetesen a dekompozíció során ügyelnünk kell arra, hogy az egyes részekből visszaállítható legyen az eredeti rendszer, különben a kapott strukturális modellünk hiányos.
+</p>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">3</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>Egy dekompozíció <span data-line="1"></span><em>helyes</em><span data-line="1"></span>, ha a dekompozícióval kapott rendszer minden elemének megfeleltethető az eredeti rendszer valamelyik eleme, és az eredeti rendszer minden eleméhez hozzárendelhető a dekompozícióval kapott rendszer egy vagy több eleme. </p></div>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">4</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span><em>Top-down</em><span data-line="1"></span> modellezés során a rendszert felülről lefelé építjük. A modellezés alaplépése a <span data-line="1"></span><em>dekompozíció</em><span data-line="1"></span>.</p></div>
+<p>A top-down modellezés jellemzői:
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li"><code class="code code1">+</code> Részrendszer tervezésekor a szerepe már ismert
+</li>
+<li class="li ul-li list-star-li compact-li"><code class="code code1">−</code> „Félidőben” még nincsenek működő részek
+</li>
+<li class="li ul-li list-star-li compact-li"><code class="code code1">−</code> Részek problémái, igényei későn derülnek ki
+</li></ul>
+
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">5</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span><em>Bottom-up</em><span data-line="1"></span> modellezés során a rendszert alulról felfelé építjük. A modellezés alaplépése a <span data-line="1"></span><em>kompozíció</em><span data-line="1"></span>.</p></div>
+<p>A bottom-up modellezés jellemzői:
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li"><code class="code code1">+</code> Alrendszer önmagában kipróbálható, tesztelhető
+</li>
+<li class="li ul-li list-star-li compact-li"><code class="code code1">+</code> Részleges készültségnél is összeépíthető valami
+</li>
+<li class="li ul-li list-star-li compact-li"><code class="code code1">−</code> Nem látszik előre a rész szerepe az egészben
+</li></ul>
+<h2 id="sec-fogalmak"   style="bookmark:3.&#8194;Fogalmak"><span class="heading-before"><span class="heading-label">3</span>.&#8194;</span>Fogalmak</h2>
+<p>Az alábbiakban összefoglaljuk a szükséges fogalmakat és definíciókat. Nem mindenhol célunk a teljes matematikai precizitás, ill. az egyes fogalmakhoz tartozó különböző definíciók felsorolása (pl. a <em>gráf</em> fogalomra sok különböző, némileg eltérő jelentésű definíció létezik).
+</p><h3 id="sec-grf"   style="bookmark:3.1.&#8194;Gr\E1 f"><span class="heading-before"><span class="heading-label">3.1</span>.&#8194;</span>Gráf</h3>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">6</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>A <span data-line="1"></span><em>gráf</em><span data-line="1"></span> egy olyan <span data-line="1"></span><span class="math-inline">$G = (V, E)$</span><span data-line="1"></span> struktúra, ahol <span data-line="1"></span><span class="math-inline">$V$</span><span data-line="1"></span> halmaz a csomópontok, <span data-line="1"></span><span class="math-inline">$E$</span><span data-line="1"></span> az élek halmaza. Az élek csomópontok között futnak, <span data-line="1"></span><em>irányítatatlan gráf</em><span data-line="1"></span> esetén <span data-line="1"></span><span class="math-inline">$E$</span><span data-line="1"></span> csomópontok rendezetlen <span data-line="1"></span><span class="math-inline">$\{v_1, v_2\}$</span><span data-line="1"></span> párjaiból áll (tehát nem különböztetjük meg a <span data-line="1"></span><span class="math-inline">$\{v_1, v_2\}$</span><span data-line="1"></span> és a <span data-line="1"></span><span class="math-inline">$\{v_2, v_1\}$</span><span data-line="1"></span>) párokat, míg <span data-line="1"></span><em>irányított gráf</em><span data-line="1"></span> esetén csomópontok rendezett <span data-line="1"></span><span class="math-inline">$(v_1, v_2)$</span><span data-line="1"></span> párjaiból.</p></div>
+<p>Bár a <em>gráf</em> meglehetősen egyszerű fogalom, rendkívül sok szakterület modelljei jól ábrázolhatók benne. Ennek egyik fő oka, hogy az emberek gondolkodás közben a világot gyakran úgy írják le, mint &#8220;dolgok&#8221; (csomópontok), amelyek egymással valamilyen &#8220;viszonyban&#8221; vannak (élek).
+</p>
+<div class="remoexample block" style="border-style:solid;border-color:green;border-width:1px;padding:10px">
+<p data-line="1"><span data-line="1"></span><span class="remoexample-before"><strong><span class="remoexample-label">1</span>.&#160;példa</strong>.&#160;</span><span data-line="1"></span>Irányítatlan gráffal ábrázolhatjuk emberek között az <span data-line="1"></span><em>ismerőse</em><span data-line="1"></span> relációt, ilyen pl. a Facebook <span data-line="1"></span><em>friendship</em><span data-line="1"></span> relációja.</p></div>
+<div class="remoexample block" style="border-style:solid;border-color:green;border-width:1px;padding:10px">
+<p data-line="1"><span data-line="1"></span><span class="remoexample-before"><strong><span class="remoexample-label">2</span>.&#160;példa</strong>.&#160;</span><span data-line="1"></span>Irányított gráffal ábrázolhatjuk emberek között a <span data-line="1"></span><em>követi</em><span data-line="1"></span> relációt, ilyen pl. a Twitter <span data-line="1"></span><em>follow</em><span data-line="1"></span> relációja. Szintén irányított gráffal ábrázolhatók az interneten egymásra mutató weboldalak.</p></div>
+<p>Természetesen irányítatlan gráfok ábrázolhatók irányítottként is, ha minden <span class="math-inline">$\{v_1, v_2\}$</span> irányítatlan élet lecserélünk. (Érdekesség: megfelelő transzformációval irányított gráfok is ábrázolhatók irányítatlan gráfként&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#rodriguez2008mapping" title="Marko&#160;A. Rodriguez. 
+Mapping Semantic Networks to Undirected Networks." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">18</span></a>]</span>.)
+</p>
+<p class="indent">Gyakran nincs szükségünk a teljes gráfra.
+</p>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">7</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>Egy <span data-line="1"></span><span class="math-inline">$G = (V, E)$</span><span data-line="1"></span> gráfnak <span data-line="1"></span><span class="math-inline">$G&#39; = (V&#39;, E&#39;)$</span><span data-line="1"></span> <span data-line="1"></span><em>részgráfja</em><span data-line="1"></span>, ha <span data-line="1"></span><span class="math-inline">$G&#39;$</span><span data-line="1"></span> megkapható úgy, hogy <span data-line="1"></span><span class="math-inline">$G$</span><span data-line="1"></span>-ből elhagyunk néhány csomópontot és azok éleit, ill. néhány további élet. Formálsan: ha <span data-line="1"></span><span class="math-inline">$V&#39; \subseteq V$</span><span data-line="1"></span> és <span data-line="1"></span><span class="math-inline">$E&#39; \subseteq V&#39; \times V&#39;$</span><span data-line="1"></span>. </p></div><h4 id="sec-grftpusok"   style="bookmark:3.1.1.&#8194;Gr\E1 ft\ED pusok"><span class="heading-before"><span class="heading-label">3.1.1</span>.&#8194;</span>Gráftípusok</h4>
+<p>Tulajdonságaik alapján többféle gráftípust különböztethetünk meg, pl. a <em>teljes</em>, a <em>páros</em>, a <em>perfekt</em>, az <em>intervallum-</em> és a <em>síkbarajzolgató</em> gráfok. Ezekkel bővebben a <em>Bevezetés a számításelméletbe 2.</em> tantárgy foglalkozik.
+</p>
+<p class="indent">A strukturális modellezés szempontjából kiemelt szerepet játszanak a <em>fa</em> gráfok.
+</p>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">8</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>A körmentes, összefüggő gráfokat <span data-line="1"></span><em>fának</em><span data-line="1"></span> nevezzük.</p></div>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">9</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>A körmentes gráfokat <span data-line="1"></span><em>erdőnek</em><span data-line="1"></span> nevezzük.</p></div>
+<p>Az <em>erdő</em> gráfot egyes források <em>ligetnek</em> nevezik.
+</p>
+<p class="indent">A fák esetén gyakran kiemelt szerepet tulajdonítunk egy csomópontnak.
+</p>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">10</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span><em>Gyökér csomópont:</em><span data-line="1"></span> a fa egy megkülönböztetett csomópontja.</p></div>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">11</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span><em>Gyökeres fa:</em><span data-line="1"></span> olyan fa, ami rendelkezik gyökér csomóponttal.</p></div>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">12</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span><em>Gyökeres, szintezett fa:</em><span data-line="1"></span> a fa csomópontjaihoz hozzárendeljük a gyökértől vett távolságukat.</p></div><h4 id="sec-navigci-grfokban"   style="bookmark:3.1.2.&#8194;Navig\E1 ci\F3  gr\E1 fokban"><span class="heading-before"><span class="heading-label">3.1.2</span>.&#8194;</span>Navigáció gráfokban</h4>
+<p>Irányított és irányítatlan gráfokban is gyakran szükség van arra, hogy az egyes élek mentén &#8220;lépkedjünk&#8221;.
+</p>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">13</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span><em>Séta:</em><span data-line="1"></span> szomszédos csúcsok és élek váltakozó sorozata.</p></div>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">14</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span><em>Út:</em><span data-line="1"></span> olyan séta, amely nem metszi önmagát, valamint első és utolsó csúcsa különbözik.</p></div>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">15</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span><em>Kör:</em><span data-line="1"></span> olyan séta, amely nem metszi önmagát, valamint első és utolsó csúcsa megegyezik.</p></div><h4 id="sec-kiterjesztsek"   style="bookmark:3.1.3.&#8194;Kiterjeszt\E9 sek"><span class="heading-before"><span class="heading-label">3.1.3</span>.&#8194;</span>Kiterjesztések</h4>
+<p>A gráf adatmodellnek többféle kiterjesztése is létezik. Ezek közül az alábbiak ismeretére építünk:
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li"><em>Címkézett gráf</em>: a gráf elemeit (csomópontjait és/vagy éleit) <em>címkékkel</em> láthatjuk el. A címkézés célja lehet <em>egyedi azonosító</em> hozzárendelése vagy bizonyos tulajdonság leírása (pl. csomópontok kapacitása, élek típusa).
+
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li"><em>Csúcscímkézett gráf:</em> az egyes csomópontokat címkézzük.
+</li>
+<li class="li ul-li list-star-li compact-li"><em>Élcímkézett gráf:</em> az egyes (irányított vagy irányítatlan) éleket címkézzük.
+</li></ul></li>
+<li class="li ul-li list-star-li compact-li"><em>Típusos gráfok</em>: a gráf elemei <em>típusokkal</em> rendelkeznek. A típusos gráfok a <em>címkézett gráfok</em> speciális esetei.
+</li>
+<li class="li ul-li list-star-li compact-li"><em>Tulajdonsággráf:</em> az egyes csomópontokat és éleket tulajdonságokkal látjuk el. A tulajdonságok kulcs-érték párok, pl. &#8220;neve = Gipsz Jakab&#8221;, &#8220;életkora = 20&#8221;, &#8220;színe = zöld&#8221;.
+</li></ul>
+
+<p>További kiterjesztések:
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li"><em>Súlyozott gráfok</em>: a gráf elemeit (csomópontjait és/vagy éleit) súlyokkal látjuk el, pl. kapacitást vagy költséget rendelünk hozzájuk. A <em>súlyozott gráfok</em> a címkézett gráfok speciális esetei.
+</li>
+<li class="li ul-li list-star-li compact-li"><em>Multigráfok:</em> a csomópontok között <em>többszörös élek</em> is futhatnak.
+</li>
+<li class="li ul-li list-star-li compact-li"><em>Hipergráfok:</em> egy él több csomópont között is futhat. A hipergráf éleit <em>hiperéleknek</em> nevezzük.
+</li></ul>
+<h4 id="sec-mveletek-grfokon"   style="bookmark:3.1.4.&#8194;M\171 veletek gr\E1 fokon"><span class="heading-before"><span class="heading-label">3.1.4</span>.&#8194;</span>Műveletek gráfokon</h4><h5 id="sec-elrhetsgvizsglat" >Elérhetőségvizsgálat</h5>
+<p>Egy <span class="math-inline">$v_i$</span> csomópontból egy <span class="math-inline">$v_j$</span> csomópont elérhető, ha létezik <span class="math-inline">$v_i$</span>-ből <span class="math-inline">$v_j$</span>-be irányított út.
+</p>
+<p class="indent">Ez elérhetőségvizsgálatra gyakran elemi bejáróalgoritmusokat használunk:
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li">Szélességi bejárás (BFS)
+</li>
+<li class="li ul-li list-star-li compact-li">Mélységi bejárás (DFS)
+</li></ul>
+<h5 id="sec-tkeres-algoritmusok" >Útkereső algoritmusok</h5>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li">Dijsktra-algoritmus
+</li>
+<li class="li ul-li list-star-li compact-li">A* keresés
+</li>
+<li class="li ul-li list-star-li compact-li">Bellman&#8211;Ford algoritmus
+</li>
+<li class="li ul-li list-star-li compact-li">Floyd algoritmus
+</li></ul>
+
+<p>A legrövidebb út keresése kipróbálható az alábbi példán: <a href="http://gist.neo4j.org/?6d2a1a1c6325043d09a0">http://gist.neo4j.org/?6d2a1a1c6325043d09a0</a>.
+</p><h5 id="sec-transzformcik" >Transzformációk</h5>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li"><em>Szűrés éltípusra:</em> gyakran csak bizonyos éltípus(ok)ra van szükségünk. Egy <span class="math-inline">$G = (V, E)$</span> gráf adott <span class="math-inline">$c_1, \dots, c_n$</span> élcímkékre szűrt részgráfja <span class="math-inline">$G&#39; = (V, E)$</span>, ahol <span class="math-inline">$V$</span> a csomópontok változatlan halmaza, míg <span class="math-inline">$E&#39;$</span> azon <span class="math-inline">$e$</span> élek halmaza, ahol <span class="math-inline">$e$</span> címkéje eleme a <span class="math-inline">$c_1, \dots, c_n$</span> halmaznak.
+</li></ul>
+<h2 id="sec-tulajdonsgmodellezs"   style="bookmark:4.&#8194;Tulajdons\E1 gmodellez\E9 s"><span class="heading-before"><span class="heading-label">4</span>.&#8194;</span>Tulajdonságmodellezés</h2>
+<p>Egy modellelem (gráfok esetén tipikusan a modell csomópontjai) tulajdonságait <em>jellemzőkkel</em> vagy más néven <em>attribútumokkal</em> jellemezzük. Különböző modellelemekre az egyes jellemzők más-más vehetnek fel (de nem szükségszerűen térnek el).
+</p>
+<p class="indent">A jellemzők között gyakran kitüntetünk egyet:
+</p>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">16</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>A <span data-line="1"></span><em>típus</em><span data-line="1"></span> egy kitüntetett jellemző, amely tipikusan állandó egy modellelem életciklusa során. A többi jellemzőt <span data-line="1"></span><em>tulajdonságnak</em><span data-line="1"></span> hívjuk.</p></div>
+<p>Azonos <em>típussal</em> rendelkező modellelemek <em>közös tulajdonságokkal</em> bírnak.
+</p><h3 id="sec-tblzatos-brzols"   style="bookmark:4.1.&#8194;T\E1 bl\E1 zatos \E1 br\E1 zol\E1 s"><span class="heading-before"><span class="heading-label">4.1</span>.&#8194;</span>Táblázatos ábrázolás</h3>
+<p>A tulajdonságokat gyakran ábrázoljuk táblázatos formában, ún. <em>relációkban</em>. A reláció pontos halmazelméleti definíciójával és a relációkon értelmezett műveleteket definiáló relációalgebrával bővebben a 3. féléves <em>Adatbázisok</em> c. tárgy foglalkozik. Most egy egyszerűbb, kevésbé formális definíció alkalmazunk:
+</p>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">17</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>A <span data-line="1"></span><em>reláció</em><span data-line="1"></span> (<span data-line="1"></span><em>táblázat</em><span data-line="1"></span>) a modellelemeket és azok jellemzőit tárolja. A táblázat egy sora a modell egy elemének, egy oszlopa egy jellemzőjének felel meg.</p></div>
+<p>Példaként használjuk az alábbi táblázatot!
+</p><table class="madoko block">
+<thead><tr><th class="thead tr-even col cell-border-left cell-line col-odd col-first" data-line="0" data-row="0" data-col="1"></th><th class="thead tr-even col cell-border-left cell-line col-even" data-line="0" data-row="0" data-col="2"></th><th class="thead tr-even col cell-border-left cell-line col-odd" data-line="0" data-row="0" data-col="3"></th><th class="thead tr-even col cell-border-left cell-line col-even" data-line="0" data-row="0" data-col="4"></th><th class="thead tr-even col cell-border-left cell-border-right cell-line col-odd col-last" data-line="0" data-row="0" data-col="5"></th></tr>
+<tr><th class="thead tr-odd tr-last tr-first col cell-border-left col-odd col-first" data-line="1" data-row="1" data-col="1"><span data-line="1"></span> név            </th><th class="thead tr-odd tr-last tr-first col cell-border-left col-even" data-line="1" data-row="1" data-col="2"><span data-line="1"></span> fénykard színe </th><th class="thead tr-odd tr-last tr-first col cell-border-left col-odd" data-line="1" data-row="1" data-col="3"><span data-line="1"></span> nem    </th><th class="thead tr-odd tr-last tr-first col cell-border-left col-even" data-line="1" data-row="1" data-col="4"><span data-line="1"></span> holdak száma </th><th class="thead tr-odd tr-last tr-first col cell-border-left cell-border-right col-odd col-last" data-line="1" data-row="1" data-col="5"><span data-line="1"></span> keringési idő </th></tr></thead>
+<tbody><tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-row="0" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-line col-even" data-row="0" data-col="2"></td><td class="tbody tr-even col cell-border-left cell-line col-odd" data-row="0" data-col="3"></td><td class="tbody tr-even col cell-border-left cell-line col-even" data-row="0" data-col="4"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-odd col-last" data-row="0" data-col="5"></td></tr>
+<tr><td class="tbody tr-odd tr-first col cell-border-left col-odd col-first" data-line="3" data-row="1" data-col="1"><span data-line="3"></span> Alderaan       </td><td class="tbody tr-odd tr-first col cell-border-left col-even" data-line="3" data-row="1" data-col="2"><span data-line="3"></span>                </td><td class="tbody tr-odd tr-first col cell-border-left col-odd" data-line="3" data-row="1" data-col="3"><span data-line="3"></span>        </td><td class="tbody tr-odd tr-first col cell-border-left col-even" data-line="3" data-row="1" data-col="4"><span data-line="3"></span> 1            </td><td class="tbody tr-odd tr-first col cell-border-left cell-border-right col-odd col-last" data-line="3" data-row="1" data-col="5"><span data-line="3"></span> 364           </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:1" data-row="2" data-col="1"><span data-line="4;header.mdk:1"></span> Coruscant      </td><td class="tbody tr-even col cell-border-left col-even" data-line="4;header.mdk:1" data-row="2" data-col="2"><span data-line="4;header.mdk:1"></span>                </td><td class="tbody tr-even col cell-border-left col-odd" data-line="4;header.mdk:1" data-row="2" data-col="3"><span data-line="4;header.mdk:1"></span>        </td><td class="tbody tr-even col cell-border-left col-even" data-line="4;header.mdk:1" data-row="2" data-col="4"><span data-line="4;header.mdk:1"></span> 4            </td><td class="tbody tr-even col cell-border-left cell-border-right col-odd col-last" data-line="4;header.mdk:1" data-row="2" data-col="5"><span data-line="4;header.mdk:1"></span> 368           </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:2" data-row="3" data-col="1"><span data-line="4;header.mdk:2"></span> Darth Vader    </td><td class="tbody tr-odd col cell-border-left col-even" data-line="4;header.mdk:2" data-row="3" data-col="2"><span data-line="4;header.mdk:2"></span> piros          </td><td class="tbody tr-odd col cell-border-left col-odd" data-line="4;header.mdk:2" data-row="3" data-col="3"><span data-line="4;header.mdk:2"></span> férfi  </td><td class="tbody tr-odd col cell-border-left col-even" data-line="4;header.mdk:2" data-row="3" data-col="4"><span data-line="4;header.mdk:2"></span>              </td><td class="tbody tr-odd col cell-border-left cell-border-right col-odd col-last" data-line="4;header.mdk:2" data-row="3" data-col="5"><span data-line="4;header.mdk:2"></span>               </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:3" data-row="4" data-col="1"><span data-line="4;header.mdk:3"></span> Jabba          </td><td class="tbody tr-even col cell-border-left col-even" data-line="4;header.mdk:3" data-row="4" data-col="2"><span data-line="4;header.mdk:3"></span>                </td><td class="tbody tr-even col cell-border-left col-odd" data-line="4;header.mdk:3" data-row="4" data-col="3"><span data-line="4;header.mdk:3"></span> hímnős </td><td class="tbody tr-even col cell-border-left col-even" data-line="4;header.mdk:3" data-row="4" data-col="4"><span data-line="4;header.mdk:3"></span>              </td><td class="tbody tr-even col cell-border-left cell-border-right col-odd col-last" data-line="4;header.mdk:3" data-row="4" data-col="5"><span data-line="4;header.mdk:3"></span>               </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:4" data-row="5" data-col="1"><span data-line="4;header.mdk:4"></span> Leia Organa    </td><td class="tbody tr-odd col cell-border-left col-even" data-line="4;header.mdk:4" data-row="5" data-col="2"><span data-line="4;header.mdk:4"></span>                </td><td class="tbody tr-odd col cell-border-left col-odd" data-line="4;header.mdk:4" data-row="5" data-col="3"><span data-line="4;header.mdk:4"></span> nő     </td><td class="tbody tr-odd col cell-border-left col-even" data-line="4;header.mdk:4" data-row="5" data-col="4"><span data-line="4;header.mdk:4"></span>              </td><td class="tbody tr-odd col cell-border-left cell-border-right col-odd col-last" data-line="4;header.mdk:4" data-row="5" data-col="5"><span data-line="4;header.mdk:4"></span>               </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:5" data-row="6" data-col="1"><span data-line="4;header.mdk:5"></span> Luke Skywalker </td><td class="tbody tr-even col cell-border-left col-even" data-line="4;header.mdk:5" data-row="6" data-col="2"><span data-line="4;header.mdk:5"></span> zöld           </td><td class="tbody tr-even col cell-border-left col-odd" data-line="4;header.mdk:5" data-row="6" data-col="3"><span data-line="4;header.mdk:5"></span> férfi  </td><td class="tbody tr-even col cell-border-left col-even" data-line="4;header.mdk:5" data-row="6" data-col="4"><span data-line="4;header.mdk:5"></span>              </td><td class="tbody tr-even col cell-border-left cell-border-right col-odd col-last" data-line="4;header.mdk:5" data-row="6" data-col="5"><span data-line="4;header.mdk:5"></span>               </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:6" data-row="7" data-col="1"><span data-line="4;header.mdk:6"></span> Mace Windu     </td><td class="tbody tr-odd col cell-border-left col-even" data-line="4;header.mdk:6" data-row="7" data-col="2"><span data-line="4;header.mdk:6"></span> lila           </td><td class="tbody tr-odd col cell-border-left col-odd" data-line="4;header.mdk:6" data-row="7" data-col="3"><span data-line="4;header.mdk:6"></span> férfi  </td><td class="tbody tr-odd col cell-border-left col-even" data-line="4;header.mdk:6" data-row="7" data-col="4"><span data-line="4;header.mdk:6"></span>              </td><td class="tbody tr-odd col cell-border-left cell-border-right col-odd col-last" data-line="4;header.mdk:6" data-row="7" data-col="5"><span data-line="4;header.mdk:6"></span>               </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:7" data-row="8" data-col="1"><span data-line="4;header.mdk:7"></span> Tatooine       </td><td class="tbody tr-even col cell-border-left col-even" data-line="4;header.mdk:7" data-row="8" data-col="2"><span data-line="4;header.mdk:7"></span>                </td><td class="tbody tr-even col cell-border-left col-odd" data-line="4;header.mdk:7" data-row="8" data-col="3"><span data-line="4;header.mdk:7"></span>        </td><td class="tbody tr-even col cell-border-left col-even" data-line="4;header.mdk:7" data-row="8" data-col="4"><span data-line="4;header.mdk:7"></span> 3            </td><td class="tbody tr-even col cell-border-left cell-border-right col-odd col-last" data-line="4;header.mdk:7" data-row="8" data-col="5"><span data-line="4;header.mdk:7"></span> 304           </td></tr>
+<tr><td class="tbody tr-odd tr-last col cell-border-left col-odd col-first" data-line="4;header.mdk:8" data-row="9" data-col="1"><span data-line="4;header.mdk:8"></span> Yoda           </td><td class="tbody tr-odd tr-last col cell-border-left col-even" data-line="4;header.mdk:8" data-row="9" data-col="2"><span data-line="4;header.mdk:8"></span> zöld           </td><td class="tbody tr-odd tr-last col cell-border-left col-odd" data-line="4;header.mdk:8" data-row="9" data-col="3"><span data-line="4;header.mdk:8"></span> férfi  </td><td class="tbody tr-odd tr-last col cell-border-left col-even" data-line="4;header.mdk:8" data-row="9" data-col="4"><span data-line="4;header.mdk:8"></span>              </td><td class="tbody tr-odd tr-last col cell-border-left cell-border-right col-odd col-last" data-line="4;header.mdk:8" data-row="9" data-col="5"><span data-line="4;header.mdk:8"></span>               </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left cell-line col-odd col-first" data-line="4;header.mdk:9" data-row="9" data-col="1"></td><td class="tbody tr-odd col cell-border-left cell-line col-even" data-line="4;header.mdk:9" data-row="9" data-col="2"></td><td class="tbody tr-odd col cell-border-left cell-line col-odd" data-line="4;header.mdk:9" data-row="9" data-col="3"></td><td class="tbody tr-odd col cell-border-left cell-line col-even" data-line="4;header.mdk:9" data-row="9" data-col="4"></td><td class="tbody tr-odd col cell-border-left cell-border-right cell-line col-odd col-last" data-line="4;header.mdk:9" data-row="9" data-col="5"></td></tr></tbody></table>
+<p>Látható, hogy a táblázatnak nem minden celláját töltöttük ki. Ezeket a cellákat gyakran az <em>NA</em> (not applicable, not available) rövidítéssel vagy (különösen az adatbázisokban) <em>null</em> értékkel jellemezzük.
+</p><h4 id="sec-mveletek"   style="bookmark:4.1.1.&#8194;M\171 veletek"><span class="heading-before"><span class="heading-label">4.1.1</span>.&#8194;</span>Műveletek</h4>
+<p>A relációkon most két alapműveletet definiálunk, ezek a <em>szűrés</em> (relációalgebrában <em>szelekció</em>) és a <em>vetítés</em> (relációalgebrában <em>projekció</em>). Ezekkel a műveletekkel a modellünknek egy-egy nézetét állíthatjuk elő.
+</p><h5 id="sec-szrt-nzet" >Szűrt nézet</h5>
+<p>Szűrés során egy feltétel mentén bizonyos sorokat elhagyunk a relációból:
+</p>
+<p class="indent">Szűrés a <code class="code code1">fénykard színe = &quot;zöld&quot;</code> feltételre:
+</p><table class="madoko block">
+<thead><tr><th class="thead tr-even col cell-border-left cell-line col-odd col-first" data-line="0" data-row="0" data-col="1"></th><th class="thead tr-even col cell-border-left cell-line col-even" data-line="0" data-row="0" data-col="2"></th><th class="thead tr-even col cell-border-left cell-line col-odd" data-line="0" data-row="0" data-col="3"></th><th class="thead tr-even col cell-border-left cell-line col-even" data-line="0" data-row="0" data-col="4"></th><th class="thead tr-even col cell-border-left cell-border-right cell-line col-odd col-last" data-line="0" data-row="0" data-col="5"></th></tr>
+<tr><th class="thead tr-odd tr-last tr-first col cell-border-left col-odd col-first" data-line="1" data-row="1" data-col="1"><span data-line="1"></span> név            </th><th class="thead tr-odd tr-last tr-first col cell-border-left col-even" data-line="1" data-row="1" data-col="2"><span data-line="1"></span> fénykard színe </th><th class="thead tr-odd tr-last tr-first col cell-border-left col-odd" data-line="1" data-row="1" data-col="3"><span data-line="1"></span> nem   </th><th class="thead tr-odd tr-last tr-first col cell-border-left col-even" data-line="1" data-row="1" data-col="4"><span data-line="1"></span> holdak száma </th><th class="thead tr-odd tr-last tr-first col cell-border-left cell-border-right col-odd col-last" data-line="1" data-row="1" data-col="5"><span data-line="1"></span> keringési idő </th></tr></thead>
+<tbody><tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-row="0" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-line col-even" data-row="0" data-col="2"></td><td class="tbody tr-even col cell-border-left cell-line col-odd" data-row="0" data-col="3"></td><td class="tbody tr-even col cell-border-left cell-line col-even" data-row="0" data-col="4"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-odd col-last" data-row="0" data-col="5"></td></tr>
+<tr><td class="tbody tr-odd tr-first col cell-border-left col-odd col-first" data-line="3" data-row="1" data-col="1"><span data-line="3"></span> Luke Skywalker </td><td class="tbody tr-odd tr-first col cell-border-left col-even" data-line="3" data-row="1" data-col="2"><span data-line="3"></span> zöld           </td><td class="tbody tr-odd tr-first col cell-border-left col-odd" data-line="3" data-row="1" data-col="3"><span data-line="3"></span> férfi </td><td class="tbody tr-odd tr-first col cell-border-left col-even" data-line="3" data-row="1" data-col="4"><span data-line="3"></span>              </td><td class="tbody tr-odd tr-first col cell-border-left cell-border-right col-odd col-last" data-line="3" data-row="1" data-col="5"><span data-line="3"></span>               </td></tr>
+<tr><td class="tbody tr-even tr-last col cell-border-left col-odd col-first" data-line="4;header.mdk:1" data-row="2" data-col="1"><span data-line="4;header.mdk:1"></span> Yoda           </td><td class="tbody tr-even tr-last col cell-border-left col-even" data-line="4;header.mdk:1" data-row="2" data-col="2"><span data-line="4;header.mdk:1"></span> zöld           </td><td class="tbody tr-even tr-last col cell-border-left col-odd" data-line="4;header.mdk:1" data-row="2" data-col="3"><span data-line="4;header.mdk:1"></span> férfi </td><td class="tbody tr-even tr-last col cell-border-left col-even" data-line="4;header.mdk:1" data-row="2" data-col="4"><span data-line="4;header.mdk:1"></span>              </td><td class="tbody tr-even tr-last col cell-border-left cell-border-right col-odd col-last" data-line="4;header.mdk:1" data-row="2" data-col="5"><span data-line="4;header.mdk:1"></span>               </td></tr>
+<tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-line="4;header.mdk:2" data-row="2" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-line col-even" data-line="4;header.mdk:2" data-row="2" data-col="2"></td><td class="tbody tr-even col cell-border-left cell-line col-odd" data-line="4;header.mdk:2" data-row="2" data-col="3"></td><td class="tbody tr-even col cell-border-left cell-line col-even" data-line="4;header.mdk:2" data-row="2" data-col="4"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-odd col-last" data-line="4;header.mdk:2" data-row="2" data-col="5"></td></tr></tbody></table>
+<p>Szűrés a <code class="code code1">holdak száma &gt; 2</code> feltételre:
+</p><table class="madoko block">
+<thead><tr><th class="thead tr-even col cell-border-left cell-line col-odd col-first" data-line="0" data-row="0" data-col="1"></th><th class="thead tr-even col cell-border-left cell-line col-even" data-line="0" data-row="0" data-col="2"></th><th class="thead tr-even col cell-border-left cell-line col-odd" data-line="0" data-row="0" data-col="3"></th><th class="thead tr-even col cell-border-left cell-line col-even" data-line="0" data-row="0" data-col="4"></th><th class="thead tr-even col cell-border-left cell-border-right cell-line col-odd col-last" data-line="0" data-row="0" data-col="5"></th></tr>
+<tr><th class="thead tr-odd tr-last tr-first col cell-border-left col-odd col-first" data-line="1" data-row="1" data-col="1"><span data-line="1"></span> név       </th><th class="thead tr-odd tr-last tr-first col cell-border-left col-even" data-line="1" data-row="1" data-col="2"><span data-line="1"></span> fénykard színe </th><th class="thead tr-odd tr-last tr-first col cell-border-left col-odd" data-line="1" data-row="1" data-col="3"><span data-line="1"></span> nem </th><th class="thead tr-odd tr-last tr-first col cell-border-left col-even" data-line="1" data-row="1" data-col="4"><span data-line="1"></span> holdak száma </th><th class="thead tr-odd tr-last tr-first col cell-border-left cell-border-right col-odd col-last" data-line="1" data-row="1" data-col="5"><span data-line="1"></span> keringési idő </th></tr></thead>
+<tbody><tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-row="0" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-line col-even" data-row="0" data-col="2"></td><td class="tbody tr-even col cell-border-left cell-line col-odd" data-row="0" data-col="3"></td><td class="tbody tr-even col cell-border-left cell-line col-even" data-row="0" data-col="4"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-odd col-last" data-row="0" data-col="5"></td></tr>
+<tr><td class="tbody tr-odd tr-first col cell-border-left col-odd col-first" data-line="3" data-row="1" data-col="1"><span data-line="3"></span> Coruscant </td><td class="tbody tr-odd tr-first col cell-border-left col-even" data-line="3" data-row="1" data-col="2"><span data-line="3"></span>                </td><td class="tbody tr-odd tr-first col cell-border-left col-odd" data-line="3" data-row="1" data-col="3"><span data-line="3"></span>     </td><td class="tbody tr-odd tr-first col cell-border-left col-even" data-line="3" data-row="1" data-col="4"><span data-line="3"></span> 4            </td><td class="tbody tr-odd tr-first col cell-border-left cell-border-right col-odd col-last" data-line="3" data-row="1" data-col="5"><span data-line="3"></span> 368           </td></tr>
+<tr><td class="tbody tr-even tr-last col cell-border-left col-odd col-first" data-line="4;header.mdk:1" data-row="2" data-col="1"><span data-line="4;header.mdk:1"></span> Tatooine  </td><td class="tbody tr-even tr-last col cell-border-left col-even" data-line="4;header.mdk:1" data-row="2" data-col="2"><span data-line="4;header.mdk:1"></span>                </td><td class="tbody tr-even tr-last col cell-border-left col-odd" data-line="4;header.mdk:1" data-row="2" data-col="3"><span data-line="4;header.mdk:1"></span>     </td><td class="tbody tr-even tr-last col cell-border-left col-even" data-line="4;header.mdk:1" data-row="2" data-col="4"><span data-line="4;header.mdk:1"></span> 3            </td><td class="tbody tr-even tr-last col cell-border-left cell-border-right col-odd col-last" data-line="4;header.mdk:1" data-row="2" data-col="5"><span data-line="4;header.mdk:1"></span> 304           </td></tr>
+<tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-line="4;header.mdk:2" data-row="2" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-line col-even" data-line="4;header.mdk:2" data-row="2" data-col="2"></td><td class="tbody tr-even col cell-border-left cell-line col-odd" data-line="4;header.mdk:2" data-row="2" data-col="3"></td><td class="tbody tr-even col cell-border-left cell-line col-even" data-line="4;header.mdk:2" data-row="2" data-col="4"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-odd col-last" data-line="4;header.mdk:2" data-row="2" data-col="5"></td></tr></tbody></table><h5 id="sec-vettett-nzet" >Vetített nézet</h5>
+<p>Vetítés során a modell egyes jellemzőit elhagyjuk a relációból. Fontos, hogy az esetleg létrejövő üres sorokat is elhagyjuk.
+</p>
+<p class="indent">Vetítés a <code class="code code1">{holdak száma, keringési idő}</code> jellemzőkre.
+</p><table class="madoko block">
+<thead><tr><th class="thead tr-even col cell-border-left cell-line col-odd col-first" data-line="0" data-row="0" data-col="1"></th><th class="thead tr-even col cell-border-left cell-border-right cell-line col-even col-last" data-line="0" data-row="0" data-col="2"></th></tr>
+<tr><th class="thead tr-odd tr-last tr-first col cell-border-left col-odd col-first" data-line="1" data-row="1" data-col="1"><span data-line="1"></span> holdak száma </th><th class="thead tr-odd tr-last tr-first col cell-border-left cell-border-right col-even col-last" data-line="1" data-row="1" data-col="2"><span data-line="1"></span> keringési idő </th></tr></thead>
+<tbody><tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-row="0" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-even col-last" data-row="0" data-col="2"></td></tr>
+<tr><td class="tbody tr-odd tr-first col cell-border-left col-odd col-first" data-line="3" data-row="1" data-col="1"><span data-line="3"></span> 1            </td><td class="tbody tr-odd tr-first col cell-border-left cell-border-right col-even col-last" data-line="3" data-row="1" data-col="2"><span data-line="3"></span> 364           </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:1" data-row="2" data-col="1"><span data-line="4;header.mdk:1"></span> 4            </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:1" data-row="2" data-col="2"><span data-line="4;header.mdk:1"></span> 368           </td></tr>
+<tr><td class="tbody tr-odd tr-last col cell-border-left col-odd col-first" data-line="4;header.mdk:2" data-row="3" data-col="1"><span data-line="4;header.mdk:2"></span> 3            </td><td class="tbody tr-odd tr-last col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:2" data-row="3" data-col="2"><span data-line="4;header.mdk:2"></span> 304           </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left cell-line col-odd col-first" data-line="4;header.mdk:3" data-row="3" data-col="1"></td><td class="tbody tr-odd col cell-border-left cell-border-right cell-line col-even col-last" data-line="4;header.mdk:3" data-row="3" data-col="2"></td></tr></tbody></table>
+<p>Vetítés a <code class="code code1">{név, fénykard színe}</code> jellemzőkre.
+</p><table class="madoko block">
+<thead><tr><th class="thead tr-even col cell-border-left cell-line col-odd col-first" data-line="0" data-row="0" data-col="1"></th><th class="thead tr-even col cell-border-left cell-border-right cell-line col-even col-last" data-line="0" data-row="0" data-col="2"></th></tr>
+<tr><th class="thead tr-odd tr-last tr-first col cell-border-left col-odd col-first" data-line="1" data-row="1" data-col="1"><span data-line="1"></span> név            </th><th class="thead tr-odd tr-last tr-first col cell-border-left cell-border-right col-even col-last" data-line="1" data-row="1" data-col="2"><span data-line="1"></span> fénykard színe </th></tr></thead>
+<tbody><tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-row="0" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-even col-last" data-row="0" data-col="2"></td></tr>
+<tr><td class="tbody tr-odd tr-first col cell-border-left col-odd col-first" data-line="3" data-row="1" data-col="1"><span data-line="3"></span> Alderaan       </td><td class="tbody tr-odd tr-first col cell-border-left cell-border-right col-even col-last" data-line="3" data-row="1" data-col="2"><span data-line="3"></span>                </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:1" data-row="2" data-col="1"><span data-line="4;header.mdk:1"></span> Coruscant      </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:1" data-row="2" data-col="2"><span data-line="4;header.mdk:1"></span>                </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:2" data-row="3" data-col="1"><span data-line="4;header.mdk:2"></span> Darth Vader    </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:2" data-row="3" data-col="2"><span data-line="4;header.mdk:2"></span> piros          </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:3" data-row="4" data-col="1"><span data-line="4;header.mdk:3"></span> Jabba          </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:3" data-row="4" data-col="2"><span data-line="4;header.mdk:3"></span>                </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:4" data-row="5" data-col="1"><span data-line="4;header.mdk:4"></span> Leia Organa    </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:4" data-row="5" data-col="2"><span data-line="4;header.mdk:4"></span>                </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:5" data-row="6" data-col="1"><span data-line="4;header.mdk:5"></span> Luke Skywalker </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:5" data-row="6" data-col="2"><span data-line="4;header.mdk:5"></span> zöld           </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:6" data-row="7" data-col="1"><span data-line="4;header.mdk:6"></span> Mace Windu     </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:6" data-row="7" data-col="2"><span data-line="4;header.mdk:6"></span> lila           </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:7" data-row="8" data-col="1"><span data-line="4;header.mdk:7"></span> Tatooine       </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:7" data-row="8" data-col="2"><span data-line="4;header.mdk:7"></span>                </td></tr>
+<tr><td class="tbody tr-odd tr-last col cell-border-left col-odd col-first" data-line="4;header.mdk:8" data-row="9" data-col="1"><span data-line="4;header.mdk:8"></span> Yoda           </td><td class="tbody tr-odd tr-last col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:8" data-row="9" data-col="2"><span data-line="4;header.mdk:8"></span> zöld           </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left cell-line col-odd col-first" data-line="4;header.mdk:9" data-row="9" data-col="1"></td><td class="tbody tr-odd col cell-border-left cell-border-right cell-line col-even col-last" data-line="4;header.mdk:9" data-row="9" data-col="2"></td></tr></tbody></table><h3 id="sec-tpusgrf"   style="bookmark:4.2.&#8194;T\ED pusgr\E1 f"><span class="heading-before"><span class="heading-label">4.2</span>.&#8194;</span>Típusgráf</h3>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">18</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>A <span data-line="1"></span><em>típusgráf</em><span data-line="1"></span> egy olyan gráf, amelyben minden csomóponttípushoz egy típuscsomópont, minden éltípushoz egy típusél tartozik.</p></div>
+<p>Az elsőre talán furcsának ható definíció tulajdonképpen egy nagyon egyszerű fogalmat vezet be: a típusgráfban a csomópontok olyan típusokat jelölnek, amit a példánygráfban csomópont vehet fel (pl. &#8220;person&#8221;, &#8220;warrior&#8221;, &#8220;planet&#8221;), az ezek között futó élek pedig olyan típusokat, amiket a példánygráfban (adott típusú csomópontok között futó élek) vehetnek fel. Példa: ld. diasor, Star Wars szereplők, bolygók és kapcsolataik.
+</p>
+<p class="indent">A típusgráfot és példánygráfot egy gráfon ábrázolva a típus-példány viszonyok is megjeleníthetők: a példánygráf csomópontjaiból (pl. &#8220;Mace Windu&#8221;) a típusgráf csomópontjaira (pl. &#8220;Jedi&#8221;) <em>instance of</em> (&#8220;példánya&#8221;) élek mutatnak. Szintén <em>instance of</em> viszony áll fenn a példánygráf élei és a típusgráf élei között &#8211; ennek ábrázolása azonban gráfként nehézkes.
+</p>
+<p class="indent">Az <em>instance of</em> (&#8220;példánya&#8221;) viszony helyett/mellett megjeleníthető annak inverze, a <em>type of</em> (&#8220;típusa&#8221;) viszony is. Gráfban ábrázolva az <em>instance of</em> és <em>type of</em> élek adott csomópontok között egymással ellentétes irányúak: pl. <em>&#8220;Mace Windu&#8221; instance of &#8220;Jedi&#8221;</em> és <em>&#8220;Jedi&#8221; type of &#8220;Mace Windu&#8221;</em>.
+</p><h2 id="sec-kitekints"   style="bookmark:5.&#8194;Kitekint\E9 s"><span class="heading-before"><span class="heading-label">5</span>.&#8194;</span>Kitekintés</h2>
+<p>Az alábbiakban bemutatunk néhány, a strukturális modellezés témaköréhez kapcsolódó gyakorlati technológiát, specifikációt és eszközt. Az itt felsorolt fogalmak nem részei a számonkérésnek &#8211; viszont gyakran előkerülnek a későbbi tanulmányok és munka során, ezért mindenképpen érdemes legalább névről ismerni őket.
+</p><h3 id="sec-modellezsi-nyelvek"   style="bookmark:5.1.&#8194;Modellez\E9 si nyelvek"><span class="heading-before"><span class="heading-label">5.1</span>.&#8194;</span>Modellezési nyelvek</h3><h4 id="sec-uml-unified-modeling-language"   style="bookmark:5.1.1.&#8194;UML (Unified Modeling Language)"><span class="heading-before"><span class="heading-label">5.1.1</span>.&#8194;</span>UML (Unified Modeling Language)</h4>
+<p>Az UML egy általános célú modellezési nyelv az&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#uml" title="Object&#160;Management Group. 
+Information technology &#8211; object management group unified modeling language (omg uml) &#8211; part 2: Superstructure. 
+Technical Report ISO/IEC 19505-2:2012, Object Management Group, 2012. 
+URL http://www.omg.org/spec/UML/ISO/19505-2/PDF/." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">13</span></a>]</span>. Az UML három fő diagramtípust definiál:
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li"><em>Structure Diagram:</em> strukturális modellek leírására. A <em>Class Diagram</em> az osztályok (metamodell), míg az <em>Object diagram</em> a példányok (modell) leíárásra alkalmas. A <em>Composite Structure Diagram</em> egy rendszer struktúráját és a rendszer komponenseinek kapcsolatát mutatja be.
+</li>
+<li class="li ul-li list-star-li compact-li"><em>Behaviour Diagram:</em> viselkedési modellek leírására, pl. a <em>State Machine Diagram</em> segítségével állapotgépekm az <em>Activity Diagramon</em> folyamatok ábrázolhatók.
+</li>
+<li class="li ul-li list-star-li compact-li"><em>Interaction Diagram:</em> a <em>Behaviour Diagram</em> altípusa. Ennek megfelelően szintén a viselkedés leírása a célja, de a hangsúly a vezérlés- és adatáramlás bemutatásán van. Ilyen pl. a <em>Sequence Diagram</em> (szekvenciadiagram), amely az egyes objektumok közötti interakciót mutatja be üzenetek formájában.
+</li></ul>
+
+<figure id="uml_diagram2" class="remofigure align-center"   >
+<p data-line="1"><span data-line="1"></span><img src="data:image/png;base64,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" title="Uml_diagram2" alt="Uml_diagram2" data-path="images/Uml_diagram2.png" data-linkid="uml_diagram2" style="width:auto;max-width:90%"><span data-line="1"></span>
+</p>
+<hr  class="figureline madoko" data-line="2">
+
+<div data-line="3"><span data-line="3"></span><fig-caption class="figure-caption"><span class="caption-before"><strong><span class="remofiure-label">1</span>.&#160;ábra.</strong> </span>Az UML diagramjai egy UML osztálydiagramon ábrázolva</fig-caption><span data-line="3"></span>
+</div></figure>
+<p>Az UML nyelvvel részletesen foglalkozik a <em>Szoftvertechnológia</em> c. tárgy.
+</p><h4 id="sec-aadl-architecture-analysis-design-language"   style="bookmark:5.1.2.&#8194;AADL (Architecture Analysis &amp; Design Language)"><span class="heading-before"><span class="heading-label">5.1.2</span>.&#8194;</span>AADL (Architecture Analysis &amp; Design Language)</h4>
+<p>Az AADL eredetileg repülőipari célokra fejlesztett architektúraleíró nyelv.
+</p><h4 id="sec-sysml-systems-modeling-language"   style="bookmark:5.1.3.&#8194;SysML (Systems Modeling Language)"><span class="heading-before"><span class="heading-label">5.1.3</span>.&#8194;</span>SysML (Systems Modeling Language)</h4>
+<p>A SysML egy UML-alapú általános modellezési nyelv rendszertervezési célokra. A SysML az UML egy részhalmazát bővíti ki és új diagramtípusokat is bevezet, pl. <em>Requirement Diagramot</em> követelmények és viszonyaik ábrázolására. 
+</p><h4 id="sec-emf-eclipse-modeling-framework"   style="bookmark:5.1.4.&#8194;EMF (Eclipse Modeling Framework)"><span class="heading-before"><span class="heading-label">5.1.4</span>.&#8194;</span>EMF (Eclipse Modeling Framework)</h4>
+<p>Az Eclipse fejlesztőkörnyezet&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#eclipse" title="Eclipse &#8211; The Eclipse Foundation open source community website. 
+http://eclipse.org/." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">5</span></a>]</span> saját modellezési keretrendszerrel rendelkezik, ez az <em>Eclipse Modeling Framework (EMF)</em>. Az EMF metamodellező nyelve, az Ecore lehetővé teszi saját, ún. szakterület-specifikus nyelv (domain-specific language, DSL) definiálását. Az EMF mára több területen is <em>de facto</em> modellezési keretrendszer, sikere nagyban hozzájárul az Eclipse népszerűségéhez.
+</p>
+<p class="indent">Az Eclipse-szel és az EMF-fel foglalkozik az <em>Eclipse-alapú technológiák</em> c. szabadon választható tárgy.
+</p><h4 id="sec-autosar-automotive-open-system-architecture"   style="bookmark:5.1.5.&#8194;AUTOSAR (AUTomotive Open System ARchitecture)"><span class="heading-before"><span class="heading-label">5.1.5</span>.&#8194;</span>AUTOSAR (AUTomotive Open System ARchitecture)</h4>
+<p>Az AUTOSAR&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#autosar" title="AUTOSAR, a." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">2</span></a>]</span> nagy autóipari gyártók és beszállítóik által fejlesztett szabványos architektúranyelv, amely az egyes hardver- és szoftverkomponensek együttműködése magas szinten definiálható. Az AUTOSAR konzorciumnak a a Méréstechnika és Információs Rendszerek Tanszék is tagja&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#autosar-attendees" title="Attendees: AUTOSAR. 
+http://www.autosar.org/partners/current-partners/attendees/, b." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">3</span></a>]</span>.
+</p><h3 id="sec-refaktoring"   style="bookmark:5.2.&#8194;Refaktoring"><span class="heading-before"><span class="heading-label">5.2</span>.&#8194;</span>Refaktoring</h3>
+<p>A dekompozícióhoz, azaz faktoringhoz szorosan kapcsolódik a <em>refaktoring</em> (refactoring) fogalma&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#fowler2012refactoring" title="M.&#160;Fowler, K.&#160;Beck, J.&#160;Brant, W.&#160;Opdyke, and D.&#160;Roberts. 
+Refactoring: Improving the Design of Existing Code." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">12</span></a>]</span>. Refaktoring során létező rendszerek, programkódok (vagy modellek) olyan átalakítását értjük, amelynek sorána megfigyelhető működés változatlan marad, de a kapott programkód (modell) olvashatóbb, érthetőbb, karbantarthatóbb lesz.
+</p><h3 id="sec-eszkzk"   style="bookmark:5.3.&#8194;Eszk\F6 z\F6 k"><span class="heading-before"><span class="heading-label">5.3</span>.&#8194;</span>Eszközök</h3>
+<p>Gráfok automatikus megjelenítésére alkalmas pl. a GraphViz&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#graphviz" title="GraphViz, Graph Visualization Software. 
+http://www.graphviz.org/." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">6</span></a>]</span> programcsomag. Gráfok feldolgozására gyakran alkalmazzák az igraph&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#igraph" title="igraph &#8211; The network analysis package. 
+http://igraph.org/." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">7</span></a>]</span> programcsomagot. Manapság több gráfadatbázis-kezelő rendszer is elterjedt, pl. a Neo4j&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#neo4j" title="Neo4j, The World&#39;s Leading Graph Database. 
+http://neo4j.org/." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">8</span></a>]</span> és a Titan&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#titan" title="Titan: Distributed Graph Database. 
+http://thinkaurelius.github.io/titan/." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">9</span></a>]</span> rendszerek.
+</p>
+<p class="indent">Gráfok manuális rajzolására szintén több eszköz elterjedt. Egyszerűen használható online felületet biztosít a draw.io&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#drawio" title="draw.io. 
+https://www.draw.io/." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">4</span></a>]</span> és az Arrow Tools&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#arrowtool" title="Arrow Tool. 
+http://www.apcjones.com/arrows/." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">1</span></a>]</span>. Komolyabb célokra a yEd&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#yed" title="yWorks &#8211; The Diagramming Company. 
+http://www.yworks.com/." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">10</span></a>]</span> eszközt érdemes használni. Sok információt tartalmazó gráf esetén érdemes lehet vektorgrafikus rajzoló-, ill. prezentáló eszközök, pl. Microsoft Visio vagy Microsoft PowerPoint alkalmazása.
+</p><h3 id="sec-relcik-tulajdonsgai"   style="bookmark:5.4.&#8194;Rel\E1 ci\F3 k tulajdons\E1 gai"><span class="heading-before"><span class="heading-label">5.4</span>.&#8194;</span>Relációk tulajdonságai</h3>
+<p>A <em>tranzitív lezárás</em> fogalom megértését segítheti, ha ismerjük a relációkon értelmezett tulajdonságokat, köztük a <em>tranzitivitást</em>.
+</p><h4 id="sec-tranzitivits"   style="bookmark:5.4.1.&#8194;Tranzitivit\E1 s"><span class="heading-before"><span class="heading-label">5.4.1</span>.&#8194;</span>Tranzitivitás</h4>
+<p>Egy <span class="math-inline">$S$</span> halmazon értelmezett <span class="math-inline">$r$</span> (kétváltozós) reláció <em>tranzitív</em>, ha bármely <span class="math-inline">$a,b,c \in A$</span> esetén <span class="math-inline">$r(a, b)$</span> és <span class="math-inline">$r(b, c)$</span> teljesülése esetén <span class="math-inline">$r(a, c)$</span> is teljesül.
+</p>
+<div class="remoexample block" style="border-style:solid;border-color:green;border-width:1px;padding:10px">
+<p data-line="1"><span data-line="1"></span><span class="remoexample-before"><strong><span class="remoexample-label">3</span>.&#160;példa</strong>.&#160;</span><span data-line="1"></span><em> Az egyenlőség (<span class="math-inline">$=$</span>) és a kisebb (<span class="math-inline">$&lt;$</span>) reláció </em><span data-line="1"></span>tranzitívak<span data-line="1"></span><em>, mert <span class="math-inline">$a = b$</span> és <span class="math-inline">$b = c$</span> esetén <span class="math-inline">$a = c$</span>, ill. <span class="math-inline">$a &lt; b$</span>, <span class="math-inline">$b &lt; c$</span> esetén <span class="math-inline">$a &lt; c$</span>.
+</em><span data-line="2"></span> Az emberek közötti <span data-line="2"></span><em>őse</em><span data-line="2"></span> reláció <span data-line="2"></span><em>tranzitív</em><span data-line="2"></span>, mert ha <span data-line="2"></span><em>őse(a, b)</em><span data-line="2"></span> és <span data-line="2"></span><em>őse(b, c)</em><span data-line="2"></span>, akkor <span data-line="2"></span><em>őse(a, c)</em><span data-line="2"></span> is fennáll. 
+<span data-line="3"></span><em> A nemegyenlő reláció (<span class="math-inline">$\neq$</span>) </em><span data-line="3"></span>nem tranzitív<span data-line="3"></span><em>, mert <span class="math-inline">$a \neq b$</span> és <span class="math-inline">$b \neq c$</span> esetén <span class="math-inline">$a \neq c$</span> nem mindig áll fenn, pl. <span class="math-inline">$1 \neq 2$</span> és <span class="math-inline">$2 \neq 1$</span> esetén <span class="math-inline">$1 \neq 1$</span> nem teljesül.
+</em><span data-line="4"></span> Az emberek közötti <span data-line="4"></span><em>ismerőse</em><span data-line="4"></span> reláció <span data-line="4"></span><em>nem tranzitív</em><span data-line="4"></span>, mert <span data-line="4"></span><em>ismerőse(a, b)</em><span data-line="4"></span> és <span data-line="4"></span><em>ismerőse(b, c)</em><span data-line="4"></span> esetén nem garantált, hogy <span data-line="4"></span><em>ismerőse(a, c)</em><span data-line="4"></span> fennáll.</p></div><h4 id="sec-tovbbi-tulajdonsgok"   style="bookmark:5.4.2.&#8194;Tov\E1 bbi tulajdons\E1 gok"><span class="heading-before"><span class="heading-label">5.4.2</span>.&#8194;</span>További tulajdonságok</h4>
+<p>A Rendszermodellezés tárgynak nem témája, de érdemes megismerni a relációk további tulajdonságait: <em>reflexivitás</em>, <em>szimmetria</em>, <em>rendezés</em> stb.&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#relaciok" title="Wikipedia. 
+Reláció." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">21</span></a>]</span>. 
+</p><h3 id="sec-ontolgia"   style="bookmark:5.5.&#8194;Ontol\F3 gia"><span class="heading-before"><span class="heading-label">5.5</span>.&#8194;</span>Ontológia</h3>
+<p>Az <em>ontológia</em> egy nem egyértelmű nehezen definiálható kifejezés. Az informatikában általában az alábbihoz hasonló módon definiálják:
+</p>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">19</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>Az <span data-line="1"></span><em>ontológia</em><span data-line="1"></span> egy olyan taxonómia, amely tartalmazza a benne szereplő fogalmak közötti viszonyokat. </p></div><h2 id="sec-ajnlott-irodalom"   style="bookmark:6.&#8194;Aj\E1 nlott irodalom"><span class="heading-before"><span class="heading-label">6</span>.&#8194;</span>Ajánlott irodalom</h2>
+<p>A tulajdonsággráfokról egy jól érthető cikk Marko Rodriguez és Peter Neubauer munkája&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#rodriguez2010" title="Marko&#160;A. Rodriguez and Peter Neubauer. 
+Constructions from dots and lines." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">19</span></a>]</span>. Rodriguez a Titan elosztott gráfadatbázis-kezelő rendszer fő fejlesztője&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#titan" title="Titan: Distributed Graph Database. 
+http://thinkaurelius.github.io/titan/." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">9</span></a>]</span>, míg Neubauer a Neo4j gráfadatbázis-kezelőt fejlesztő cég alapítója&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#neo4j" title="Neo4j, The World&#39;s Leading Graph Database. 
+http://neo4j.org/." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">8</span></a>]</span>. Az elosztott gráfadatbázis alkalmazását, elméleti és gyakorlati kihívásait egy prezentáció is bemutatja&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#rodriguezslides2012" title="Marko Rodriguez. 
+Titan: The Rise of Big Graph Data." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">17</span></a>]</span>.
+</p>
+<p class="indent">Barabási-Albert László magyar fizikus nemzetközileg elismert kutatója a komplex hálózatok elméletének. Behálózva c. könyve közérthető stílusban mutatja be a hálózatok elemzésének elméleti kihívásait a kutatási eredmények gyakorlati jelentőségét&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#behalozva" title="Barabási Albert-László. 
+Behálózva &#8211; A hálózatok új tudománya." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">11</span></a>]</span>. A szerzővel több interjú is készült&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#barabasi3" title="Index. 
+Mostantól tudjuk megérteni az emberi viselkedést." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">14</span></a>&#8211;<a href="#barabasi1" title="Index. 
+Az NSA primitíven használta a begyűjtött adatokat." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">16</span></a>]</span>.
+</p>
+<p class="indent">Az osztályok és prototípusok közötti elvi különbséget mutatja be Antero Taivalsaari, a Nokia Research fejlesztőkének 1996-os cikke&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#taivalsaari1996classes" title="Antero Taivalsaari. 
+Classes vs. Prototypes &#8211; Some Philosophical and Historical Observations. 
+Journal of Object-Oriented Programming, 10 (7): 44&#8211;50, 1996. 
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.56.4713&amp;rep=rep1&amp;type=pdf." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">20</span></a>]</span>.
+</p><h2 id="sec-sztr"   style="bookmark:7.&#8194;Sz\F3 t\E1 r"><span class="heading-before"><span class="heading-label">7</span>.&#8194;</span>Szótár</h2><table class="madoko block">
+<thead><tr><th class="thead tr-even col cell-border-left cell-line col-odd col-first" data-line="0" data-row="0" data-col="1"></th><th class="thead tr-even col cell-border-left cell-border-right cell-line col-even col-last" data-line="0" data-row="0" data-col="2"></th></tr>
+<tr><th class="thead tr-odd tr-last tr-first col cell-border-left col-odd col-first" data-line="1" data-row="1" data-col="1"><span data-line="1"></span> magyar kifejezés        </th><th class="thead tr-odd tr-last tr-first col cell-border-left cell-border-right col-even col-last" data-line="1" data-row="1" data-col="2"><span data-line="1"></span> angol kifejezés      </th></tr></thead>
+<tbody><tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-row="0" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-even col-last" data-row="0" data-col="2"></td></tr>
+<tr><td class="tbody tr-odd tr-first col cell-border-left col-odd col-first" data-line="3" data-row="1" data-col="1"><span data-line="3"></span> (de)kompozíció          </td><td class="tbody tr-odd tr-first col cell-border-left cell-border-right col-even col-last" data-line="3" data-row="1" data-col="2"><span data-line="3"></span> (de)composition      </td></tr>
+<tr><td class="tbody tr-odd tr-first col cell-border-left cell-line col-odd col-first" data-line="4;header.mdk:1" data-row="1" data-col="1"></td><td class="tbody tr-odd tr-first col cell-border-left cell-border-right cell-line col-even col-last" data-line="4;header.mdk:1" data-row="1" data-col="2"></td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:2" data-row="2" data-col="1"><span data-line="4;header.mdk:2"></span> gráf                    </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:2" data-row="2" data-col="2"><span data-line="4;header.mdk:2"></span> graph                </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:3" data-row="3" data-col="1"><span data-line="4;header.mdk:3"></span> csomópont               </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:3" data-row="3" data-col="2"><span data-line="4;header.mdk:3"></span> node, vertex         </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:4" data-row="4" data-col="1"><span data-line="4;header.mdk:4"></span> él                      </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:4" data-row="4" data-col="2"><span data-line="4;header.mdk:4"></span> edge, relationship   </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:5" data-row="5" data-col="1"><span data-line="4;header.mdk:5"></span> címke                   </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:5" data-row="5" data-col="2"><span data-line="4;header.mdk:5"></span> label                </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:6" data-row="6" data-col="1"><span data-line="4;header.mdk:6"></span> gyökér                  </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:6" data-row="6" data-col="2"><span data-line="4;header.mdk:6"></span> root                 </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:7" data-row="7" data-col="1"><span data-line="4;header.mdk:7"></span> fa                      </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:7" data-row="7" data-col="2"><span data-line="4;header.mdk:7"></span> tree                 </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:8" data-row="8" data-col="1"><span data-line="4;header.mdk:8"></span> erdő                    </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:8" data-row="8" data-col="2"><span data-line="4;header.mdk:8"></span> forest               </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:9" data-row="9" data-col="1"><span data-line="4;header.mdk:9"></span> körmentes               </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:9" data-row="9" data-col="2"><span data-line="4;header.mdk:9"></span> acyclic              </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:10" data-row="10" data-col="1"><span data-line="4;header.mdk:10"></span> irányított              </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:10" data-row="10" data-col="2"><span data-line="4;header.mdk:10"></span> directed             </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:11" data-row="11" data-col="1"><span data-line="4;header.mdk:11"></span> irányítatlan            </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:11" data-row="11" data-col="2"><span data-line="4;header.mdk:11"></span> undirected           </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:12" data-row="12" data-col="1"><span data-line="4;header.mdk:12"></span> hipergráf               </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:12" data-row="12" data-col="2"><span data-line="4;header.mdk:12"></span> hypergraph           </td></tr>
+<tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-line="4;header.mdk:13" data-row="12" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-even col-last" data-line="4;header.mdk:13" data-row="12" data-col="2"></td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:14" data-row="13" data-col="1"><span data-line="4;header.mdk:14"></span> reláció                 </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:14" data-row="13" data-col="2"><span data-line="4;header.mdk:14"></span> relation             </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:15" data-row="14" data-col="1"><span data-line="4;header.mdk:15"></span> jellemző, attribútum    </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:15" data-row="14" data-col="2"><span data-line="4;header.mdk:15"></span> property, attribute  </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:16" data-row="15" data-col="1"><span data-line="4;header.mdk:16"></span> vetítés, projekció      </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:16" data-row="15" data-col="2"><span data-line="4;header.mdk:16"></span> projection           </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:17" data-row="16" data-col="1"><span data-line="4;header.mdk:17"></span> szűrés, szelekció       </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:17" data-row="16" data-col="2"><span data-line="4;header.mdk:17"></span> selection            </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:18" data-row="17" data-col="1"><span data-line="4;header.mdk:18"></span> típus                   </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:18" data-row="17" data-col="2"><span data-line="4;header.mdk:18"></span> type                 </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left cell-line col-odd col-first" data-line="4;header.mdk:19" data-row="17" data-col="1"></td><td class="tbody tr-odd col cell-border-left cell-border-right cell-line col-even col-last" data-line="4;header.mdk:19" data-row="17" data-col="2"></td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:20" data-row="18" data-col="1"><span data-line="4;header.mdk:20"></span> osztály                 </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:20" data-row="18" data-col="2"><span data-line="4;header.mdk:20"></span> class                </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:21" data-row="19" data-col="1"><span data-line="4;header.mdk:21"></span> objektum                </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:21" data-row="19" data-col="2"><span data-line="4;header.mdk:21"></span> object               </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:22" data-row="20" data-col="1"><span data-line="4;header.mdk:22"></span> referencia              </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:22" data-row="20" data-col="2"><span data-line="4;header.mdk:22"></span> reference            </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:23" data-row="21" data-col="1"><span data-line="4;header.mdk:23"></span> mező                    </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:23" data-row="21" data-col="2"><span data-line="4;header.mdk:23"></span> field                </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:24" data-row="22" data-col="1"><span data-line="4;header.mdk:24"></span> metódus                 </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:24" data-row="22" data-col="2"><span data-line="4;header.mdk:24"></span> method               </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:25" data-row="23" data-col="1"><span data-line="4;header.mdk:25"></span> példány                 </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:25" data-row="23" data-col="2"><span data-line="4;header.mdk:25"></span> instance             </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:26" data-row="24" data-col="1"><span data-line="4;header.mdk:26"></span> <span data-line="4;header.mdk:26"></span><span class="math-inline">$a$</span><span data-line="4;header.mdk:26"></span> instance of <span data-line="4;header.mdk:26"></span><span class="math-inline">$t$</span><span data-line="4;header.mdk:26"></span>     </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:26" data-row="24" data-col="2"><span data-line="4;header.mdk:26"></span> <span data-line="4;header.mdk:26"></span><span class="math-inline">$a$</span><span data-line="4;header.mdk:26"></span> példánya <span data-line="4;header.mdk:26"></span><span class="math-inline">$t$</span><span data-line="4;header.mdk:26"></span>-nek </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:27" data-row="25" data-col="1"><span data-line="4;header.mdk:27"></span> <span data-line="4;header.mdk:27"></span><span class="math-inline">$t$</span><span data-line="4;header.mdk:27"></span> type of <span data-line="4;header.mdk:27"></span><span class="math-inline">$c$</span><span data-line="4;header.mdk:27"></span>         </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:27" data-row="25" data-col="2"><span data-line="4;header.mdk:27"></span> <span data-line="4;header.mdk:27"></span><span class="math-inline">$t$</span><span data-line="4;header.mdk:27"></span> típusa <span data-line="4;header.mdk:27"></span><span class="math-inline">$c$</span><span data-line="4;header.mdk:27"></span>-nek   </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:28" data-row="26" data-col="1"><span data-line="4;header.mdk:28"></span> öröklés                 </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:28" data-row="26" data-col="2"><span data-line="4;header.mdk:28"></span> inheritance          </td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:29" data-row="27" data-col="1"><span data-line="4;header.mdk:29"></span> alosztály, leszármazott </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:29" data-row="27" data-col="2"><span data-line="4;header.mdk:29"></span> subtype, descendant  </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:30" data-row="28" data-col="1"><span data-line="4;header.mdk:30"></span> ősosztály, ős           </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:30" data-row="28" data-col="2"><span data-line="4;header.mdk:30"></span> supertype, ancestor  </td></tr>
+<tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-line="4;header.mdk:31" data-row="28" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-even col-last" data-line="4;header.mdk:31" data-row="28" data-col="2"></td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:32" data-row="29" data-col="1"><span data-line="4;header.mdk:32"></span> tranzitív               </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:32" data-row="29" data-col="2"><span data-line="4;header.mdk:32"></span> transitive           </td></tr>
+<tr><td class="tbody tr-even col cell-border-left col-odd col-first" data-line="4;header.mdk:33" data-row="30" data-col="1"><span data-line="4;header.mdk:33"></span> tranzitív lezárás       </td><td class="tbody tr-even col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:33" data-row="30" data-col="2"><span data-line="4;header.mdk:33"></span> transitive closure   </td></tr>
+<tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-line="4;header.mdk:34" data-row="30" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-even col-last" data-line="4;header.mdk:34" data-row="30" data-col="2"></td></tr>
+<tr><td class="tbody tr-odd col cell-border-left col-odd col-first" data-line="4;header.mdk:35" data-row="31" data-col="1"><span data-line="4;header.mdk:35"></span> taxonómia               </td><td class="tbody tr-odd col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:35" data-row="31" data-col="2"><span data-line="4;header.mdk:35"></span> taxonomy             </td></tr>
+<tr><td class="tbody tr-even tr-last col cell-border-left col-odd col-first" data-line="4;header.mdk:36" data-row="32" data-col="1"><span data-line="4;header.mdk:36"></span> ontológia               </td><td class="tbody tr-even tr-last col cell-border-left cell-border-right col-even col-last" data-line="4;header.mdk:36" data-row="32" data-col="2"><span data-line="4;header.mdk:36"></span> ontology             </td></tr>
+<tr><td class="tbody tr-even col cell-border-left cell-line col-odd col-first" data-line="4;header.mdk:37" data-row="32" data-col="1"></td><td class="tbody tr-even col cell-border-left cell-border-right cell-line col-even col-last" data-line="4;header.mdk:37" data-row="32" data-col="2"></td></tr></tbody></table><h2 id="sec-hivatkozsok"   style="bookmark:Hivatkoz\E1 sok">Hivatkozások</h2>
+<div class="bibliography bib-numeric"    data-line="1">
+
+<div id="arrowtool" class="bibitem"   data-line="4;header.mdk:1" style="searchterm:Arrow+Tool+http+apcjones+arrows++"><span data-line="4;header.mdk:2"></span><span class="bibitem-before">[<span class="bibitem-label">1</span>]&#160;&#160;</span><span data-line="4;header.mdk:2"></span>Arrow Tool.
+<span data-line="4;header.mdk:3"></span><span class="newblock"></span><span data-line="4;header.mdk:3"></span> <span data-line="4;header.mdk:3"></span><a href="http://www.apcjones.com/arrows/">http://www.apcjones.com/arrows/</a><span data-line="4;header.mdk:3"></span>.<span data-line="4;header.mdk:3"></span>&nbsp;<a href="http://www.bing.com/search?q=Arrow+Tool+http+apcjones+arrows++" class="bibsearch">&#128270;</a></div>
+<div id="autosar" class="bibitem"   data-line="4;header.mdk:6" style="searchterm:AUTOSAR++"><span data-line="4;header.mdk:7"></span><span class="bibitem-before">[<span class="bibitem-label">2</span>]&#160;&#160;</span><span data-line="4;header.mdk:7"></span>AUTOSAR, a.<span data-line="4;header.mdk:7"></span>&nbsp;<a href="http://www.bing.com/search?q=AUTOSAR++" class="bibsearch">&#128270;</a></div>
+<div id="autosar-attendees" class="bibitem"   data-line="4;header.mdk:10" style="searchterm:Attendees+AUTOSAR+http+autosar+partners+current+partners+attendees++"><span data-line="4;header.mdk:11"></span><span class="bibitem-before">[<span class="bibitem-label">3</span>]&#160;&#160;</span><span data-line="4;header.mdk:11"></span>Attendees: AUTOSAR.
+<span data-line="4;header.mdk:12"></span><span class="newblock"></span><span data-line="4;header.mdk:12"></span> <span data-line="4;header.mdk:12"></span><a href="http://www.autosar.org/partners/current-partners/attendees/">http://www.autosar.org/partners/current-partners/attendees/</a><span data-line="4;header.mdk:12"></span>,
+  b.<span data-line="4;header.mdk:13"></span>&nbsp;<a href="http://www.bing.com/search?q=Attendees+AUTOSAR+http+autosar+partners+current+partners+attendees++" class="bibsearch">&#128270;</a></div>
+<div id="drawio" class="bibitem"   data-line="4;header.mdk:16" style="searchterm:draw+https+draw++"><span data-line="4;header.mdk:17"></span><span class="bibitem-before">[<span class="bibitem-label">4</span>]&#160;&#160;</span><span data-line="4;header.mdk:17"></span>draw.io.
+<span data-line="4;header.mdk:18"></span><span class="newblock"></span><span data-line="4;header.mdk:18"></span> <span data-line="4;header.mdk:18"></span><a href="https://www.draw.io/">https://www.draw.io/</a><span data-line="4;header.mdk:18"></span>.<span data-line="4;header.mdk:18"></span>&nbsp;<a href="http://www.bing.com/search?q=draw+https+draw++" class="bibsearch">&#128270;</a></div>
+<div id="eclipse" class="bibitem"   data-line="4;header.mdk:21" style="searchterm:Eclipse+--+Eclipse+Foundation+open+source+community+website+http+eclipse++"><span data-line="4;header.mdk:22"></span><span class="bibitem-before">[<span class="bibitem-label">5</span>]&#160;&#160;</span><span data-line="4;header.mdk:22"></span>Eclipse<span data-line="4;header.mdk:22"></span> <span data-line="4;header.mdk:22"></span>&#8211;<span data-line="4;header.mdk:22"></span> The Eclipse Foundation open source community website.
+<span data-line="4;header.mdk:23"></span><span class="newblock"></span><span data-line="4;header.mdk:23"></span> <span data-line="4;header.mdk:23"></span><a href="http://eclipse.org/">http://eclipse.org/</a><span data-line="4;header.mdk:23"></span>.<span data-line="4;header.mdk:23"></span>&nbsp;<a href="http://www.bing.com/search?q=Eclipse+--+Eclipse+Foundation+open+source+community+website+http+eclipse++" class="bibsearch">&#128270;</a></div>
+<div id="graphviz" class="bibitem"   data-line="4;header.mdk:26" style="searchterm:GraphViz+Graph+Visualization+Software+http+graphviz++"><span data-line="4;header.mdk:27"></span><span class="bibitem-before">[<span class="bibitem-label">6</span>]&#160;&#160;</span><span data-line="4;header.mdk:27"></span>GraphViz, Graph Visualization Software.
+<span data-line="4;header.mdk:28"></span><span class="newblock"></span><span data-line="4;header.mdk:28"></span> <span data-line="4;header.mdk:28"></span><a href="http://www.graphviz.org/">http://www.graphviz.org/</a><span data-line="4;header.mdk:28"></span>.<span data-line="4;header.mdk:28"></span>&nbsp;<a href="http://www.bing.com/search?q=GraphViz+Graph+Visualization+Software+http+graphviz++" class="bibsearch">&#128270;</a></div>
+<div id="igraph" class="bibitem"   data-line="4;header.mdk:31" style="searchterm:igraph+--+network+analysis+package+http+igraph++"><span data-line="4;header.mdk:32"></span><span class="bibitem-before">[<span class="bibitem-label">7</span>]&#160;&#160;</span><span data-line="4;header.mdk:32"></span>igraph<span data-line="4;header.mdk:32"></span> <span data-line="4;header.mdk:32"></span>&#8211;<span data-line="4;header.mdk:32"></span> The network analysis package.
+<span data-line="4;header.mdk:33"></span><span class="newblock"></span><span data-line="4;header.mdk:33"></span> <span data-line="4;header.mdk:33"></span><a href="http://igraph.org/">http://igraph.org/</a><span data-line="4;header.mdk:33"></span>.<span data-line="4;header.mdk:33"></span>&nbsp;<a href="http://www.bing.com/search?q=igraph+--+network+analysis+package+http+igraph++" class="bibsearch">&#128270;</a></div>
+<div id="neo4j" class="bibitem"   data-line="4;header.mdk:36" style="searchterm:Neo4j+World+Leading+Graph+Database+http+neo4j++"><span data-line="4;header.mdk:37"></span><span class="bibitem-before">[<span class="bibitem-label">8</span>]&#160;&#160;</span><span data-line="4;header.mdk:37"></span>Neo4j, The World<span data-line="4;header.mdk:37"></span>&#39;<span data-line="4;header.mdk:37"></span>s Leading Graph Database.
+<span data-line="4;header.mdk:38"></span><span class="newblock"></span><span data-line="4;header.mdk:38"></span> <span data-line="4;header.mdk:38"></span><a href="http://neo4j.org/">http://neo4j.org/</a><span data-line="4;header.mdk:38"></span>.<span data-line="4;header.mdk:38"></span>&nbsp;<a href="http://www.bing.com/search?q=Neo4j+World+Leading+Graph+Database+http+neo4j++" class="bibsearch">&#128270;</a></div>
+<div id="titan" class="bibitem"   data-line="4;header.mdk:41" style="searchterm:Titan+Distributed+Graph+Database+http+thinkaurelius+github+titan++"><span data-line="4;header.mdk:42"></span><span class="bibitem-before">[<span class="bibitem-label">9</span>]&#160;&#160;</span><span data-line="4;header.mdk:42"></span>Titan: Distributed Graph Database.
+<span data-line="4;header.mdk:43"></span><span class="newblock"></span><span data-line="4;header.mdk:43"></span> <span data-line="4;header.mdk:43"></span><a href="http://thinkaurelius.github.io/titan/">http://thinkaurelius.github.io/titan/</a><span data-line="4;header.mdk:43"></span>.<span data-line="4;header.mdk:43"></span>&nbsp;<a href="http://www.bing.com/search?q=Titan+Distributed+Graph+Database+http+thinkaurelius+github+titan++" class="bibsearch">&#128270;</a></div>
+<div id="yed" class="bibitem"   data-line="4;header.mdk:46" style="searchterm:yWorks+--+Diagramming+Company+http+yworks++"><span data-line="4;header.mdk:47"></span><span class="bibitem-before">[<span class="bibitem-label">10</span>]&#160;&#160;</span><span data-line="4;header.mdk:47"></span>yWorks<span data-line="4;header.mdk:47"></span> <span data-line="4;header.mdk:47"></span>&#8211;<span data-line="4;header.mdk:47"></span> The Diagramming Company.
+<span data-line="4;header.mdk:48"></span><span class="newblock"></span><span data-line="4;header.mdk:48"></span> <span data-line="4;header.mdk:48"></span><a href="http://www.yworks.com/">http://www.yworks.com/</a><span data-line="4;header.mdk:48"></span>.<span data-line="4;header.mdk:48"></span>&nbsp;<a href="http://www.bing.com/search?q=yWorks+--+Diagramming+Company+http+yworks++" class="bibsearch">&#128270;</a></div>
+<div id="behalozva" class="bibitem"   data-line="4;header.mdk:51" style="searchterm:_Beh+--+zatok+tudom+nya_++Barab+Albert+"><span data-line="4;header.mdk:52"></span><span class="bibitem-before">[<span class="bibitem-label">11</span>]&#160;&#160;</span><span data-line="4;header.mdk:52"></span>Barabási Albert-László.
+<span data-line="4;header.mdk:53"></span><span class="newblock"></span><span data-line="4;header.mdk:53"></span> <span data-line="4;header.mdk:53"></span><em>Behálózva &#8211; A hálózatok új tudománya</em><span data-line="4;header.mdk:53"></span><span data-line="4;header.mdk:53"></span>.
+<span data-line="4;header.mdk:54"></span><span class="newblock"></span><span data-line="4;header.mdk:54"></span> Helikon Kiadó, 2013.<span data-line="4;header.mdk:54"></span>&nbsp;<a href="http://www.bing.com/search?q=_Beh+--+zatok+tudom+nya_++Barab+Albert+" class="bibsearch">&#128270;</a></div>
+<div id="fowler2012refactoring" class="bibitem"   data-line="4;header.mdk:57" style="searchterm:_Refactoring+Improving+Design+Existing+Code_+++Fowler+Beck+Brant+Opdyke+Roberts+"><span data-line="4;header.mdk:58"></span><span class="bibitem-before">[<span class="bibitem-label">12</span>]&#160;&#160;</span><span data-line="4;header.mdk:58"></span>M.<span data-line="4;header.mdk:58"></span>&#160;<span data-line="4;header.mdk:58"></span>Fowler, K.<span data-line="4;header.mdk:58"></span>&#160;<span data-line="4;header.mdk:58"></span>Beck, J.<span data-line="4;header.mdk:58"></span>&#160;<span data-line="4;header.mdk:58"></span>Brant, W.<span data-line="4;header.mdk:58"></span>&#160;<span data-line="4;header.mdk:58"></span>Opdyke, and D.<span data-line="4;header.mdk:58"></span>&#160;<span data-line="4;header.mdk:58"></span>Roberts.
+<span data-line="4;header.mdk:59"></span><span class="newblock"></span><span data-line="4;header.mdk:59"></span> <span data-line="4;header.mdk:59"></span><em>Refactoring: Improving the Design of Existing Code</em><span data-line="4;header.mdk:59"></span><span data-line="4;header.mdk:59"></span>.
+<span data-line="4;header.mdk:60"></span><span class="newblock"></span><span data-line="4;header.mdk:60"></span> Addison-Wesley Object Technology Series. Pearson Education, 2012.
+<span data-line="4;header.mdk:61"></span><span class="newblock"></span><span data-line="4;header.mdk:61"></span> ISBN 9780133065268.
+<span data-line="4;header.mdk:62"></span><span class="newblock"></span><span data-line="4;header.mdk:62"></span> URL <span data-line="4;header.mdk:62"></span><a href="http://books.google.hu/books?id=HmrDHwgkbPsC">http://books.google.hu/books?id=HmrDHwgkbPsC</a><span data-line="4;header.mdk:62"></span>.<span data-line="4;header.mdk:62"></span>&nbsp;<a href="http://www.bing.com/search?q=_Refactoring+Improving+Design+Existing+Code_+++Fowler+Beck+Brant+Opdyke+Roberts+" class="bibsearch">&#128270;</a></div>
+<div id="uml" class="bibitem"   data-line="7" style="searchterm:Object+Management+Group+Information+technology+--+object+management+group+unified+modeling+language+--+part+Superstructure+Technical+Report+Object+Management+Group+http+spec++"><span data-line="8"></span><span class="bibitem-before">[<span class="bibitem-label">13</span>]&#160;&#160;</span><span data-line="8"></span>Object<span data-line="8"></span>&#160;<span data-line="8"></span>Management Group.
+<span data-line="9"></span><span class="newblock"></span><span data-line="9"></span> Information technology<span data-line="9"></span> <span data-line="9"></span>&#8211;<span data-line="9"></span> object management group unified modeling
+  language (omg uml)<span data-line="10"></span> <span data-line="10"></span>&#8211;<span data-line="10"></span> part 2: Superstructure.
+<span data-line="11"></span><span class="newblock"></span><span data-line="11"></span> Technical Report ISO/IEC 19505-2:2012, Object Management Group, 2012.
+<span data-line="12"></span><span class="newblock"></span><span data-line="12"></span> URL <span data-line="12"></span><a href="http://www.omg.org/spec/UML/ISO/19505-2/PDF/">http://www.omg.org/spec/UML/ISO/19505-2/PDF/</a><span data-line="12"></span>.<span data-line="12"></span>&nbsp;<a href="http://www.bing.com/search?q=Object+Management+Group+Information+technology+--+object+management+group+unified+modeling+language+--+part+Superstructure+Technical+Report+Object+Management+Group+http+spec++" class="bibsearch">&#128270;</a></div>
+<div id="barabasi3" class="bibitem"   data-line="15" style="searchterm:Mostant+tudjuk+rteni+emberi+viselked++Index+"><span data-line="16"></span><span class="bibitem-before">[<span class="bibitem-label">14</span>]&#160;&#160;</span><span data-line="16"></span>Index.
+<span data-line="17"></span><span class="newblock"></span><span data-line="17"></span> Mostantól tudjuk megérteni az emberi viselkedést.
+<span data-line="18"></span><span class="newblock"></span><span data-line="18"></span> <span data-line="18"></span><a href="http://index.hu/tudomany/bal080429/">http://index.hu/tudomany/bal080429/</a><span data-line="18"></span>, May 2008.<span data-line="18"></span>&nbsp;<a href="http://www.bing.com/search?q=Mostant+tudjuk+rteni+emberi+viselked++Index+" class="bibsearch">&#128270;</a></div>
+<div id="barabasi2" class="bibitem"   data-line="21" style="searchterm:+cikk+majdnem+leharapt+nket++Index+"><span data-line="22"></span><span class="bibitem-before">[<span class="bibitem-label">15</span>]&#160;&#160;</span><span data-line="22"></span>Index.
+<span data-line="23"></span><span class="newblock"></span><span data-line="23"></span> Az első cikk után majdnem leharapták a fejünket.
+<span data-line="24"></span><span class="newblock"></span><span data-line="24"></span>
+  <span data-line="25"></span><a href="http://index.hu/tudomany/2010/06/02/az_elso_cikk_utan_majdnem_leharaptak_a_fejunket/">http://index.hu/tudomany/2010/06/02/az_elso_cikk_utan_majdnem_leharaptak_a_fejunket/</a><span data-line="25"></span>,
+  June 2010.<span data-line="26"></span>&nbsp;<a href="http://www.bing.com/search?q=+cikk+majdnem+leharapt+nket++Index+" class="bibsearch">&#128270;</a></div>
+<div id="barabasi1" class="bibitem"   data-line="29" style="searchterm:+primit+haszn+begy+adatokat++Index+"><span data-line="30"></span><span class="bibitem-before">[<span class="bibitem-label">16</span>]&#160;&#160;</span><span data-line="30"></span>Index.
+<span data-line="31"></span><span class="newblock"></span><span data-line="31"></span> Az NSA primitíven használta a begyűjtött adatokat.
+<span data-line="32"></span><span class="newblock"></span><span data-line="32"></span>
+  <span data-line="33"></span><a href="http://index.hu/tudomany/2015/02/20/az_nsa_primitiven_hasznalta_a_begyujtott_adatokat/">http://index.hu/tudomany/2015/02/20/az_nsa_primitiven_hasznalta_a_begyujtott_adatokat/</a><span data-line="33"></span>,
+  February 2015.<span data-line="34"></span>&nbsp;<a href="http://www.bing.com/search?q=+primit+haszn+begy+adatokat++Index+" class="bibsearch">&#128270;</a></div>
+<div id="rodriguezslides2012" class="bibitem"   data-line="37" style="searchterm:Titan+Rise+Graph+Data++Marko+Rodriguez+"><span data-line="38"></span><span class="bibitem-before">[<span class="bibitem-label">17</span>]&#160;&#160;</span><span data-line="38"></span>Marko Rodriguez.
+<span data-line="39"></span><span class="newblock"></span><span data-line="39"></span> Titan: The Rise of Big Graph Data.
+<span data-line="40"></span><span class="newblock"></span><span data-line="40"></span>
+  <span data-line="41"></span><a href="http://www.slideshare.net/slidarko/titan-the-rise-of-big-graph-data">http://www.slideshare.net/slidarko/titan-the-rise-of-big-graph-data</a><span data-line="41"></span>,
+  June 2012.<span data-line="42"></span>&nbsp;<a href="http://www.bing.com/search?q=Titan+Rise+Graph+Data++Marko+Rodriguez+" class="bibsearch">&#128270;</a></div>
+<div id="rodriguez2008mapping" class="bibitem"   data-line="45" style="searchterm:Mapping+Semantic+Networks+Undirected+Networks++Marko+Rodriguez+"><span data-line="46"></span><span class="bibitem-before">[<span class="bibitem-label">18</span>]&#160;&#160;</span><span data-line="46"></span>Marko<span data-line="46"></span>&#160;<span data-line="46"></span>A. Rodriguez.
+<span data-line="47"></span><span class="newblock"></span><span data-line="47"></span> Mapping Semantic Networks to Undirected Networks.
+<span data-line="48"></span><span class="newblock"></span><span data-line="48"></span> <span data-line="48"></span><em>arXiv preprint arXiv:0804.0277</em><span data-line="48"></span><span data-line="48"></span>, 2008.<span data-line="48"></span>&nbsp;<a href="http://www.bing.com/search?q=Mapping+Semantic+Networks+Undirected+Networks++Marko+Rodriguez+" class="bibsearch">&#128270;</a></div>
+<div id="rodriguez2010" class="bibitem"   data-line="51" style="searchterm:Constructions+from+dots+lines++Marko+Rodriguez+Peter+Neubauer+"><span data-line="52"></span><span class="bibitem-before">[<span class="bibitem-label">19</span>]&#160;&#160;</span><span data-line="52"></span>Marko<span data-line="52"></span>&#160;<span data-line="52"></span>A. Rodriguez and Peter Neubauer.
+<span data-line="53"></span><span class="newblock"></span><span data-line="53"></span> Constructions from dots and lines.
+<span data-line="54"></span><span class="newblock"></span><span data-line="54"></span> <span data-line="54"></span><em>CoRR</em><span data-line="54"></span><span data-line="54"></span>, abs/1006.2361, 2010.
+<span data-line="55"></span><span class="newblock"></span><span data-line="55"></span> URL <span data-line="55"></span><a href="http://arxiv.org/abs/1006.2361">http://arxiv.org/abs/1006.2361</a><span data-line="55"></span>.<span data-line="55"></span>&nbsp;<a href="http://www.bing.com/search?q=Constructions+from+dots+lines++Marko+Rodriguez+Peter+Neubauer+" class="bibsearch">&#128270;</a></div>
+<div id="taivalsaari1996classes" class="bibitem"   data-line="58" style="searchterm:Antero+Taivalsaari+Classes+Prototypes+--+Some+Philosophical+Historical+Observations+_Journal+Object+Oriented+Programming_+http+citeseerx+viewdoc+download+rep1+type++"><span data-line="59"></span><span class="bibitem-before">[<span class="bibitem-label">20</span>]&#160;&#160;</span><span data-line="59"></span>Antero Taivalsaari.
+<span data-line="60"></span><span class="newblock"></span><span data-line="60"></span> Classes vs. Prototypes<span data-line="60"></span> <span data-line="60"></span>&#8211;<span data-line="60"></span> Some Philosophical and Historical
+  Observations.
+<span data-line="62"></span><span class="newblock"></span><span data-line="62"></span> <span data-line="62"></span><em>Journal of Object-Oriented Programming</em><span data-line="62"></span><span data-line="62"></span>, 10<span data-line="62"></span><span style="penalty:0"></span><span data-line="62"></span>
+  (7):<span data-line="63"></span><span style="penalty:0"></span><span data-line="63"></span> 44<span data-line="63"></span>&#8211;<span data-line="63"></span>50, 1996.
+<span data-line="64"></span><span class="newblock"></span><span data-line="64"></span>
+  <span data-line="65"></span><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.56.4713&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.56.4713&amp;rep=rep1&amp;type=pdf</a><span data-line="65"></span>.<span data-line="65"></span>&nbsp;<a href="http://www.bing.com/search?q=Antero+Taivalsaari+Classes+Prototypes+--+Some+Philosophical+Historical+Observations+_Journal+Object+Oriented+Programming_+http+citeseerx+viewdoc+download+rep1+type++" class="bibsearch">&#128270;</a></div>
+<div id="relaciok" class="bibitem"   data-line="68" style="searchterm:++Wikipedia+"><span data-line="69"></span><span class="bibitem-before">[<span class="bibitem-label">21</span>]&#160;&#160;</span><span data-line="69"></span>Wikipedia.
+<span data-line="70"></span><span class="newblock"></span><span data-line="70"></span> Reláció.
+<span data-line="71"></span><span class="newblock"></span><span data-line="71"></span> <span data-line="71"></span><a href="http://hu.wikipedia.org/wiki/Rel%C3%A1ci%C3%B3">http://hu.wikipedia.org/wiki/Rel%C3%A1ci%C3%B3</a><span data-line="71"></span>, March 2015.<span data-line="71"></span>&nbsp;<a href="http://www.bing.com/search?q=++Wikipedia+" class="bibsearch">&#128270;</a></div></div>
+<div class="logomadoko block" style="text-align:right;font-size:xx-small;margin-top:4em"><span data-line="1"></span>Created with&nbsp;<a href="https://www.madoko.net">Madoko.net</a>.<span data-line="1"></span>&nbsp;<a href="https://github.com/FTSRG/remo/blob/gh-pages/02-struktura-alapu-modellezes.mdk">A segédanyag forrása</a></div></div><span data-line=""></span>
+</body>
+
+</html>

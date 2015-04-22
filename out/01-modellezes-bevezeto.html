@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="generator" content="Madoko, version 0.9.5-beta" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <title>Modellezés és metamodellezés</title>
+  <style  class="link">
+  /* ---------------------------------------------------
+     Various settings to display madoko elements correctly.
+     For example, lines in tables or a table of contents.
+  
+     All rules use specific madoko classes and never just
+     a generic element. This means one can safely include
+     this CSS into any web page without affecting non-madoko
+     content.
+  ----------------------------------------------------*/
+  
+  /* The table of  contents */
+  .madoko .toc>.tocblock .tocblock .tocblock {
+    margin-left: 2.5em;
+  }
+  
+  .madoko .toc>.tocblock .tocblock {
+    margin-left: 1.7em;
+  }
+  
+  .madoko .toc>.tocblock>.tocitem {
+    font-weight: bold;
+  }
+  
+  .madoko .toc {
+    margin-top: 1em;
+  }
+  
+  /* Paragraphs */
+  .madoko p.para-continue {
+    margin-bottom: 0pt;
+  }
+  
+  .madoko .para-block+p {
+    margin-top: 0pt;
+  }
+  
+  .madoko ul.para-block, .madoko ol.para-block {
+    margin-top: 0pt;
+    margin-bottom: 0pt;
+  }
+  
+  .madoko ul.para-end, .madoko ol.para-end {
+    margin-bottom: 1em;
+  }
+  
+  .madoko dl {
+    margin-left: 0em;
+  }
+  
+  .madoko blockquote {
+    font-style: italic;
+  }
+  
+  /* Local page links do not get an underline unless hovering */
+  .madoko a.localref {
+    text-decoration: none;
+  }
+  .madoko a.localref:hover {
+    text-decoration: underline;
+  }
+  
+  /* Footnotes */
+  .madoko .footnotes {
+    font-size: smaller;
+    margin-top: 2em;
+  }
+  
+  .madoko .footnotes hr {
+    width: 50%;
+    text-align: left;
+  }
+  
+  .madoko .footnote { 
+    margin-left: 1em;
+  }
+  .madoko .footnote-before {
+    margin-left: -1em;
+    width: 1em;
+    display: inline-block;
+  }
+  
+  /* Abstract */
+  .madoko .abstract>p:first-child:before {
+    content: "Abstract. ";
+    font-weight: bold;
+  }
+  
+  .madoko .abstract {
+    margin-left: 2.7em;
+    margin-right: 2.7em;
+    font-size: small;
+  }
+  
+  
+  /* Alignment */
+  .madoko .align-center, .madoko .align-center>p {
+    text-align: center !important;
+  }
+  
+  .madoko .align-center pre {
+    text-align: left;
+  }
+  
+  .madoko .align-center>* {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  .madoko .align-left, .madoko .align-left>p {
+    text-align: left !important;
+  }
+  
+  .madoko .align-left>* {
+    margin-left: 0pt !important;
+    margin-right: auto !important;
+  }
+  
+  .madoko .align-right, .madoko .align-right>p {
+    text-align: right !important;
+  }
+  
+  .madoko .align-right>* {
+    margin-left: auto !important;
+    margin-right: 0pt !important;
+  }
+  
+  .madoko .align-center>table,
+  .madoko .align-left>table,
+  .madoko .align-right>table {
+    text-align: left !important;
+  }
+  
+  
+  /* Equations, Figure's etc. */
+  .madoko .equation-before {
+    float: right;
+  }
+  
+  
+  /* Bibliography */
+  .madoko .bibitem {
+    font-size: smaller;
+  }
+  
+  .madoko .bib-numeric .bibitem {
+    margin-left: 3em;
+    text-indent: -3em;
+  }
+  
+  .madoko .bibitem-before {
+    display: none;
+  }
+  
+  .madoko .bib-numeric .bibitem-before {
+    display: inline-block;
+    width: 3em;
+    text-align: right;
+  }
+  
+  .madoko .bibliography {
+  }
+  
+  .madoko .bibsearch {
+    font-size: x-small;
+    text-decoration:none;
+    color: black;
+    font-family: "Segoe UI Symbol", Symbola;
+  }
+  
+  /* General */
+  .madoko .block, .madoko .figure, .madoko .bibitem, .madoko .equation, .madoko div.math {
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .figure {
+    padding: 0.5em;
+    margin-left: 0pt;
+    margin-right: 0pt;
+  }
+  
+  .madoko .hidden {
+    display: none;
+  }
+  
+  .madoko .invisible {
+    visibility: hidden;
+  }
+  
+  .madoko.preview .invisible {
+    visibility: visible;
+    opacity: 0.5;
+  }
+  
+  .madoko code.code, .madoko span.code {
+    white-space: pre-wrap;
+  }
+  
+  .madoko hr, hr.madoko {
+    border: none;
+    border-bottom: black solid 1px;
+    margin-bottom: 0.5ex;
+  }
+  
+  .madoko .framed>*:first-child {
+    margin-top: 0pt;
+  }
+  .madoko .framed>*:last-child {
+    margin-bottom: 0pt;
+  }
+  
+  
+  /* Title, authors */
+  /*
+  .madoko .title {
+    font-size: xx-large;
+    font-weight: bold;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .subtitle {
+    font-size: x-large;
+    margin-bottom: 1ex;
+    margin-top: -1ex;
+  }
+  
+  .madoko .titleblock>* {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  
+  .madoko .titleblock table {
+    width: 80%;
+  }
+  
+  .madoko .authorblock .author {
+    font-size: large;
+  }
+  
+  .madoko .titlenote {
+    margin-top: -0.5ex;
+    margin-bottom: 1.5ex;
+  }
+  */
+  
+  /* Lists */
+  
+  .madoko ul.list-star {
+    list-style-type: disc;
+  }
+  
+  .madoko ul.list-dash {
+      list-style-type: none !important;
+  }
+  
+  .madoko ul.list-dash > li:before {
+      content: "\2013"; 
+      position: absolute;
+      margin-left: -1em; 
+  }
+  
+  .madoko ul.list-plus {
+    list-style-type: square;
+  }
+  
+  /* Tables */
+  .madoko table.madoko {
+    border-collapse: collapse;
+  }
+  .madoko td, .madoko th {
+    padding: 0ex 0.5ex;
+    margin: 0pt;
+    vertical-align: top;
+  }
+  
+  .madoko .cell-border-left {
+    border-left: 1px solid black;
+  }
+  .madoko .cell-border-right {
+    border-right: 1px solid black;
+  }
+  
+  
+  .madoko thead>tr:first-child>.cell-line,
+  .madoko tbody:first-child>tr:first-child>.cell-line {
+    border-top: 1px solid black;
+    border-bottom: none;
+  }
+  
+  .madoko .cell-line, .madoko .cell-double-line {
+    border-bottom: 1px solid black;
+    border-top: none;
+  }
+  
+  .madoko .cell-double-line {
+    border-top: 1px solid black;
+    padding-top: 1.5px !important;
+  }
+  
+  
+  /* Math Pre */
+  .madoko .input-mathpre .MathJax_Display {
+    text-align: left !important;
+  }
+  
+  .madoko div.input-mathpre {
+    text-align: left;
+    margin-top: 1.5ex;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .math-rendering {
+    color: gray;
+  }
+  
+  /* Math */
+  .madoko .mathdisplay {
+    text-align: center;
+  }
+  
+  
+  /*---------------------------------------------------------------------------
+    Default style for syntax highlighting
+  ---------------------------------------------------------------------------*/
+  
+  .highlighted                        { color: black; }
+  .highlighted .token.identifier      { }
+  .highlighted .token.operators       { }
+  .highlighted .token.keyword         { color: blue }
+  .highlighted .token.string          { color: maroon } 
+  .highlighted .token.string.escape   { color: gray }
+  .highlighted .token.comment         { color: darkgreen }
+  .highlighted .token.comment.doc     { font-style: normal }
+  .highlighted .token.constant        { color: purple; }
+  .highlighted .token.entity          {  }
+  .highlighted .token.tag             { color: blue }
+  .highlighted .token.info-token      { color: black }
+  .highlighted .token.warn-token      { color: black }
+  .highlighted .token.error-token     { color: darkred }
+  .highlighted .token.debug-token     { color: gray }
+  .highlighted .token.regexp          { color: maroon }
+  .highlighted .token.attribute.name  { color: navy }
+  .highlighted .token.attribute.value { color: maroon }
+  .highlighted .token.constructor     { color: purple }
+  .highlighted .token.namespace       { color: navy }
+  .highlighted .token.header          { color: navy }
+  .highlighted .token.type            { color: teal } 
+  .highlighted .token.type.delimiter  { color: teal; } 
+  .highlighted .token.predefined      { color: navy }
+  .highlighted .token.invalid         { border-bottom: red dotted 1px }
+  .highlighted .token.code            { color: maroon }
+  .highlighted .token.code.keyword    { color: navy }
+  .highlighted .token.typevar         { font-style: italic; }
+  
+  .highlighted .token.delimiter   {  } /* .[curly,square,parenthesis,angle,array,bracket] */
+  .highlighted .token.number      {  }    /* .[hex,octal,binary,float] */
+  .highlighted .token.variable    {  }  /* .[name,value]  */
+  .highlighted .token.meta        { color: navy }      /* .[content] */
+  
+  .highlighted .token.bold            { font-weight: bold; }
+  .highlighted .token.italic          { font-style: italic; }
+  
+  
+  /* Pretty formatting of code */
+  .madoko pre.pretty, .madoko code.pretty { 
+    font-family: Cambria,Times,Georgia,serif;
+    font-size: 100%;
+  }
+  
+  .madoko .pretty table {
+    border-collapse: collapse;
+  }
+  .madoko .pretty td {
+    padding: 0em;
+  }
+  .madoko .pretty td.empty {
+    min-width: 1.5ex;
+  }
+  .madoko .pretty td.expander {
+    width: 100em;
+  }
+  .madoko .pretty .token.identifier         { font-style: italic }
+  .madoko .pretty .token.constructor        { font-style: italic }
+  
+  
+  /* ---------------------------------------------------
+     Styling for full documents
+  ----------------------------------------------------*/
+  body.madoko {
+    font-family: Cambria,"Times New Roman","Liberation Serif","Times",serif;
+    -webkit-text-size-adjust: 100%; /* so math displays well on mobile devices */
+  }
+  
+  body.madoko {
+    max-width: 88ex; /* about 88 characters */
+    margin: 1em auto;
+    padding: 0em 2em;  
+  }
+  
+  body.preview.madoko {
+    padding: 0em 1em;
+  }
+  
+  .madoko p,
+  .madoko li {
+    text-align: justify;
+  }
+  
+  /* style headings nicer, especially h5 and h6 */
+  .madoko h1, .madoko h2, .madoko h3, .madoko h4 { 
+    margin-top: 1.22em; 
+    margin-bottom: 1ex;
+  }
+  .madoko h1+p, .madoko h2+p, .madoko h3+p, .madoko h4+p, .madoko h5+p  { 
+    margin-top: 1ex;    
+  }
+  .madoko h5, .madoko h6 { 
+    margin-top: 1ex;
+    font-size: 1em;
+  }
+  .madoko h5 { 
+    margin-bottom: 0.5ex;
+  }
+  .madoko h5 + p {
+    margin-top: 0.5ex;
+  }
+  .madoko h6 { 
+    margin-bottom: 0pt;
+  }
+  .madoko h6 + p {
+    margin-top: 0pt;
+  }
+  
+  
+  /* Fix monospace display (see http://code.stephenmorley.org/html-and-css/fixing-browsers-broken-monospace-font-handling/) */
+  .madoko pre, .madoko code, .madoko kbd, .madoko samp, .madoko tt, .madoko .monospace, .madoko .token.indent, .madoko .reveal pre, .madoko .reveal code, .madoko .email {
+    font-family: Consolas,"Andale Mono WT","Andale Mono",Lucida Console,Monaco,monospace,monospace;
+    font-size: 0.85em;
+  }
+  .madoko pre code, .madoko .token.indent {
+    font-size: 0.95em;
+  }
+  
+  .madoko pre code {
+    font-family: inherit !important;
+  }
+  
+  /* Code prettify */
+  .madoko ol.linenums li {
+    background-color: white;
+    list-style-type: decimal;
+  }
+  
+  /* Merging */
+  .madoko .remote {
+    background-color: #F0FFF0;
+  }
+  .madoko .remote + * {
+    margin-top: 0pt;
+  }
+  
+  /* ---------------------------------------------------
+     Print settings
+  ----------------------------------------------------*/
+  
+  @media print {
+    body.madoko {
+      font-size: 10pt;
+    }
+    @page {
+      margin: 1in 1.5in;
+    }
+  }
+  
+  /* ---------------------------------------------------
+     Mobile device settings
+  ----------------------------------------------------*/
+  
+  @media only screen and (max-device-width:1024px) {
+    body.madoko {
+      padding: 0em 1em;
+    }
+  }
+  
+    </style>
+  <script src="../js/analytics.js"  class="script"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$']]},
+       TeX: { 
+         Macros: { mathid: ['\\mathit{#1\\hspace{0.1ex}}',1], mathkw: ['\\mathsf{#1}',1],
+                   mdMathspace: ['\\hspace{#1pt}\\hspace{#1pt}\\hspace{#1pt}',1], mdMathindent: ['\\hspace{#1ex}',1], mdMathbr: ['\\\\'],
+                 },
+  
+       }
+    });
+    MathJax.Hub.Register.StartupHook('TeX AMSmath Ready',function () { 
+      MathJax.InputJax.TeX.Definitions.environment['mdMathprearray'] = ['AMSarray',null,null,null,'l','0em','0em'];
+    });
+  </script>
+  <script type="text/javascript" class="preview"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  
+  </head>
+<body class="madoko">
+
+<div class="body madoko" style="line-adjust:0">
+<style>
+body.madoko, .madoko-body {
+  max-width: 90%;
+}
+
+.remodef-before {
+  color: blue;
+}
+
+.remoexample-before {
+  color: green;
+}
+</style>
+
+
+
+<div class="titleblock align-center para-block" style="line-adjust:0">
+<div class="titleheader align-center" style="line-adjust:0">
+<div class="title para-block" style="font-size:xx-large;font-weight:bold;margin-bottom:0.5ex;line-adjust:0">Modellezés és metamodellezés</div></div></div><span data-line=""></span>
+<nav id="toc" class="toc">
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-modellezs" class="localref"><span class="heading-before"><span class="heading-label">1</span>.&#8194;</span>Modellezés</a></div>
+<div class="tocitem"  ><a href="#sec-modellezsi-nyelvek" class="localref"><span class="heading-before"><span class="heading-label">2</span>.&#8194;</span>Modellezési nyelvek</a></div>
+<div class="tocitem"  ><a href="#sec-metamodellezs" class="localref"><span class="heading-before"><span class="heading-label">3</span>.&#8194;</span>Metamodellezés</a></div>
+<div class="tocitem"  ><a href="#sec-alapfogalmak" class="localref"><span class="heading-before"><span class="heading-label">4</span>.&#8194;</span>Alapfogalmak</a></div></div></nav>
+<p>Az alábbi dokumentum a rendszermodellezés tárgy első előadásához kapcsolódó segédanyag, mely tartalmazza az elhangzott definíciókat és a hozzájuk tartozó egyszerűbb magyarázazokat.
+</p><h2 id="sec-modellezs"   style="bookmark:1.&#8194;Modellez\E9 s"><span class="heading-before"><span class="heading-label">1</span>.&#8194;</span>Modellezés</h2>
+<p>Mi értelme van modellezni? Fejben szinte mindig modellezünk bármilyen probléma kerül elénk. Legyen az egy szoftver fejlesztése (tervezése), leírása. Legfőbb szerepe a kommunikáció:
+</p>
+<div class="remodef block" style="border-style:solid;border-color:blue;border-width:1px;padding:5px">
+<p data-line="1"><span data-line="1"></span><span class="remodef-before"><strong><span class="remodef-label">1</span>.&#160;definíció</strong>.&#160;</span><span data-line="1"></span>Egy valós vagy hipotetikus világ (a <span data-line="1"></span>&#8220;rendszer&#8221;<span data-line="1"></span>) egy részének egyszerűsített képe, amely a rendszert helyettesíti bizonyos megfontolásokban.</p></div>
+<p>Egy adott probléma modellé történő leképezésének általában két fontos előnye van: <em>áttekinthetőbb</em>, <em>kisebb (véges)</em>.
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li"><em>kisebb</em>, hiszen a problémához nem kapcsolódó, elhanyagolható információk nem jelennek meg benne.
+</li>
+<li class="li ul-li list-star-li compact-li"><em>áttekinthetőbb</em>, hiszen csak az adott problémával kapcsolatos, releváns információkat kell vizsgálni.
+</li></ul>
+
+<p>Fontos azt is megjegyezni, hogy nem minden modell, ami modellnek látszik.
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li"><em>A modell nem a valóság</em>: az általunk definiált modellen bizonyos állítások igazak lehetnek, amik a valóságban nem állják meg a helyüket.
+</li>
+<li class="li ul-li list-star-li compact-li"><em>A modell nem a diagram</em>: A diagram csak egy ábrázolás módja a modellnek, amivel olvashatóvá tesszük. 
+</li></ul>
+<h2 id="sec-modellezsi-nyelvek"   style="bookmark:2.&#8194;Modellez\E9 si nyelvek"><span class="heading-before"><span class="heading-label">2</span>.&#8194;</span>Modellezési nyelvek</h2>
+<p>Segítségükkel modelleket építhetünk, amik lehetnek szöveges (pl.: Verilog, VHDL, Java stb.), vagy grafikusak is (pl.: webes konyhatervező, UML diagrammok, UPPAAL stb.). Céljuk a kommunikáció gép-gép, ember-gép vagy akár ember-ember között is. A nyelveknek két fő aspektusa van:
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li"><em>szintaxis</em>: hogyan írom a le a modellt? Egy szabályrendszer, ami meghatározza, hogy a nyelv milyen elemekből épül fel és azok hogyan kombinálhatóak.
+</li>
+<li class="li ul-li list-star-li compact-li"><em>szemantika</em>: mit jelent a modell? A szintaxis által definált nyelvi elemek jelentését definiáló szabályrendszer.
+</li></ul>
+
+<div class="remoexample block" style="border-style:solid;border-color:green;border-width:1px;padding:10px">
+<p data-line="1"><span data-line="1"></span><span class="remoexample-before"><strong><span class="remoexample-label">1</span>.&#160;példa</strong>.&#160;</span><span data-line="1"></span>A C nyelv egy szöveges nyelv, melyben elemeknek tekinthetjük az <span data-line="1"></span><em>if</em><span data-line="1"></span>, <span data-line="1"></span><em>for</em><span data-line="1"></span>, <span data-line="1"></span><em>switch</em><span data-line="1"></span>, <span data-line="1"></span><em>változó nevek</em><span data-line="1"></span>, <span data-line="1"></span><em>metódus nevek</em><span data-line="1"></span>, <span data-line="1"></span><em>típusok</em><span data-line="1"></span> stb. részeket. Ezek azonban nem tetszőleges sorrendben állhatnak egymás mellett, hanem egy jól meghatározott szabályrendszer szerint. Ez a szintaxis. Azt, hogy a <span data-line="1"></span><em>if</em><span data-line="1"></span> kulcsszóval elágazást, a <span data-line="1"></span><em>for</em><span data-line="1"></span> kulcsszóval pedig egy ciklust definiálunk és nem pedig valami teljesen más dolgot, a szemantika határozza meg. Vagyis a szemantika jelentéssel tölti meg a nyelvi elemeket.</p></div>
+<div class="remoexample block" style="border-style:solid;border-color:green;border-width:1px;padding:10px">
+<p data-line="1"><span data-line="1"></span><span class="remoexample-before"><strong><span class="remoexample-label">2</span>.&#160;példa</strong>.&#160;</span><span data-line="1"></span>A <span data-line="1"></span>&#8220;Yakindu&#8221;<span data-line="1"></span> bizonyos szinten egy grafikus nyelvet határoz meg, ahol a nyelvi elemek a dobozok, nyilak (a részletes leírás a később előadásokon fog elhangozni a Yakindu nyelvvel kapcsolatban). A szintaxis meghatározza, hogy a dobozokból csak nyilakkal lehet összekötni más dobozokat. A szemantikus jelentésük pedig, hogy a dobozok állapotok, a nyilak pedig megmutatják, hogy az alkalmazásunk mely állapotból mely állapotba kerülhet. </p></div>
+<div class="remoremark block">
+<p data-line="1"><span data-line="1"></span><span class="remoremark-before"><strong>Megjegyzés</strong>.&#160;</span><span data-line="1"></span>Szintaktikailag leírhatunk olyan kifejezéseket a nyelvben, aminek szemantikailag nincs értelme.</p></div><h2 id="sec-metamodellezs"   style="bookmark:3.&#8194;Metamodellez\E9 s"><span class="heading-before"><span class="heading-label">3</span>.&#8194;</span>Metamodellezés</h2>
+<p><em>Definíció</em>: Egy modellezési nyelv modellje. Meghatározza, hogy a nyelvnek milyen típusú elemei vannak, milyen kapcsolatban állhatnak egymással, és a típusoknak mi a viszonya egymáshoz.
+</p>
+<p class="indent">Tipikus, későbbi tanulmányaitokban előkerülő illusztrációk:
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li">Egyed-kapcsolat, EK modell (entity-relationship, ER)
+</li>
+<li class="li ul-li list-star-li compact-li">UML objektum diagram (modell) <span class="math-inline">$\leftrightarrow$</span> osztálydiagram (metamodell)
+</li>
+<li class="li ul-li list-star-li compact-li">Adatbázis tábla (modell) <span class="math-inline">$\leftrightarrow$</span> relációs adatbázisséma
+</li>
+<li class="li ul-li list-star-li compact-li">XML dokumentum (modell) <span class="math-inline">$\leftrightarrow$</span> XML séma (metamodell)
+</li></ul>
+<h2 id="sec-alapfogalmak"   style="bookmark:4.&#8194;Alapfogalmak"><span class="heading-before"><span class="heading-label">4</span>.&#8194;</span>Alapfogalmak</h2>
+<p> 
+<em>Rendszer és külvilág</em>: A külvilág a rendszerre ható tényezők összessége. A rendszer pedig a komponensei és a közöttük lévő kapcsolatok.
+ (Fehér doboz: ismerjük a rendszer belső működését; Fekete doboz: nem ismerjük a belső működés, csak a kimenetei alapján vizsgálhatjuk a működését.)
+</p>
+<p class="indent"><em>Finomítás</em>: a modell gazdagítása részletekkel úgy, hogy az eredeti modell absztrakció megmaradjon. (Nem irreleváns adatokkal bővítjük, hanem pontosítjuk a modellünket)
+</p>
+<p class="indent"><em>Absztrakció</em>: a finomítás inverz művelete. (Nem a releváns dolgokról találjuk ki, hogy most már nem relevánsak, hanem a releváns részleteket egyszerűsítjük)
+</p>
+<div class="logomadoko block" style="text-align:right;font-size:xx-small;margin-top:4em"><span data-line="1"></span>Created with&nbsp;<a href="https://www.madoko.net">Madoko.net</a>.<span data-line="1"></span>&nbsp;<a href="https://github.com/FTSRG/remo/blob/gh-pages/01-modellezes-bevezeto.mdk">A segédanyag forrása</a></div></div><span data-line=""></span>
+</body>
+
+</html>

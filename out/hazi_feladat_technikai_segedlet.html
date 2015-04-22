@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="generator" content="Madoko, version 0.9.5-beta" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <title>Technikai segédlet</title>
+  <style  class="link">
+  /* ---------------------------------------------------
+     Various settings to display madoko elements correctly.
+     For example, lines in tables or a table of contents.
+  
+     All rules use specific madoko classes and never just
+     a generic element. This means one can safely include
+     this CSS into any web page without affecting non-madoko
+     content.
+  ----------------------------------------------------*/
+  
+  /* The table of  contents */
+  .madoko .toc>.tocblock .tocblock .tocblock {
+    margin-left: 2.5em;
+  }
+  
+  .madoko .toc>.tocblock .tocblock {
+    margin-left: 1.7em;
+  }
+  
+  .madoko .toc>.tocblock>.tocitem {
+    font-weight: bold;
+  }
+  
+  .madoko .toc {
+    margin-top: 1em;
+  }
+  
+  /* Paragraphs */
+  .madoko p.para-continue {
+    margin-bottom: 0pt;
+  }
+  
+  .madoko .para-block+p {
+    margin-top: 0pt;
+  }
+  
+  .madoko ul.para-block, .madoko ol.para-block {
+    margin-top: 0pt;
+    margin-bottom: 0pt;
+  }
+  
+  .madoko ul.para-end, .madoko ol.para-end {
+    margin-bottom: 1em;
+  }
+  
+  .madoko dl {
+    margin-left: 0em;
+  }
+  
+  .madoko blockquote {
+    font-style: italic;
+  }
+  
+  /* Local page links do not get an underline unless hovering */
+  .madoko a.localref {
+    text-decoration: none;
+  }
+  .madoko a.localref:hover {
+    text-decoration: underline;
+  }
+  
+  /* Footnotes */
+  .madoko .footnotes {
+    font-size: smaller;
+    margin-top: 2em;
+  }
+  
+  .madoko .footnotes hr {
+    width: 50%;
+    text-align: left;
+  }
+  
+  .madoko .footnote { 
+    margin-left: 1em;
+  }
+  .madoko .footnote-before {
+    margin-left: -1em;
+    width: 1em;
+    display: inline-block;
+  }
+  
+  /* Abstract */
+  .madoko .abstract>p:first-child:before {
+    content: "Abstract. ";
+    font-weight: bold;
+  }
+  
+  .madoko .abstract {
+    margin-left: 2.7em;
+    margin-right: 2.7em;
+    font-size: small;
+  }
+  
+  
+  /* Alignment */
+  .madoko .align-center, .madoko .align-center>p {
+    text-align: center !important;
+  }
+  
+  .madoko .align-center pre {
+    text-align: left;
+  }
+  
+  .madoko .align-center>* {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  .madoko .align-left, .madoko .align-left>p {
+    text-align: left !important;
+  }
+  
+  .madoko .align-left>* {
+    margin-left: 0pt !important;
+    margin-right: auto !important;
+  }
+  
+  .madoko .align-right, .madoko .align-right>p {
+    text-align: right !important;
+  }
+  
+  .madoko .align-right>* {
+    margin-left: auto !important;
+    margin-right: 0pt !important;
+  }
+  
+  .madoko .align-center>table,
+  .madoko .align-left>table,
+  .madoko .align-right>table {
+    text-align: left !important;
+  }
+  
+  
+  /* Equations, Figure's etc. */
+  .madoko .equation-before {
+    float: right;
+  }
+  
+  
+  /* Bibliography */
+  .madoko .bibitem {
+    font-size: smaller;
+  }
+  
+  .madoko .bib-numeric .bibitem {
+    margin-left: 3em;
+    text-indent: -3em;
+  }
+  
+  .madoko .bibitem-before {
+    display: none;
+  }
+  
+  .madoko .bib-numeric .bibitem-before {
+    display: inline-block;
+    width: 3em;
+    text-align: right;
+  }
+  
+  .madoko .bibliography {
+  }
+  
+  .madoko .bibsearch {
+    font-size: x-small;
+    text-decoration:none;
+    color: black;
+    font-family: "Segoe UI Symbol", Symbola;
+  }
+  
+  /* General */
+  .madoko .block, .madoko .figure, .madoko .bibitem, .madoko .equation, .madoko div.math {
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .figure {
+    padding: 0.5em;
+    margin-left: 0pt;
+    margin-right: 0pt;
+  }
+  
+  .madoko .hidden {
+    display: none;
+  }
+  
+  .madoko .invisible {
+    visibility: hidden;
+  }
+  
+  .madoko.preview .invisible {
+    visibility: visible;
+    opacity: 0.5;
+  }
+  
+  .madoko code.code, .madoko span.code {
+    white-space: pre-wrap;
+  }
+  
+  .madoko hr, hr.madoko {
+    border: none;
+    border-bottom: black solid 1px;
+    margin-bottom: 0.5ex;
+  }
+  
+  .madoko .framed>*:first-child {
+    margin-top: 0pt;
+  }
+  .madoko .framed>*:last-child {
+    margin-bottom: 0pt;
+  }
+  
+  
+  /* Title, authors */
+  /*
+  .madoko .title {
+    font-size: xx-large;
+    font-weight: bold;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .subtitle {
+    font-size: x-large;
+    margin-bottom: 1ex;
+    margin-top: -1ex;
+  }
+  
+  .madoko .titleblock>* {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  
+  .madoko .titleblock table {
+    width: 80%;
+  }
+  
+  .madoko .authorblock .author {
+    font-size: large;
+  }
+  
+  .madoko .titlenote {
+    margin-top: -0.5ex;
+    margin-bottom: 1.5ex;
+  }
+  */
+  
+  /* Lists */
+  
+  .madoko ul.list-star {
+    list-style-type: disc;
+  }
+  
+  .madoko ul.list-dash {
+      list-style-type: none !important;
+  }
+  
+  .madoko ul.list-dash > li:before {
+      content: "\2013"; 
+      position: absolute;
+      margin-left: -1em; 
+  }
+  
+  .madoko ul.list-plus {
+    list-style-type: square;
+  }
+  
+  /* Tables */
+  .madoko table.madoko {
+    border-collapse: collapse;
+  }
+  .madoko td, .madoko th {
+    padding: 0ex 0.5ex;
+    margin: 0pt;
+    vertical-align: top;
+  }
+  
+  .madoko .cell-border-left {
+    border-left: 1px solid black;
+  }
+  .madoko .cell-border-right {
+    border-right: 1px solid black;
+  }
+  
+  
+  .madoko thead>tr:first-child>.cell-line,
+  .madoko tbody:first-child>tr:first-child>.cell-line {
+    border-top: 1px solid black;
+    border-bottom: none;
+  }
+  
+  .madoko .cell-line, .madoko .cell-double-line {
+    border-bottom: 1px solid black;
+    border-top: none;
+  }
+  
+  .madoko .cell-double-line {
+    border-top: 1px solid black;
+    padding-top: 1.5px !important;
+  }
+  
+  
+  /* Math Pre */
+  .madoko .input-mathpre .MathJax_Display {
+    text-align: left !important;
+  }
+  
+  .madoko div.input-mathpre {
+    text-align: left;
+    margin-top: 1.5ex;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .math-rendering {
+    color: gray;
+  }
+  
+  /* Math */
+  .madoko .mathdisplay {
+    text-align: center;
+  }
+  
+  
+  /*---------------------------------------------------------------------------
+    Default style for syntax highlighting
+  ---------------------------------------------------------------------------*/
+  
+  .highlighted                        { color: black; }
+  .highlighted .token.identifier      { }
+  .highlighted .token.operators       { }
+  .highlighted .token.keyword         { color: blue }
+  .highlighted .token.string          { color: maroon } 
+  .highlighted .token.string.escape   { color: gray }
+  .highlighted .token.comment         { color: darkgreen }
+  .highlighted .token.comment.doc     { font-style: normal }
+  .highlighted .token.constant        { color: purple; }
+  .highlighted .token.entity          {  }
+  .highlighted .token.tag             { color: blue }
+  .highlighted .token.info-token      { color: black }
+  .highlighted .token.warn-token      { color: black }
+  .highlighted .token.error-token     { color: darkred }
+  .highlighted .token.debug-token     { color: gray }
+  .highlighted .token.regexp          { color: maroon }
+  .highlighted .token.attribute.name  { color: navy }
+  .highlighted .token.attribute.value { color: maroon }
+  .highlighted .token.constructor     { color: purple }
+  .highlighted .token.namespace       { color: navy }
+  .highlighted .token.header          { color: navy }
+  .highlighted .token.type            { color: teal } 
+  .highlighted .token.type.delimiter  { color: teal; } 
+  .highlighted .token.predefined      { color: navy }
+  .highlighted .token.invalid         { border-bottom: red dotted 1px }
+  .highlighted .token.code            { color: maroon }
+  .highlighted .token.code.keyword    { color: navy }
+  .highlighted .token.typevar         { font-style: italic; }
+  
+  .highlighted .token.delimiter   {  } /* .[curly,square,parenthesis,angle,array,bracket] */
+  .highlighted .token.number      {  }    /* .[hex,octal,binary,float] */
+  .highlighted .token.variable    {  }  /* .[name,value]  */
+  .highlighted .token.meta        { color: navy }      /* .[content] */
+  
+  .highlighted .token.bold            { font-weight: bold; }
+  .highlighted .token.italic          { font-style: italic; }
+  
+  
+  /* Pretty formatting of code */
+  .madoko pre.pretty, .madoko code.pretty { 
+    font-family: Cambria,Times,Georgia,serif;
+    font-size: 100%;
+  }
+  
+  .madoko .pretty table {
+    border-collapse: collapse;
+  }
+  .madoko .pretty td {
+    padding: 0em;
+  }
+  .madoko .pretty td.empty {
+    min-width: 1.5ex;
+  }
+  .madoko .pretty td.expander {
+    width: 100em;
+  }
+  .madoko .pretty .token.identifier         { font-style: italic }
+  .madoko .pretty .token.constructor        { font-style: italic }
+  
+  
+  /* ---------------------------------------------------
+     Styling for full documents
+  ----------------------------------------------------*/
+  body.madoko {
+    font-family: Cambria,"Times New Roman","Liberation Serif","Times",serif;
+    -webkit-text-size-adjust: 100%; /* so math displays well on mobile devices */
+  }
+  
+  body.madoko {
+    max-width: 88ex; /* about 88 characters */
+    margin: 1em auto;
+    padding: 0em 2em;  
+  }
+  
+  body.preview.madoko {
+    padding: 0em 1em;
+  }
+  
+  .madoko p,
+  .madoko li {
+    text-align: justify;
+  }
+  
+  /* style headings nicer, especially h5 and h6 */
+  .madoko h1, .madoko h2, .madoko h3, .madoko h4 { 
+    margin-top: 1.22em; 
+    margin-bottom: 1ex;
+  }
+  .madoko h1+p, .madoko h2+p, .madoko h3+p, .madoko h4+p, .madoko h5+p  { 
+    margin-top: 1ex;    
+  }
+  .madoko h5, .madoko h6 { 
+    margin-top: 1ex;
+    font-size: 1em;
+  }
+  .madoko h5 { 
+    margin-bottom: 0.5ex;
+  }
+  .madoko h5 + p {
+    margin-top: 0.5ex;
+  }
+  .madoko h6 { 
+    margin-bottom: 0pt;
+  }
+  .madoko h6 + p {
+    margin-top: 0pt;
+  }
+  
+  
+  /* Fix monospace display (see http://code.stephenmorley.org/html-and-css/fixing-browsers-broken-monospace-font-handling/) */
+  .madoko pre, .madoko code, .madoko kbd, .madoko samp, .madoko tt, .madoko .monospace, .madoko .token.indent, .madoko .reveal pre, .madoko .reveal code, .madoko .email {
+    font-family: Consolas,"Andale Mono WT","Andale Mono",Lucida Console,Monaco,monospace,monospace;
+    font-size: 0.85em;
+  }
+  .madoko pre code, .madoko .token.indent {
+    font-size: 0.95em;
+  }
+  
+  .madoko pre code {
+    font-family: inherit !important;
+  }
+  
+  /* Code prettify */
+  .madoko ol.linenums li {
+    background-color: white;
+    list-style-type: decimal;
+  }
+  
+  /* Merging */
+  .madoko .remote {
+    background-color: #F0FFF0;
+  }
+  .madoko .remote + * {
+    margin-top: 0pt;
+  }
+  
+  /* ---------------------------------------------------
+     Print settings
+  ----------------------------------------------------*/
+  
+  @media print {
+    body.madoko {
+      font-size: 10pt;
+    }
+    @page {
+      margin: 1in 1.5in;
+    }
+  }
+  
+  /* ---------------------------------------------------
+     Mobile device settings
+  ----------------------------------------------------*/
+  
+  @media only screen and (max-device-width:1024px) {
+    body.madoko {
+      padding: 0em 1em;
+    }
+  }
+  
+    </style>
+  <script src="../js/analytics.js"  class="script"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$']]},
+       TeX: { 
+         Macros: { mathid: ['\\mathit{#1\\hspace{0.1ex}}',1], mathkw: ['\\mathsf{#1}',1],
+                   mdMathspace: ['\\hspace{#1pt}\\hspace{#1pt}\\hspace{#1pt}',1], mdMathindent: ['\\hspace{#1ex}',1], mdMathbr: ['\\\\'],
+                 },
+  
+       }
+    });
+    MathJax.Hub.Register.StartupHook('TeX AMSmath Ready',function () { 
+      MathJax.InputJax.TeX.Definitions.environment['mdMathprearray'] = ['AMSarray',null,null,null,'l','0em','0em'];
+    });
+  </script>
+  <script type="text/javascript" class="preview"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  
+  </head>
+<body class="madoko">
+
+<div class="body madoko" style="line-adjust:0">
+<style>
+body.madoko, .madoko-body {
+  max-width: 90%;
+}
+</style>
+
+
+
+<div class="titleblock align-center para-block" style="line-adjust:0">
+<div class="titleheader align-center" style="line-adjust:0">
+<div class="title para-block" style="font-size:xx-large;font-weight:bold;margin-bottom:0.5ex;line-adjust:0">Technikai segédlet</div>
+<div class="subtitle para-block" style="font-size:x-large;margin-bottom:0.5ex;line-adjust:0">a Rendszermodellezés (VIMIAA00) házi feladathoz</div></div></div><span data-line=""></span>
+<nav id="toc" class="toc">
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-elsz" class="localref"><span class="heading-before"><span class="heading-label">1</span>.&#8194;</span>Előszó</a></div>
+<div class="tocitem"  ><a href="#sec-alapismeretek" class="localref"><span class="heading-before"><span class="heading-label">2</span>.&#8194;</span>Alapismeretek</a></div>
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-eclipse-bevezet" class="localref"><span class="heading-before"><span class="heading-label">2.1</span>.&#8194;</span>Eclipse bevezető</a></div>
+<div class="tocitem"  ><a href="#sec-az-eclipse-munkaterlet" class="localref"><span class="heading-before"><span class="heading-label">2.2</span>.&#8194;</span>Az Eclipse munkaterület</a></div>
+<div class="tocitem"  ><a href="#sec-a-eclipse-felhasznli-fellet" class="localref"><span class="heading-before"><span class="heading-label">2.3</span>.&#8194;</span>A Eclipse felhasználói felület</a></div>
+<div class="tocitem"  ><a href="#sec-yakindu-bevezet" class="localref"><span class="heading-before"><span class="heading-label">2.4</span>.&#8194;</span>Yakindu bevezető</a></div></div>
+<div class="tocitem"  ><a href="#sec-a-modellez-eszkz-teleptse" class="localref"><span class="heading-before"><span class="heading-label">3</span>.&#8194;</span>A modellező eszköz telepítése</a></div>
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-java-krnyezet" class="localref"><span class="heading-before"><span class="heading-label">3.1</span>.&#8194;</span>Java környezet</a></div>
+<div class="tocitem"  ><a href="#sec-a-yakindu-letltse-s-bezemelse" class="localref"><span class="heading-before"><span class="heading-label">3.2</span>.&#8194;</span>A Yakindu letöltése és beüzemelése</a></div></div>
+<div class="tocitem"  ><a href="#sec-projekt-ltrehozsa-importlsa" class="localref"><span class="heading-before"><span class="heading-label">4</span>.&#8194;</span>Projekt létrehozása, importálása</a></div>
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-a-projekt-s-modell-ltrehozsa" class="localref"><span class="heading-before"><span class="heading-label">4.1</span>.&#8194;</span>A projekt és modell létrehozása</a></div>
+<div class="tocitem"  ><a href="#sec-yakindu-projekt-importlsa" class="localref"><span class="heading-before"><span class="heading-label">4.2</span>.&#8194;</span>Yakindu projekt importálása</a></div>
+<div class="tocitem"  ><a href="#sec-a-modell-megnyitsa" class="localref"><span class="heading-before"><span class="heading-label">4.3</span>.&#8194;</span>A modell megnyitása</a></div>
+<div class="tocitem"  ><a href="#sec-a-modell-kimentse" class="localref"><span class="heading-before"><span class="heading-label">4.4</span>.&#8194;</span>A modell kimentése</a></div></div>
+<div class="tocitem"  ><a href="#sec-modellezs-szimulci" class="localref"><span class="heading-before"><span class="heading-label">5</span>.&#8194;</span>Modellezés, szimuláció</a></div>
+<div class="tocblock">
+<div class="tocitem"  ><a href="#sec-llapot-alap-modellezs" class="localref"><span class="heading-before"><span class="heading-label">5.1</span>.&#8194;</span>Állapot alapú modellezés</a></div>
+<div class="tocitem"  ><a href="#sec-modellezs-yakinduban" class="localref"><span class="heading-before"><span class="heading-label">5.2</span>.&#8194;</span>Modellezés Yakinduban</a></div>
+<div class="tocitem"  ><a href="#sec-a-modell-mkdsnek-szimullsa" class="localref"><span class="heading-before"><span class="heading-label">5.3</span>.&#8194;</span>A modell működésének szimulálása</a></div>
+<div class="tocitem"  ><a href="#sec-a-modell-mkdsnek-tesztelse" class="localref"><span class="heading-before"><span class="heading-label">5.4</span>.&#8194;</span>A modell működésének tesztelése</a></div>
+<div class="tocitem"  ><a href="#sec-a-modell-kiprblsa" class="localref"><span class="heading-before"><span class="heading-label">5.5</span>.&#8194;</span>A modell kipróbálása</a></div>
+<div class="tocitem"  ><a href="#sec-kdgenerls" class="localref"><span class="heading-before"><span class="heading-label">5.6</span>.&#8194;</span>Kódgenerálás</a></div></div>
+<div class="tocitem"  ><a href="#sec-feladatkiads-s-feladatbeads" class="localref"><span class="heading-before"><span class="heading-label">6</span>.&#8194;</span>Feladatkiadás és feladatbeadás</a></div></div></nav><h2 id="sec-elsz"   style="bookmark:1.&#8194;El\151 sz\F3 "><span class="heading-before"><span class="heading-label">1</span>.&#8194;</span>Előszó</h2>
+<p>Jelen segédanyag a BME VIK elsőéves informatikus hallgatói számára készült a <strong>Méréstechnika és Információs Rendszerek Tanszék</strong>en Lucz Soma és Farkas Rebeka munkájának felhasználásával, és a&nbsp;<a href="https://inf.mit.bme.hu/edu/courses/remo" data-linkid="coursepage">Rendszermodellezés (VIMIAA00)</a> című tárgy kötelező házi feladatának elkészítésében segít. A szöveg a <strong>Yakindu</strong> 2.4.0 verziójával van összhangban, amely egy állapot alapú modellezést, szimulációt és kódgenerálást támogató eszköz.
+</p><h2 id="sec-alapismeretek"   style="bookmark:2.&#8194;Alapismeretek"><span class="heading-before"><span class="heading-label">2</span>.&#8194;</span>Alapismeretek</h2>
+<p>A&nbsp;<a href="http://statecharts.org" data-linkid="yakindumain">Yakindu modellező eszköz</a> az Eclipse nevű fejlesztőkörnyezet egy kiterjesztéseként érhető el. Mindkét szoftver nyílt forráskódú és az <em>Eclipse Public Licence</em> keretében ingyen használható. Ez a fejezet egy egy áttekintést ad az Eclipse és a Yakindu főbb fogalmairól. 
+</p><h3 id="sec-eclipse-bevezet"   style="bookmark:2.1.&#8194;Eclipse bevezet\151 "><span class="heading-before"><span class="heading-label">2.1</span>.&#8194;</span>Eclipse bevezető</h3>
+<p>Az Eclipse egy ingyenes, nyílt forráskódú és többcélú fejlesztőkörnyezet, amely egy közös platformból és arra épülő <em>plugin</em> (beépülő) modulokból áll. A megfelelő pluginek kiválasztásával ill. saját pluginek fejlesztésével az Eclipse képességei szabadon megválaszthatóak. A legtöbben Java fejlesztőkörnyezetként találkoznak vele, pedig többféle előre csomagolt változata is létezik (pl. C/C++ fejlesztéshez, modell alapú szoftvertervezéshez, stb.), melyek mindegyike a célnak megfelelő plugineket tartalmazza.
+</p><h3 id="sec-az-eclipse-munkaterlet"   style="bookmark:2.2.&#8194;Az Eclipse munkater\FC let"><span class="heading-before"><span class="heading-label">2.2</span>.&#8194;</span>Az Eclipse munkaterület</h3>
+<p>Az Eclipse a munkát <em>Workspace</em>-ekbe (munkaterület, munkakönyvtár) szervezi, amely a merevlemezünk egy erre célra kijelölt (de szabadon megválasztható) könyvtára. A workspace-ek <em>Project</em>-eket tartalmaznak, amelyeket szükség esetén <em>Working Set</em>-ekbe lehet szervezni. Többféle projektet lehet létrehozni, pl Java, C++, Plug-in projekt, stb. Projekteket lehet exportálni (pl. <em>zip</em> fájlba tömörítve), illetve importálni, így egy projekt workspace-ek és számítógépek között hordozható.
+</p><h3 id="sec-a-eclipse-felhasznli-fellet"   style="bookmark:2.3.&#8194;A Eclipse felhaszn\E1 l\F3 i fel\FC let"><span class="heading-before"><span class="heading-label">2.3</span>.&#8194;</span>A Eclipse felhasználói felület</h3>
+<p>Az Eclipse elindítása után a <em>Workbench</em> felület látszik, amely nyitott szerkesztőkből és nézetekből, valamint menüsorból, eszköztárakból, állapotsorból áll. 
+</p>
+<p class="indent">A <em>szerkesztőket</em> (Editor) használjuk a munkaterület fájljainak megnyitására és módosítására. Többféle szerkesztő használható egyszerre akár több példányban &#8211; pl egyszerre több Java fájl lehet megnyitva, vagy akár Java és XML szerkeszthető együtt. A szerkesztőterületek igény szerint különféleképpen elrendezhetőek a képernyőn, akár külön ablakba is áthúzhatóak.
+</p>
+<p class="indent">A szerkesztők mellett további funkciókat tesznek elérhetőve a különféle <em>nézetek</em> (View). Például a <em>Console</em> nézet a fejlesztőkörnyezetből elindított programok szabványos be- és kimeneti (ill. hibakimeneti) konzolját mutatja, a <em>Search</em> nézet a kereséseink találatait listázza, stb. Talán a legfontosabb nézet a <strong>Project Explorer</strong> (valamint <em>Package Explorer</em>, stb.), amelyen keresztül a workspace tartalmát böngészhetjük. 
+</p>
+<p class="indent">A nyitott nézetek, eszköztárak, stb. körét és elrendezését az éppen használt <em>perspektíva</em> (Perspective) határozza meg, amelyet valamely munkafázis támogatására válogattak össze. A perspektíva természetesen testreszabható a nyitott nézetek kézi áthelyezésével, bezárásával, valamint újak megnyitásával (<strong>Window</strong> &gt; <strong>Show View</strong>).
+</p><!-- A nézetek elsődleges funkciója az, hogy a navigálni lehessen az információ között. Egy nézet tulajdonképpen a Workspace adatinak egy reprezentációja.  Míg a szerkesztők helye kötött, nézetek bárhová helyezhetők. Saját eszköztárral is rendelkezhetnek. -->
+
+
+<h3 id="sec-yakindu-bevezet"   style="bookmark:2.4.&#8194;Yakindu bevezet\151 "><span class="heading-before"><span class="heading-label">2.4</span>.&#8194;</span>Yakindu bevezető</h3>
+<p>A Yakindu egy nyílt forráskódú eszköz reaktív, eseményvezérelt rendszerek specifikálására és fejlesztésére állapotgépek segítségével. Tartalmaz egy könnyen használható grafikus szerkesztőt, eszközöket validációhoz és szimulációhoz, valamint kódgenerátorokat különböző platformokra. A Yakindu Eclipse pluginek csoportjaként van megvalósítva, saját perspektívával, szerkesztőkkel és nézetekkel, amelyeket a következő fejezetek tárgyalnak.
+</p><h2 id="sec-a-modellez-eszkz-teleptse"   style="bookmark:3.&#8194;A modellez\151  eszk\F6 z telep\ED t\E9 se"><span class="heading-before"><span class="heading-label">3</span>.&#8194;</span>A modellező eszköz telepítése</h2><h3 id="sec-java-krnyezet"   style="bookmark:3.1.&#8194;Java k\F6 rnyezet"><span class="heading-before"><span class="heading-label">3.1</span>.&#8194;</span>Java környezet</h3>
+<p>Ahhoz, hogy az Eclipse alapú Yakindu, továbbá a házi feladathoz segítséget nyújtó további eszközök futni tudjanak, a Java fejlesztőkészlet (Java Development Kit, JDK) előzetes telepítése szükséges (minimálisan 7u6-os verzió).
+</p>
+<p class="indent">A JDK telepítőkészletet az&nbsp;<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" data-linkid="jdkdownload">Oracle honlapjáról</a> lehet letölteni. Az oldalon a <strong>Java SE Development Kit</strong> feliratú szürke dobozban az <strong>Accept License Agreement</strong> lehetőséget kell kiválasztani, ekkor az alatta lévő listából letölthető a platformunknak megfelelő telepítőfájl. A telepítés <em>Next - Next - Finish</em> típusú, nem igényel különösebb fejtörést. Amennyiben valamilyen további reklámtermék (pl. Ask.com) telepítését is felajánlja, azt nem szükséges elfogadni. 
+</p>
+<p class="indent">Figyelem: a hivatalos Oracle JVM-et ajánljuk. OpenJDK-val maga a feladat megoldható, de nem fog működni a kötelező házi feladat kipróbálását segítő grafikus felület (ld.&nbsp;<a href="#sec-a-modell-kiprblsa" title="5.5.&#8194;A modell kipróbálása" class="localref" style="target-element:h2"><span class="heading-label">5.5</span></a>. szakasz).
+</p><!--
+Telepítés után érdemes beállítani a JAVA\_HOME változót, valamint hozzáadni a Java elérési útját a PATH-hoz. Ehhez Windowson a követketzőt kell tenni.
+
+ * A számítógép ikonra jobb gombal kattintva válasszuk a **Properties** (Tulajdonságok) lehetőséget. (Elérhető a _Control Panel_ | _System and Security_ | _System_ úton is.)
+ * A bal oldali menü lehetőségei közül kattintsunk az **Advanced System Settings**-re.
+ * Itt nyomjunk rá az **Environment Variables** gombra.
+ * Ha még nincs JAVA\_HOME változó, létre kell hozni. JAVA\_HOME legyen a neve, az értéke pedig a frissen installált Java könyvtár elérési útja. Ha szóközöket tartalmaz, érdemes rövidítéseket használni, pl. C:\Progra~1\Java\jdk1.8.0\_31
+ * Jelöljük ki a _Path_ változót, majd **Edit**. A változó jelenlegi értékét ne töröljük ki, csak írjunk a végére egy pontosvesszőt, majd a JDK-n belüli bin könyvtár elérési útját.
+ 
+ -->
+
+<h3 id="sec-a-yakindu-letltse-s-bezemelse"   style="bookmark:3.2.&#8194;A Yakindu let\F6 lt\E9 se \E9 s be\FC zemel\E9 se"><span class="heading-before"><span class="heading-label">3.2</span>.&#8194;</span>A Yakindu letöltése és beüzemelése</h3>
+<p>A&nbsp;<a href="http://statecharts.org/download.html" data-linkid="yakindudownload">linkelt oldalról</a> tölthető le egy teljes Eclipse a Yakinduval kiegészítve. Itt a jobb oldali oszlopban a <em>Full Eclipse</em> alatt lehet kiválasztani az oprendszernek megfelelő verziót. (Alternatívaként természetesen lehetséges egy meglévő Eclipse példány kiegészítése a Yakindu pluginjeivel; ez kezdő Eclipse felhasználóknak nem ajánlott, és nem nyújtunk segítséget hozzá.)
+</p>
+<p class="indent">A programot nem kell telepíteni &#8211; letöltés és kicsomagolás után egy futtatásra kész állományt kapunk, amit csak el kell indítanunk az <em>eclipse.exe/eclipse.app</em>-re kattintva.
+</p>
+<p class="indent">Első indításkor az Eclipse megkérdezi, melyik workspace-ben szeretnénk dolgozni. Adjunk meg neki egy mappát (ha nem létezik, majd az Eclipse létrehozza). Figyeljünk, hogy a mappa elérési útjában ne szerepeljenek ékezetes karakterek, vagy szóközök. Pipáljuk ki, hogy ne kérdezze meg minden indításkor (indulás után bármikor lehet workspace-t váltani).
+Ez a workspace lesz a későbbiekben a projektfájlok helye, ide fog dolgozni alapesetben a program. 
+<!--Természetesen máshonnan is importálható projekt, illetve máshová is lehet menteni, de a workspace kényelmes megoldás arra, hogy egységes helyen tároljuk az aktuális munkáinkat.-->
+</p>
+<p class="indent">Amíg az új workspace-ben nincsenek projektjeink, az Eclipse megjelenít egy üdvözlőképernyő fület. Ezt nyugodtan bezárhatjuk.
+</p><h2 id="sec-projekt-ltrehozsa-importlsa"   style="bookmark:4.&#8194;Projekt l\E9 trehoz\E1 sa, import\E1 l\E1 sa"><span class="heading-before"><span class="heading-label">4</span>.&#8194;</span>Projekt létrehozása, importálása</h2><h3 id="sec-a-projekt-s-modell-ltrehozsa"   style="bookmark:4.1.&#8194;A projekt \E9 s modell l\E9 trehoz\E1 sa"><span class="heading-before"><span class="heading-label">4.1</span>.&#8194;</span>A projekt és modell létrehozása</h3>
+<p>Ahhoz, hogy a Yakinduval megkezdhessük a munkát, szükség van egy tetszőleges projektre az Eclipse workspace-ben. A házi feladat támogatására kiadunk megfelelően előkészített projektvázakat, amelyeket csak importálni kell (lásd&nbsp;<a href="#sec-yakindu-projekt-importlsa" title="4.2.&#8194;Yakindu projekt importálása" class="localref" style="target-element:h2"><span class="heading-label">4.2</span></a>-es szakasz). Az alábbiakban viszont leírjuk, hogyan kellene enélkül a projektváz nélkül a &#8220;nulláról&#8221; elindulni.
+</p>
+<p class="indent">Ha Java kódot szeretnénk majd generálni (ami a házi feladat támogatására kiadott segédeszközöknek kelleni is fog), akkor <em>Java Project</em> készítésére van szükség. Ehhez a <strong>File</strong> menü <strong>New</strong> menüpontján belüli <strong>New Java Project</strong> pontra kell kattintanunk. Itt megadhatjuk a projekt nevét, majd egészen nyugodtan nyomhatunk rögtön egy <strong>Finish</strong>-t (a további beállításokra most nem lesz szükségünk). 
+<!--a további beállításokra még Szoftlab 3-on sem lesz szükségünk.-->
+</p><!-- ## A projekten belüli Yakindu-mappa létrehozása -->
+
+<!--A bal oldali Project Explorerben láthatóak a projektjeink: itt keressük meg a frissen létrehozottat. A projekten belül célszerű lesz egy külön mappát létrehozni a modell számára Erre jobb gombbal kattintva **New** és **Folder**. A létrehozandó mappának adjuk a _model_ nevet. Ez persze bármi lehet, de most a modell nevet adjuk a mappának, hiszen a benne tárolt adat egy Yakinduban létrehozott állapotmodell lesz. A projektünkön belül létrejött egy _model_ nevű mappa. 
+## A Yakindu állapotmodell létrehozása
+-->
+
+
+
+<p>A bal oldali Project Explorerben láthatóak a projektjeink: itt keressük meg a frissen létrehozottat. Ide fogjuk elkészíteni a Yakindu állapotmodellünket. Jobb gombbal kattintva a mappára <strong>New</strong>, majd <strong>Other</strong>. Felugrik egy ablak rengeteg választási lehetőséggel, itt válasszuk a <strong>Yakindu</strong> kategóriát, azon belül pedig a <strong>Statechart Model</strong> pontot. Fájlnévként megadhatunk bármit, csak a <em>.sct</em> kiterjesztésre figyeljünk. Aki akarja, természetesen létehozhat előbb a projekten belüle egy mappastruktúrát (jobb gombbal kattintva <strong>New</strong> és <strong>Folder</strong>) a modell elhelyezésére.
+</p><h3 id="sec-yakindu-projekt-importlsa"   style="bookmark:4.2.&#8194;Yakindu projekt import\E1 l\E1 sa"><span class="heading-before"><span class="heading-label">4.2</span>.&#8194;</span>Yakindu projekt importálása</h3>
+<p>A házi feladat elkészítése során a fenti lépések végrehajtására nem lesz szükség, mivel egy előre megadott projektvázlattal kell dolgozni. Ezt egy <em>.zip</em> fájlban adják ki, amelyet a következőképpen kell Eclipse-be importálni.
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li">Katt a <strong>File</strong> menü <strong>Import…</strong> pontjára.
+</li>
+<li class="li ul-li list-star-li compact-li">A felügró ablakban a <strong>General</strong> mappán belüli <strong>Existing Projects into Workspace</strong> pont fog kelleni nekünk.
+</li>
+<li class="li ul-li list-star-li compact-li">Itt a <em>Select archive file</em> lehetőséget választva adjuk meg a letöltött <em>.zip</em> fájl útvonalát. Ekkor az ablak közepén lévő <em>Projects</em> részben láthatóvá kell válnia egyetlen projektnek, amelynek a neve tartalmazza a NEPTUN-kódunkat. Ez lesz a miénk.
+</li>
+<li class="li ul-li list-star-li compact-li">A <strong>Finish</strong> után a Project Explorerben láthatóvá válik az imént importált projektünk. Itt a mappát lenyitva, az <strong>.sct</strong> kiterjesztésű fájlra duplán kattintva elkezdhetünk dolgozni a házi feladattal.
+</li></ul>
+<h3 id="sec-a-modell-megnyitsa"   style="bookmark:4.3.&#8194;A modell megnyit\E1 sa"><span class="heading-before"><span class="heading-label">4.3</span>.&#8194;</span>A modell megnyitása</h3>
+<p>Nyissuk meg az <strong>.sct</strong> fájlt a Yakindu szerkesztőjében! Az Eclipse ekkor fel fogja tenni a kérdést, hogy <em>„Perspektívát”</em> akarunk-e váltani. Ahogy a&nbsp;<a href="#sec-a-eclipse-felhasznli-fellet" title="2.3.&#8194;A Eclipse felhasználói felület" class="localref" style="target-element:h2"><span class="heading-label">2.3</span></a>. szakaszban írtuk, az Eclipse különböző funkcióihoz az eszközök, nézetek, eszköztárak különféle elrendezései tartoznak, így a Yakindu is olyan elrendezéssel jelenik meg az Eclipse-en belül, ahogy a készítői szerint a legkényelmesebb benne dolgozni. Tehát nyomjunk igent. A perspektíva természetesen később testreszabható a korábban írtak szerint.
+</p><h3 id="sec-a-modell-kimentse"   style="bookmark:4.4.&#8194;A modell kiment\E9 se"><span class="heading-before"><span class="heading-label">4.4</span>.&#8194;</span>A modell kimentése</h3>
+<p>Ha elkészült a megoldás, ne felejtsük el elmenteni (Ctrl+S, illetve floppy ikon az eszköztáron). A kész megoldás elmentése után az <strong>.sct</strong> fájlt kell majd feltölteni a feladatbeadó portálra (ld.&nbsp;<a href="#sec-feladatkiads-s-feladatbeads" title="6.&#8194;Feladatkiadás és feladatbeadás" class="localref" style="target-element:h1"><span class="heading-label">6</span></a>. szakasz). Ha a <em>Project Explorer</em> segítségével kitallózzuk a fájlt, egyszerű <em>drag&amp;drop</em> művelettel kimásolható a workspace-en belüli helyéről. 
+</p>
+<p class="indent">Egy másik megoldás a számos lehetőség közül, hogy jobb gombbal a fájlt képviselő bejegyzésre kattintunk, és a <strong>Properties</strong> menüponttal megnyitjuk a tulajdonságablakot; ott a <strong>Resource</strong> tulajdonságlap <strong>Location</strong> bejegyzése alatt olvasható a fájl teljes elérési útja, amelyet felhasználhatunk pl. a fájlfeltöltési párbeszédablakban.
+</p>
+<p class="indent">Ügyeljünk arra, hogy a feladatmegoldás során előállt végleges verziót töltsük fel, semmiképp se az eredetileg kiadott projektvázban található modellkezdeményt.
+</p><h2 id="sec-modellezs-szimulci"   style="bookmark:5.&#8194;Modellez\E9 s, szimul\E1 ci\F3 "><span class="heading-before"><span class="heading-label">5</span>.&#8194;</span>Modellezés, szimuláció</h2><h3 id="sec-llapot-alap-modellezs"   style="bookmark:5.1.&#8194;\C1 llapot alap\FA  modellez\E9 s"><span class="heading-before"><span class="heading-label">5.1</span>.&#8194;</span>Állapot alapú modellezés</h3>
+<p>Az állapot alapú modellezés tágabb témaköréről szóló Rendszermodellezés előadás fóliái&nbsp;<a href="https://inf.mit.bme.hu/edu/courses/remo/materials" data-linkid="theorytalk">elérhetőek a honlapon</a> a többi előadási alkalom fóliáival együtt. A Yakindu modellek az állapotgép (<em>statechart</em>) formalizmussal írják le a rendszerek működését. Ezen modellezési paradigmához hasznos elméleti bevezetőt adunk az előadás kiegészítő&nbsp;<a href="http://docs.inf.mit.bme.hu/remo/out/03-allapot-alapu-modellezes.html" data-linkid="theorytext">írásos segédanyagban</a>; ennek az alapos tanulmányozását mindenképpen javasoljuk, mivel a formalizmus elemeinek többségét bemutatja, és Yakindu modelleket használ hozzá illusztrációnak. 
+</p><h3 id="sec-modellezs-yakinduban"   style="bookmark:5.2.&#8194;Modellez\E9 s Yakinduban"><span class="heading-before"><span class="heading-label">5.2</span>.&#8194;</span>Modellezés Yakinduban</h3>
+<p>A <strong>.sct</strong> fájl szerkesztéséhez megnyíló szerkesztőfül három területre van osztva:
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li">A bal oldali terület szöveges szintaxissal specifikálja az állapotgép nevét és interfészeit (input/output események ill. interfészváltozók neve és típusa).
+</li>
+<li class="li ul-li list-star-li compact-li">A középső területen maga a statechart diagram lesz szerkeszthető. A diagram állapot- és pszeudoállapot-csomópontokból áll, amelyek szürke téglalapként jelölt ortogonális régiókba szervezhetőek. A csomópontok között állapotátmeneti szabályokat reprezentáló élek haladnak amelyek megcímkézhetőek a kiváltó okkal (input esemény vagy időzítés), őrfeltétellel, és végrehajtandó akcióval (változóértékek frissítése, output események).
+</li>
+<li class="li ul-li list-star-li compact-li">A jobb oldali területet a diagramszerkesztéshez használható paletta foglalja el, itt választhatóak ki a diagramra helyezendő modellelemek.
+</li></ul>
+
+<p>A házi feladat megoldásakor elvárás, hogy az állapotgép külső interfésze az előre kiadottal egyezzen. Így tehát a feladatmegoldás során elsősorban a diagrammal kell dolgozni, <strong>az állapotgép nevének és interfészének módosítása tilos</strong>. Ugyanakkor engedélyezett és ajánlott belső használatú, lokális változókat felvenni; erre a célra fenn van tartva a bal oldali területen egy <strong>internal</strong> megjelölésű szakasz (<em>Insert additional variables here</em> megjegyzéssel). 
+</p>
+<p class="indent">A szerkesztőeszköz részletesebb ismertetésére ezen a helyen nincs mód, de ez a tudás más forrásokból könnyen pótolható. A modellszerkesztő felhasználói felület használatát egy&nbsp;<a href="http://youtu.be/ev5wEjvje78" data-linkid="trafficlightvideodemo">videón mutatjuk be</a>, amely lépésről lépésre végighalad a fenti elméleti bevezető segédanyag példáin. A modellező eszköz részletesebb megismeréséhez természetesen rendlekezésre áll a Yakindu honlapján angol nyelven publikált&nbsp;<a href="http://statecharts.org/documentation.html" data-linkid="yakindudoc">szöveges dokumentáció</a>, továbbá a&nbsp;<a href="https://www.youtube.com/watch?v=uO6MASCBPrg" data-linkid="yakinduofficialvideo">bemutató videó</a> is. 
+</p>
+<p class="indent">A videóból nem feltétlenül látszik, de hasznos tudnivaló, hogy a szöveges beviteli helyeken (pl. állapotátmeneti szabályok címkézése) gépelés közben a <strong>Ctrl + szóköz</strong> billenytűkombinációval kódkiegészítéseket (<em>Code completion</em>) javasol nekünk a Yakindu; ezzel nagymértékben gyorsítható a munka. További hasznos tipp, hogy a modellezés kezdetekor növeljük meg a <em>main region</em> nevű területet, mivel szinte biztos, hogy több helyre lesz szükségünk; a <strong>Ctrl + görgő</strong> kombinációval tudunk kényelmesen nagyítani, illetve kicsinyíteni. 
+</p>
+<p class="indent">A Yakindu természetesen jóval szélesebb körű felhasználásra alkalmas, mint a Rendszermodellezés házi feladat. Így vannak olyan modellezési elemei, amelyeket más felhasználási esetkere szántak, a házi feladat szempontjából értelmetlenek, és így használatukat nem engedjük meg. (Konkrétabban: a Rendszermodellezés házi feladat kontextusában, a <em>Digitális technika</em> tárgyból tanult szinkron áramkörökkel ellentétben, nincs meghatározott <em>órajel</em> fogalom, így a kifejezetten erre építő Yakindu nyelvi elemek a szimulációban és tesztelés közben nem fognak helyesen működni.) Ezen <strong>tiltott elemek</strong>:
+</p>
+<ul class="ul list-star compact">
+<li class="li ul-li list-star-li compact-li"><code class="code code3">always</code>
+</li>
+<li class="li ul-li list-star-li compact-li"><code class="code code3">oncycle</code>
+</li></ul>
+<!--A _default_ ablakrészben tudjuk megadni az interface-eket, illetve a modellezéshez szükséges alapokat. A jobb oldali eszköztárral tudunk hozzáadni az ábrához újabb állapotokat, illetve onnan érünk el mindent, ami a modellezéshez szükséges.-->
+
+
+
+
+<h3 id="sec-a-modell-mkdsnek-szimullsa"   style="bookmark:5.3.&#8194;A modell m\171 k\F6 d\E9 s\E9 nek szimul\E1 l\E1 sa"><span class="heading-before"><span class="heading-label">5.3</span>.&#8194;</span>A modell működésének szimulálása</h3>
+<p>Ha már van egy részleges vagy teljes megoldásunk, nyilván szeretnénk meggyőződni annak helyességéről. Ennek egyik eszköze a Yakindu beépített szimulátora.
+</p>
+<p class="indent">A szimuláció elindításához válasszuk ki a bal oldali Project Explorerben látható Yakindu statechart fájlt (<em>.sct</em>) vagy az erre a célra készített <em>Simulation.launch</em> nevű &#8220;launch configot&#8221; (indítási konfigurációs állományt), majd jobb gombbal kattintva a <strong>Run As</strong>, majd <strong>Statechart Simulation</strong> pontot válasszuk. Így megnyílik a <em>Simulation View</em> nézet, és a Yakindu elkezdi szimulálni a modellünket. Piros színnel ki lesz(nek) emelve az állapotkonfiguráció aktív állapota(i), a nagyobb összetett állapotoktól egészen a legszűkebb állapotig.
+</p>
+<p class="indent">A jobb oldali <em>Simulation</em> fül alatt láthatóak az állapotgép interfészén definiált „változók”, illetve „események”. A házi feladat példáiban ezek gombok, kijelzők, illetve időesemények lesznek majd. A szimuláció indítása után a <em>gombok</em> nyomkodása input eseményeknek felel meg, így ezekkel vezérelhetjük közvetlenül a szimulált állapotgép állapotátmeneteit. A szimulációt a felső eszköztárban lévő piros négyzettel, vagyis a <strong>Terminate</strong> gombbal állíthatjuk le.
+</p><h3 id="sec-a-modell-mkdsnek-tesztelse"   style="bookmark:5.4.&#8194;A modell m\171 k\F6 d\E9 s\E9 nek tesztel\E9 se"><span class="heading-before"><span class="heading-label">5.4</span>.&#8194;</span>A modell működésének tesztelése</h3>
+<p>Megoldásunk helyességének ellenőrzésére szolgálnak a kiadott tesztesetek. Ezek lefuttatásával egyszerű helyesírási hibáktól kezdve a bonyolult funkcionális hiányosságokig számos problémára fényt deríthetünk még a házi feladat beadása előtt. Teszteseteink felépítése a következő: először kezdőállapotba állítjuk a vizsgált állapotgépet, majd események sorozatának hatására léptetjük, végül (esetleg közben is) megvizsgáljuk, hogy a feladatkiírásnak megfelelően viselkedett-e. Amennyiben igen, a teszteset <em>sikeresnek</em> mondjuk, ellenkező esetben a teszteset <em>meghiúsul</em>, és kilistázzuk a hiba okát.
+</p>
+<p class="indent">A kötelező házi feladat esetén egy teszteset az alábbi eseményeket tartalmazhatja:
+</p>
+<ul class="ul list-star loose">
+<li class="li ul-li list-star-li loose-li">
+<p><em>Gomb Lenyomása</em>: a sakkórán lenyomunk egy gombot, amire a rendszernek a feladatkiírásnak megfelelően kell reagálnia.
+</p></li>
+<li class="li ul-li list-star-li loose-li">
+<p><em>Várakozás:</em> Idő múlását szimulálhatjuk az állapotgépen. Erre szintén reagálhat az állapotgép.
+</p></li></ul>
+
+<p>Események egy sorozata után az alábbi vizsgálatokat tehetjük:
+</p>
+<ul class="ul list-star loose">
+<li class="li ul-li list-star-li loose-li">
+<p><em>Kijelző leolvasása:</em> A kijelző szövegét betűről betűre összehasonlítjuk egy elvárt értékkel.
+</p></li>
+<li class="li ul-li list-star-li loose-li">
+<p><em>Játékosok számjelzőinek leolvasása:</em> A játékosok idejét jelző kijelzőn lévő számot vizsgáljuk.
+</p></li>
+<li class="li ul-li list-star-li loose-li">
+<p><em>Hangjelzés vizsgálata:</em> Megnézzük, hogy az ellenőrzés pillanatában elkezdett-e sípolni a sakkóra. (Mivel a modellnek önmagában, az aktuális megvalósításban használt hangjelzések hosszától függetlenül helyesen kell viselkedniük, csak a hangjelzés kezdését mint pillanatszerű eseményt vizsgáljuk.)
+</p></li></ul>
+
+<p>A bemelegítő szorgalmi házi feladatban értelemszerűen ennél kevesebb elemből épülnek fel a tesztesetek. 
+</p>
+<p class="indent">Teszteseteinket a <em>Tests.launch</em> állományra jobb gombbal kattintva futtathatjuk, a <em>Run as</em> menüponttal. A tesztek hamar lefutnak, két helyen lehet ellenőrizni az eredményeket: a tesztekről szöveges jelentés jelenik meg a konzolon (<strong>Console</strong> nézet), illetve a tesztfuttató keretrendszer (<strong>JUnit</strong>) egy külön erre a célra szánt nézetben is összefoglalja az eredményeket.
+</p>
+<p class="indent">A konzolon a sikeres tesztek kódját egyszerűen csak felsoroljuk:
+</p>
+<pre class="para-block pre-fenced pre-fenced3"><code>neptun4 Succeeded!</code></pre>
+<p>Meghiúsult tesztek esetén kiírjuk a vizsgált teszt célját, a beadott eseményeket sorrendhelyesen (azok időpontjával feltüntetve), valamint azt a vizsgálatot, ami meghiúsítja a tesztet. Itt a kapott és a helyette elvárt kimenetet is feltüntetjük.
+</p>
+<pre class="para-block pre-fenced pre-fenced3"><code>neptun4 Failed:
+    Pressing the button three times shows your Neptun code N3PTUN again
+    ----------
+     - Button at 0s
+     - Button at 0s
+     - Button at 0s
+     - Failed main display check: expected &quot;N3PTUN&quot; but found &quot;Other text&quot;</code></pre>
+<p>A <strong>JUnit</strong> nézet felsorolja a teszteket, amelyeket színkóddal (zöld ill. piros) lát el annak megfelelően, hogy sikeres volt-e vagy sem. Az összes teszteset lefutásáról összefoglalót olvashatunk a nézet tetején, valamint egy jelzőcsík is mutatja a futtatás kimenetelét. Egy meghiúsult esetre kattintva megnézhetjük a hiba okát a <strong>Failure Trace</strong> ablakban. 
+</p><h3 id="sec-a-modell-kiprblsa"   style="bookmark:5.5.&#8194;A modell kipr\F3 b\E1 l\E1 sa"><span class="heading-before"><span class="heading-label">5.5</span>.&#8194;</span>A modell kipróbálása</h3>
+<p>A részleges vagy teljes megoldásunk helyességét nem csak a Yakindu beépített szimulátorán keresztül próbálhatjuk ki, hanem saját fejlesztésű programba is beágyazhatjuk. (A bemelegítő házi feladat esetén ez a lehetőség nem érhető el.) A kötelező házi feladat esetén el is készítettünk egy sakkórát imitáló grafikus felületet, amelyen keresztül az elkészített modell működése közvetlenül és látványosan kipróbálható. Az alkalmazást az <em>Application.launch</em> launch config állományra jobb gombbal kattintva indíthatjuk, ha a <em>Run as</em> menüpontot választjuk.
+</p>
+<p class="indent"><em>Figyelem!</em> Olyan modellt nem érdemes kipróbálni, amelyet már a Yakindu szerkesztő is hibásnak mond. Ezekben az esetekben sokszor az alkalmazás már el sem fog tudni indulni, hibaüzenettel azonnal leáll.
+</p><h3 id="sec-kdgenerls"   style="bookmark:5.6.&#8194;K\F3 dgener\E1 l\E1 s"><span class="heading-before"><span class="heading-label">5.6</span>.&#8194;</span>Kódgenerálás</h3>
+<p>A Yakindu képes az állapotgép-modellből olyan forráskódot generálni (különféle programnyelvekben), amelynek működése az állapotgéppel meg fog egyezni. Az állapotgép szerkesztése és elmentése után a Yakindu automatikusan előállítja ill. frissíti a tárgynyelvi forrásfájlokat.
+</p>
+<p class="indent">A kiadott projektvázakban már konfigurálásra került a (Java nyelvű) kódgenerálás, amelynek a beállításait egy <strong>.sgen</strong> kiterjesztésű fájl tárolja. Valójában mind a tesztkészlet, mind a sakkóra grafikus felület az így automatikusan előálló forráskódot hívja meg. A házi feladat megoldása során se a kódgenerálás beállításaival, se a generált forráskóddal nem kell foglalkozni, de érdeklődő hallgatók megnézhetik ezeket.
+</p><h2 id="sec-feladatkiads-s-feladatbeads"   style="bookmark:6.&#8194;Feladatkiad\E1 s \E9 s feladatbead\E1 s"><span class="heading-before"><span class="heading-label">6</span>.&#8194;</span>Feladatkiadás és feladatbeadás</h2>
+<p>A&nbsp;<a href="https://inf.mit.bme.hu/edu/courses/remo" data-linkid="coursepage">Rendszermodellezés tágy honlapján</a>, a bal oldalt fent látható navigációs fában a <strong>Hírek</strong> rovatra kattintva a tárggyal kapcsolatos aktuális oktatási hírek olvashatóak, amelyekre RSS olvasó segítségével fel is lehet iratkozni. Itt lesz közzétéve a házi feladatokhoz tartozó feladatkiírások és az előre összekészített Yakindu projektvázak letöltésének lehetősége.
+</p>
+<p class="indent">A megoldás feltöltése a&nbsp;<a href="https://inf.mit.bme.hu/user/grader" data-linkid="graderpage">feladatbeadó portálon</a> lehetséges, kizárólag a határidőt megelőző időszakban. A határidőt szigorúan vesszük, a beadási űrlap a határidő elérésekor percre pontosan lezárul. A feladatbeadó portál használata nem bonyolult, de probléma esetén nyugodtan fordulhatunk a&nbsp;<a href="https://inf.mit.bme.hu/wiki/jegyzokonyv" data-linkid="graderhelp">használati útmutató</a>t. A megoldás beadásakor egyetlen <strong>.sct</strong> fájl feltöltése szükséges. 
+Vigyázzunk arra, hogy azt a modellt töltsük fel amit szerkesztettünk!
+(A <em>&#8216;Copy project into workspace&#8217;</em> opció hatására a workspace mappába másolódik a projekt.
+Ebben az esetben innen töltsük fel a megoldást. Részletes leírás a&nbsp;<a href="#sec-a-modell-kimentse" title="4.4.&#8194;A modell kimentése" class="localref" style="target-element:h2"><span class="heading-label">4.4</span></a>. szakaszban olvasható.)
+</p>
+<p class="indent">Mivel mindenki egyénileg testreszabott házi feladatot kap, egyéni azonosítás szükséges a házi feladat elemeinek letöltésekor és a megoldás feltöltésekor egyaránt. Az azonosítást a&nbsp;<a href="https://login.bme.hu/admin/" data-linkid="graderauth">BME Címtár</a> szolgáltatása végzi, ezért aki még nem tette meg, mielőbb regisztráljon magának címtár azonosítót. Ha a portál elérésekor nem történik meg automatikusan az azonosítás, akkor a &#8220;nincs jogosultság&#8221; hibaüzenetet kaphatjuk; ebben az esetben a bal oldali sávban kattintsunk a <strong>BME Címtár belépés </strong> linkre.
+</p>
+<p class="indent"><a href="https://github.com/FTSRG/remo/blob/gh-pages/00-alap.md">A segédanyag forrása</a>
+</p>
+<div class="logomadoko block" style="text-align:right;font-size:xx-small;margin-top:4em"><span data-line="1"></span>Created with&nbsp;<a href="https://www.madoko.net">Madoko.net</a>.</div></div><span data-line=""></span>
+</body>
+
+</html>

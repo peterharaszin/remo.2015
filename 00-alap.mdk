@@ -1,0 +1,74 @@
+Title         : Segédanyag sablon
+
+[INCLUDE="header.mdk"]
+
+Link a [GitHub repositoryra][GitHubRepo].
+
+# Bevezetés
+
+Bevezető szöveg
+
+## Fogalmak
+
+Az alábbiakban bevezetünk néhány fontos _fogalmat_:
+
+* _A_: ...
+* _B_: ...
+
+Egy képlet: $s = v_0t + \frac{a}{2}t^2$.
+
+Külön bekezdésben:
+
+~ Equation  {#eq-negyzetes-uttorveny}
+s = v_0t + \frac{a}{2}t^2
+~
+
+Kimondjuk a négyzetes úttörvényt [#eq-negyzetes-uttorveny].
+
+~RemoExample
+Keretes példa
+~
+
+Példa kód:
+
+```java
+public class Hello {
+  public staic void main(String[] args) {
+    System.out.println("Hello world.");
+  }
+}
+```
+
+Ekkor a jelzőlámpa modellezhető a [#trafficLight_1]. ábrán szemléltetett állapotgéppel:
+
+~ RemoFigure { #trafficLight_1 caption="Jelzőlámpa egyzerű állapotgépe"}
+![TrafficLight_1]
+~
+
+Egy halálfejes hiba: ... ![skull]
+
+~ RemoRemark
+Egy szöveges megjegyzés.
+~
+
+# Feladatok {-}
+
+~ RemoExercise
+Egy feladat.
+~
+
+# Ajánlott irodalom {-}
+
+Hasznos cikkek [@Latella99;@Dubrovin08].
+
+# Hivatkozások {-}
+
+[BIB]
+
+[GitHubRepo]: https://github.com/FTSRG/remo/
+
+[skull]: images/skull.png "skull" { width=auto vertical-align=middle }
+
+[TrafficLight_1]: images/TrafficLight_1.svg "TrafficLight_1" { width=auto }
+
+[A segédanyag forrása](https://github.com/FTSRG/remo/blob/gh-pages/00-alap.md)

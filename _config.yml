@@ -1,0 +1,11 @@
+title: Rendszermodellezés
+baseurl: /remo
+highlighter: pygments
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+# see the _includes/JB/setup file
+JB:
+  BASE_PATH: /remo

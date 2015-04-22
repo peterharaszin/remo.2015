@@ -1,0 +1,7 @@
+body.madoko, .madoko-body {
+  max-width: 90%; /* changed from the default value */
+}
+
+body {
+  color: red;
+}

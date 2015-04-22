@@ -1,0 +1,61 @@
+Heading Base  : 2 
+Bibliography  : remo.bib
+Math Mode     : dynamic
+MathJax       : https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+Script        : ../js/analytics.js
+
+~RemoDef: .block
+  label='[@RemoDef]{.remodef-label}'
+  before='[**&label;.\ definíció**.\ ]{.remodef-before}'
+  border-style=solid
+  border-color=blue
+  border-width=1px
+  padding=5px
+
+~RemoExample: .block
+  label='[@RemoExample]{.remoexample-label}'
+  before='[**&label;.\ példa**.\ ]{.remoexample-before}'
+  border-style=solid
+  border-color=green
+  border-width=1px
+  padding=10px
+  
+~RemoExercise: .block
+  label='[@RemoExercise]{.remoexercise-label}'
+  before='[**&label;.\ feladat**.\ ]{.remoexercise-before}'
+  border-style=solid
+  border-color=black
+  border-width=1px
+  padding=10px
+  
+~RemoRemark: .block
+  label='[@RemoRemark]{.remoremakd-label}'
+  before='[**Megjegyzés**.\ ]{.remoremark-before}'
+
+~RemoFigure:
+  label='[@RemoFigure]{.remofiure-label}' .align-center
+  after='&nl;********* {.figureline}&nl;\
+    [[**&label;.\ ábra.** ]{.caption-before}&caption;]\
+    {.figure-caption html-elem=fig-caption}\
+    &nl;{notag}&nl;'
+  toc=tof toc-line='&label;. &caption;'
+  html-elem=figure
+  html-elem=figure
+
+<style>
+body.madoko, .madoko-body {
+  max-width: 90%;
+}
+
+.remodef-before {
+  color: blue;
+}
+
+.remoexample-before {
+  color: green;
+}
+</style>
+
+[TITLE]
+
+[TOC]

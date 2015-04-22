@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="generator" content="Madoko, version 0.8.4-beta" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <title>Segédanyag sablon</title>
+  <style  class="link">
+/* ---------------------------------------------------
+   Various settings to display madoko elements correctly.
+   For example, lines in tables or a table of contents.
+
+   All rules use specific madoko classes and never just
+   a generic element. This means one can safely include
+   this CSS into any web page without affecting non-madoko
+   content.
+----------------------------------------------------*/
+
+/* The table of contents */
+.madoko .toc>.tocblock .tocblock .tocblock {
+  margin-left: 2.5em;
+}
+
+.madoko .toc>.tocblock .tocblock {
+  margin-left: 1.7em;
+}
+
+.madoko .toc>.tocblock>.tocitem {
+  font-weight: bold;
+}
+
+.madoko .toc {
+  margin-top: 1em;
+}
+
+/* Paragraphs */
+.madoko p.para-continue {
+  margin-bottom: 0pt;
+}
+
+.madoko .para-block+p {
+  margin-top: 0pt;
+}
+
+.madoko ul.para-block, .madoko ol.para-block {
+  margin-top: 0pt;
+  margin-bottom: 0pt;
+}
+
+.madoko ul.para-end, .madoko ol.para-end {
+  margin-bottom: 1em;
+}
+
+.madoko dl {
+  margin-left: 0em;
+}
+
+/* Local page links do not get an underline unless hovering */
+.madoko a.localref {
+  text-decoration: none;
+}
+.madoko a.localref:hover {
+  text-decoration: underline;
+}
+
+/* Footnotes */
+.madoko .footnotes {
+  font-size: smaller;
+  margin-top: 2em;
+}
+
+.madoko .footnotes hr {
+  width: 50%;
+  text-align: left;
+}
+
+.madoko .footnote { 
+  margin-left: 1em;
+}
+.madoko .footnote-before {
+  margin-left: -1em;
+  width: 1em;
+  display: inline-block;
+}
+
+/* Abstract */
+.madoko .abstract>p:first-child:before {
+  content: "Abstract. ";
+  font-weight: bold;
+}
+
+.madoko .abstract {
+  margin-left: 2.7em;
+  margin-right: 2.7em;
+  font-size: small;
+}
+
+
+/* Alignment */
+.madoko .align-center, .madoko .align-center>p {
+  text-align: center !important;
+}
+
+.madoko .align-center pre {
+  text-align: left;
+}
+
+.madoko .align-center>* {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.madoko .align-left, .madoko .align-left>p {
+  text-align: left !important;
+}
+
+.madoko .align-left>* {
+  margin-left: 0pt !important;
+  margin-right: auto !important;
+}
+
+.madoko .align-right, .madoko .align-right>p {
+  text-align: right !important;
+}
+
+.madoko .align-right>* {
+  margin-left: auto !important;
+  margin-right: 0pt !important;
+}
+
+.madoko .align-center>table,
+.madoko .align-left>table,
+.madoko .align-right>table {
+  text-align: left !important;
+}
+
+
+/* Equations, Figure's etc. */
+.madoko .equation-before {
+  float: right;
+}
+
+
+/* Bibliography */
+.madoko .bibitem {
+  font-size: smaller;
+}
+
+.madoko .bib-numeric .bibitem {
+  margin-left: 3em;
+  text-indent: -3em;
+}
+
+.madoko .bibitem-before {
+  display: none;
+}
+
+.madoko .bib-numeric .bibitem-before {
+  display: inline-block;
+  width: 3em;
+  text-align: right;
+}
+
+.madoko .bibliography {
+}
+
+.madoko .bibsearch {
+  font-size: x-small;
+  text-decoration:none;
+  color: black;
+  font-family: "Segoe UI Symbol", Symbola;
+}
+
+/* General */
+.madoko .block, .madoko .figure, .madoko .bibitem, .madoko .equation {
+  margin-top: 1ex;
+  margin-bottom: 1ex;
+}
+
+.madoko .figure {
+  padding: 0.5em;
+  margin-left: 0pt;
+  margin-right: 0pt;
+}
+
+.madoko .hidden {
+  display: none;
+}
+
+.madoko .invisible {
+  visibility: hidden;
+}
+
+.madoko.preview .invisible {
+  visibility: visible;
+  opacity: 0.5;
+}
+
+.madoko code.code, .madoko span.code {
+  white-space: pre-wrap;
+}
+
+.madoko hr, hr.madoko {
+  border: none;
+  border-bottom: black solid 1px;
+  margin-bottom: 0.5ex;
+}
+
+.madoko .framed>*:first-child {
+  margin-top: 0pt;
+}
+.madoko .framed>*:last-child {
+  margin-bottom: 0pt;
+}
+
+
+/* Title, authors */
+.madoko .title {
+  font-size: xx-large;
+  font-weight: bold;
+  margin-bottom: 1ex;
+}
+
+.madoko .subtitle {
+  font-size: x-large;
+  margin-bottom: 1ex;
+  margin-top: -1ex;
+}
+
+.madoko .titleblock>* {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.madoko .titleblock table {
+  width: 80%;
+}
+
+.madoko .authorblock .author {
+  font-size: large;
+}
+
+.madoko .titlenote {
+  margin-top: -0.5ex;
+  margin-bottom: 1.5ex;
+}
+
+/* Lists */
+
+.madoko ul.list-star {
+  list-style-type: disc;
+}
+
+.madoko ul.list-dash {
+    list-style-type: none !important;
+}
+
+.madoko ul.list-dash > li:before {
+    content: "\2013"; 
+    position: absolute;
+    margin-left: -1em; 
+}
+
+.madoko ul.list-plus {
+  list-style-type: square;
+}
+
+/* Tables */
+.madoko table.madoko {
+  border-collapse: collapse;
+}
+.madoko td, .madoko th {
+  padding: 0ex 0.5ex;
+  margin: 0pt;
+  vertical-align: top;
+}
+
+.madoko .cell-border-left {
+  border-left: 1px solid black;
+}
+.madoko .cell-border-right {
+  border-right: 1px solid black;
+}
+
+
+.madoko thead>tr:first-child>.cell-line,
+.madoko tbody:first-child>tr:first-child>.cell-line {
+  border-top: 1px solid black;
+  border-bottom: none;
+}
+
+.madoko .cell-line, .madoko .cell-double-line {
+  border-bottom: 1px solid black;
+  border-top: none;
+}
+
+.madoko .cell-double-line {
+  border-top: 1px solid black;
+  padding-top: 1.5px !important;
+}
+
+
+/* Math Pre */
+.madoko .input-mathpre .MathJax_Display, .madoko .input-mathpre .math-display {
+  text-align: left !important;
+}
+
+.madoko div.input-mathpre {
+  margin-top: 1.5ex;
+  margin-bottom: 1ex;
+}
+
+.madoko .math-rendering {
+  color: gray;
+}
+
+
+/*---------------------------------------------------------------------------
+  Default style for syntax highlighting
+---------------------------------------------------------------------------*/
+
+.highlighted                        { color: black; }
+.highlighted .token.identifier      { }
+.highlighted .token.operators       { }
+.highlighted .token.keyword         { color: blue }
+.highlighted .token.string          { color: maroon } 
+.highlighted .token.string.escape   { color: gray }
+.highlighted .token.comment         { color: darkgreen }
+.highlighted .token.comment.doc     { font-style: normal }
+.highlighted .token.constant        { color: purple; }
+.highlighted .token.entity          {  }
+.highlighted .token.tag             { color: blue }
+.highlighted .token.info-token      { color: black }
+.highlighted .token.warn-token      { color: black }
+.highlighted .token.error-token     { color: darkred }
+.highlighted .token.debug-token     { color: gray }
+.highlighted .token.regexp          { color: maroon }
+.highlighted .token.attribute.name  { color: navy }
+.highlighted .token.attribute.value { color: maroon }
+.highlighted .token.constructor     { color: purple }
+.highlighted .token.namespace       { color: navy }
+.highlighted .token.header          { color: navy }
+.highlighted .token.type            { color: teal } 
+.highlighted .token.type.delimiter  { color: teal; } 
+.highlighted .token.predefined      { color: navy }
+.highlighted .token.invalid         { border-bottom: red dotted 1px }
+.highlighted .token.code            { color: maroon }
+.highlighted .token.code.keyword    { color: navy }
+.highlighted .token.typevar         { font-style: italic; }
+
+.highlighted .token.delimiter   {  } /* .[curly,square,parenthesis,angle,array,bracket] */
+.highlighted .token.number      {  }    /* .[hex,octal,binary,float] */
+.highlighted .token.variable    {  }  /* .[name,value]  */
+.highlighted .token.meta        { color: navy }      /* .[content] */
+
+.highlighted .token.bold            { font-weight: bold; }
+.highlighted .token.italic          { font-style: italic; }
+
+
+/* Pretty formatting of code */
+.madoko pre.pretty, .madoko code.pretty { 
+  font-family: Cambria,Times,Georgia,serif;
+  font-size: 100%;
+}
+
+.madoko .pretty table {
+  border-collapse: collapse;
+}
+.madoko .pretty td {
+  padding: 0em;
+}
+.madoko .pretty td.empty {
+  min-width: 1.5ex;
+}
+.madoko .pretty td.expander {
+  width: 100em;
+}
+.madoko .pretty .token.identifier         { font-style: italic }
+.madoko .pretty .token.constructor        { font-style: italic }
+
+
+/* ---------------------------------------------------
+   Styling for full documents
+----------------------------------------------------*/
+body.madoko, .madoko-body {
+  font-family: Cambria,"Times New Roman","Liberation Serif","Times",serif;
+  -webkit-text-size-adjust: 100%; /* so math displays well on mobile devices */
+}
+
+body.madoko, .madoko-body {
+  padding: 1em 16% 1em 12%;
+}
+
+body.madoko.preview {
+  padding: 0em 2em 0em 2em;
+}
+
+.madoko p,
+.madoko li {
+  text-align: justify;
+}
+
+/* style headings nicer, especially h5 and h6 */
+.madoko h1, .madoko h2, .madoko h3, .madoko h4 { 
+  margin-top: 1.22em; 
+  margin-bottom: 1ex;
+}
+.madoko h1+p, .madoko h2+p, .madoko h3+p, .madoko h4+p, .madoko h5+p  { 
+  margin-top: 1ex;    
+}
+.madoko h5, .madoko h6 { 
+  margin-top: 1ex;
+  font-size: 1em;
+}
+.madoko h5 { 
+  margin-bottom: 0.5ex;
+}
+.madoko h5 + p {
+  margin-top: 0.5ex;
+}
+.madoko h6 { 
+  margin-bottom: 0pt;
+}
+.madoko h6 + p {
+  margin-top: 0pt;
+}
+
+
+/* Fix monospace display (see http://code.stephenmorley.org/html-and-css/fixing-browsers-broken-monospace-font-handling/) */
+.madoko pre, .madoko code, .madoko kbd, .madoko samp, .madoko tt, .madoko .monospace, .madoko .token.indent, .madoko .reveal pre, .madoko .reveal code, .madoko .email {
+  font-family: Consolas,"Andale Mono WT","Andale Mono",Lucida Console,Monaco,monospace,monospace;
+  font-size: 0.85em;
+}
+.madoko pre code, .madoko .token.indent {
+  font-size: 0.95em;
+}
+
+.madoko pre code {
+  font-family: inherit !important;
+}
+
+/* Code prettify */
+.madoko ol.linenums li {
+  background-color: white;
+  list-style-type: decimal;
+}
+
+/* Merging */
+.madoko .remote {
+  background-color: #F0FFF0;
+}
+
+/* ---------------------------------------------------
+   Print settings
+----------------------------------------------------*/
+
+@media print {
+  body.madoko, .madoko-body {
+    font-size: 10pt;
+  }
+  @page {
+    margin: 1in 1.5in;
+  }
+}
+
+/* ---------------------------------------------------
+   Mobile device settings
+----------------------------------------------------*/
+
+@media only screen and (max-device-width:1024px) {
+  body.madoko, .madoko-body {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+}
+
+  </style>
+  <script src="../js/analytics.js"  class="script"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$']]},
+       TeX: { 
+         Macros: { mathid: ['\\mathit{#1\\hspace{0.1ex}}',1], mathkw: ['\\mathsf{#1}',1],
+                   mathspace: ['\\hspace{#1pt}\\hspace{#1pt}\\hspace{#1pt}',1], mathindent: ['\\hspace{#1ex}',1], mathbr: ['\\\\'],
+                 },
+  
+       }
+    });
+    MathJax.Hub.Register.StartupHook('TeX AMSmath Ready',function () { 
+      MathJax.InputJax.TeX.Definitions.environment['mdMathprearray'] = ['AMSarray',null,null,null,'l','0em','0em'];
+    });
+  </script>
+  <script type="text/javascript" class="preview"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+</head>
+<body class="madoko">
+
+<section class='titleblock align-center'><h1 class='title' data-line='1'>Segédanyag sablon</h1>
+
+
+<table><tr></tr></table></section>
+<p data-line="5"><span data-line="5"></span>Link a<span data-line="5"></span>&nbsp;<a href="https://github.com/FTSRG/remo/">GitHub repositoryra</a><span data-line="5"></span>.
+</p><h2 id="sec-bevezets"  data-line="7"  style="bookmark:1.&#8194;Bevezet\E9 s"><span data-line="7"></span><span class="heading-before"><span class="heading-label">1</span>.&#8194;</span><span data-line="7"></span>Bevezetés</h2>
+<p data-line="9"><span data-line="9"></span>Bevezető szöveg
+</p><h3 id="sec-fogalmak"  data-line="11"  style="bookmark:1.1.&#8194;Fogalmak"><span data-line="11"></span><span class="heading-before"><span class="heading-label">1.1</span>.&#8194;</span><span data-line="11"></span>Fogalmak</h3>
+<p class="para-continue" data-line="13"><span data-line="13"></span>Az alábbiakban bevezetünk néhány fontos <span data-line="13"></span><em>fogalmat</em><span data-line="13"></span>:
+</p>
+<ul class="list-star compact" data-line="15">
+<li data-line="15"><span data-line="15"></span><em>A</em><span data-line="15"></span>: <span data-line="15"></span>&#8230;<span data-line="15"></span>
+</li>
+<li data-line="16"><span data-line="16"></span><em>B</em><span data-line="16"></span>: <span data-line="16"></span>&#8230;<span data-line="16"></span>
+</li></ul>
+
+<p data-line="18"><span data-line="18"></span>Egy képlet: <span data-line="18"></span><span class="math-inline">$s = v_0t + \frac{a}{2}t^2$</span><span data-line="18"></span>.
+</p>
+<p class="indent para-continue" data-line="20"><span data-line="20"></span>Külön bekezdésben:
+</p>
+<div id="eq-negyzetes-uttorveny" class="equation align-center para-block" data-line="22" style="line-adjust:0"><span data-line="22"></span><span class="equation-before"><span class="equation-label">(1)</span></span><span data-line="22"></span>
+
+<div class="math para-block input-math"   data-line="23" style="line-adjust:0"><span class="math math-display"  >\[s = v_0t + \frac{a}{2}t^2\]</span></div></div>
+<p data-line="26"><span data-line="26"></span>Kimondjuk a négyzetes úttörvényt<span data-line="26"></span>&nbsp;<a href="#eq-negyzetes-uttorveny" class="localref" style="target-element:equation"><span class="equation-label">(1)</span></a><span data-line="26"></span>.
+</p>
+<div class="remoexample block" data-line="28" style="border-style:solid;border-color:black;border-width:1px;padding:10px">
+<p data-line="29"><span data-line="29"></span><span class="remoexample-before"><strong><span class="remoexample-label">1</span>.&#160;példa</strong>.&#160;</span><span data-line="29"></span>Keretes példa</p></div>
+<p data-line="32"><span data-line="32"></span>Példa kód:
+</p>
+<pre class="para-block pre-fenced pre-fenced3 language-java lang-java java highlighted" data-line="34" data-line-code="35" ><code data-line="35"><span class='token keyword java'>public</span><span class='token white java'> </span><span class='token keyword java'>class</span><span class='token white java'> </span><span class='token type identifier java'>Hello</span><span class='token white java'> </span><span class='token delimiter curly java bracket-open'>{</span><br><span class='token white java'>  </span><span class='token keyword java'>public</span><span class='token white java'> </span><span class='token identifier java'>staic</span><span class='token white java'> </span><span class='token keyword type java'>void</span><span class='token white java'> </span><span class='token identifier java'>main</span><span class='token delimiter parenthesis java bracket-open'>(</span><span class='token type identifier java'>String</span><span class='token delimiter square java bracket-open'>[</span><span class='token delimiter square java bracket-close'>]</span><span class='token white java'> </span><span class='token identifier java'>args</span><span class='token delimiter parenthesis java bracket-close'>)</span><span class='token white java'> </span><span class='token delimiter curly java bracket-open'>{</span><br><span class='token white java'>    </span><span class='token type identifier java'>System</span><span class='token delimiter java'>.</span><span class='token identifier java'>out</span><span class='token delimiter java'>.</span><span class='token identifier java'>println</span><span class='token delimiter parenthesis java bracket-open'>(</span><span class='token string java'>&quot;</span><span class='token string java'>Hello world.</span><span class='token string java'>&quot;</span><span class='token delimiter parenthesis java bracket-close'>)</span><span class='token delimiter java'>;</span><br><span class='token white java'>  </span><span class='token delimiter curly java bracket-close'>}</span><br><span class='token delimiter curly java bracket-close'>}</span></code></pre>
+<p data-line="42"><span data-line="42"></span>Ekkor a jelzőlámpa modellezhető a<span data-line="42"></span>&nbsp;<a href="#trafficlight_1" title="Jelzőlámpa egyzerű állapotgépe" class="localref" style="target-element:remofigure"><span class="remofigure-label">1</span></a><span data-line="42"></span>. ábrán szemléltetett állapotgéppel:
+</p>
+<figure id="trafficlight_1" class="remofigure align-center"    data-line="44">
+<p data-line="45"><span data-line="45"></span><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHN0cm9rZS1kYXNoYXJyYXk9Im5vbmUiIHNoYXBlLXJlbmRlcmluZz0iYXV0byIgZm9udC1mYW1pbHk9IidEaWFsb2cnIiB3aWR0aD0iNjQ2IiB0ZXh0LXJlbmRlcmluZz0iYXV0byIgZmlsbC1vcGFjaXR5PSIxIiBjb250ZW50U2NyaXB0VHlwZT0idGV4dC9lY21hc2NyaXB0IiBjb2xvci1pbnRlcnBvbGF0aW9uPSJhdXRvIiBjb2xvci1yZW5kZXJpbmc9ImF1dG8iIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIG1lZXQiIGZvbnQtc2l6ZT0iMTIiIHZpZXdCb3g9IjAgMCA2NDYgMzk2IiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgaW1hZ2UtcmVuZGVyaW5nPSJhdXRvIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHpvb21BbmRQYW49Im1hZ25pZnkiIHZlcnNpb249IjEuMCIgc3Ryb2tlLWxpbmVjYXA9InNxdWFyZSIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgY29udGVudFN0eWxlVHlwZT0idGV4dC9jc3MiIGZvbnQtc3R5bGU9Im5vcm1hbCIgaGVpZ2h0PSIzOTYiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIGZvbnQtd2VpZ2h0PSJub3JtYWwiIHN0cm9rZS1vcGFjaXR5PSIxIj4NCjwhLS1HZW5lcmF0ZWQgYnkgdGhlIEJhdGlrIEdyYXBoaWNzMkQgU1ZHIEdlbmVyYXRvci0tPg0KPGRlZnMgaWQ9ImdlbmVyaWNEZWZzIi8+DQo8Zz4NCjxkZWZzIGlkPSJkZWZzMSI+DQo8bGluZWFyR3JhZGllbnQgeDE9IjEwIiB4Mj0iMTAiIHkxPSIxMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHkyPSIzODYiIHhsaW5rOnR5cGU9InNpbXBsZSIgeGxpbms6YWN0dWF0ZT0ib25Mb2FkIiBpZD0ibGluZWFyR3JhZGllbnQxIiB4bGluazpzaG93PSJvdGhlciIgc3ByZWFkTWV0aG9kPSJwYWQiPg0KPHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgb2Zmc2V0PSIwJSIvPg0KPHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgb2Zmc2V0PSIxMDAlIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPGxpbmVhckdyYWRpZW50IHgxPSIyMzUiIHgyPSIyMzUiIHkxPSIxODciIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB5Mj0iMjIwIiB4bGluazp0eXBlPSJzaW1wbGUiIHhsaW5rOmFjdHVhdGU9Im9uTG9hZCIgaWQ9ImxpbmVhckdyYWRpZW50MiIgeGxpbms6c2hvdz0ib3RoZXIiIHNwcmVhZE1ldGhvZD0icGFkIj4NCjxzdG9wIHN0b3Atb3BhY2l0eT0iMSIgc3RvcC1jb2xvcj0id2hpdGUiIG9mZnNldD0iMCUiLz4NCjxzdG9wIHN0b3Atb3BhY2l0eT0iMSIgc3RvcC1jb2xvcj0id2hpdGUiIG9mZnNldD0iMTAwJSIvPg0KPC9saW5lYXJHcmFkaWVudD4NCjxsaW5lYXJHcmFkaWVudCB4MT0iNDU2IiB4Mj0iNDU2IiB5MT0iNTIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB5Mj0iODUiIHhsaW5rOnR5cGU9InNpbXBsZSIgeGxpbms6YWN0dWF0ZT0ib25Mb2FkIiBpZD0ibGluZWFyR3JhZGllbnQzIiB4bGluazpzaG93PSJvdGhlciIgc3ByZWFkTWV0aG9kPSJwYWQiPg0KPHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgb2Zmc2V0PSIwJSIvPg0KPHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgb2Zmc2V0PSIxMDAlIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPGxpbmVhckdyYWRpZW50IHgxPSI1NyIgeDI9IjU3IiB5MT0iNTIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB5Mj0iODUiIHhsaW5rOnR5cGU9InNpbXBsZSIgeGxpbms6YWN0dWF0ZT0ib25Mb2FkIiBpZD0ibGluZWFyR3JhZGllbnQ0IiB4bGluazpzaG93PSJvdGhlciIgc3ByZWFkTWV0aG9kPSJwYWQiPg0KPHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgb2Zmc2V0PSIwJSIvPg0KPHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgb2Zmc2V0PSIxMDAlIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPGxpbmVhckdyYWRpZW50IHgxPSI1NyIgeDI9IjU3IiB5MT0iMzE3IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeTI9IjM1MCIgeGxpbms6dHlwZT0ic2ltcGxlIiB4bGluazphY3R1YXRlPSJvbkxvYWQiIGlkPSJsaW5lYXJHcmFkaWVudDUiIHhsaW5rOnNob3c9Im90aGVyIiBzcHJlYWRNZXRob2Q9InBhZCI+DQo8c3RvcCBzdG9wLW9wYWNpdHk9IjEiIHN0b3AtY29sb3I9IndoaXRlIiBvZmZzZXQ9IjAlIi8+DQo8c3RvcCBzdG9wLW9wYWNpdHk9IjEiIHN0b3AtY29sb3I9IndoaXRlIiBvZmZzZXQ9IjEwMCUiLz4NCjwvbGluZWFyR3JhZGllbnQ+DQo8bGluZWFyR3JhZGllbnQgeDE9IjQ2MCIgeDI9IjQ2MCIgeTE9IjMxNyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHkyPSIzNTAiIHhsaW5rOnR5cGU9InNpbXBsZSIgeGxpbms6YWN0dWF0ZT0ib25Mb2FkIiBpZD0ibGluZWFyR3JhZGllbnQ2IiB4bGluazpzaG93PSJvdGhlciIgc3ByZWFkTWV0aG9kPSJwYWQiPg0KPHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgb2Zmc2V0PSIwJSIvPg0KPHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgb2Zmc2V0PSIxMDAlIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPGNsaXBQYXRoIGNsaXBQYXRoVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY2xpcFBhdGgxIj4NCjxwYXRoIGQ9Ik05IDkgTDYzNyA5IEw2MzcgMzg3IEw5IDM4NyBMOSA5IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDIiPg0KPHBhdGggZD0iTTE2IDE1IEw4MSAxNSBMODEgMzEgTDE2IDMxIEwxNiAxNSBaIi8+DQo8L2NsaXBQYXRoPg0KPGNsaXBQYXRoIGNsaXBQYXRoVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY2xpcFBhdGgzIj4NCjxwYXRoIGQ9Ik0yMjkgMTc0IEw0MjIgMTc0IEw0MjIgMjM0IEwyMjkgMjM0IEwyMjkgMTc0IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDQiPg0KPHBhdGggZD0iTTIzNCAxNzkgTDQxNyAxNzkgTDQxNyAyMjkgTDIzNCAyMjkgTDIzNCAxNzkgWiIvPg0KPC9jbGlwUGF0aD4NCjxjbGlwUGF0aCBjbGlwUGF0aFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNsaXBQYXRoNSI+DQo8cGF0aCBkPSJNMzE0IDE4NSBMMzM4IDE4NSBMMzM4IDIwMSBMMzE0IDIwMSBMMzE0IDE4NSBaIi8+DQo8L2NsaXBQYXRoPg0KPGNsaXBQYXRoIGNsaXBQYXRoVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY2xpcFBhdGg2Ij4NCjxwYXRoIGQ9Ik0zMTcgMTI0IEwzMzQgMTI0IEwzMzQgMTQxIEwzMTcgMTQxIEwzMTcgMTI0IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDciPg0KPHBhdGggZD0iTTQ1MCAzOSBMNTgxIDM5IEw1ODEgOTkgTDQ1MCA5OSBMNDUwIDM5IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDgiPg0KPHBhdGggZD0iTTQ1NSA0NCBMNTc2IDQ0IEw1NzYgOTQgTDQ1NSA5NCBMNDU1IDQ0IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDkiPg0KPHBhdGggZD0iTTQ4OCA1MCBMNTQzIDUwIEw1NDMgNjYgTDQ4OCA2NiBMNDg4IDUwIFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDEwIj4NCjxwYXRoIGQ9Ik01MSAzOSBMMTgyIDM5IEwxODIgOTkgTDUxIDk5IEw1MSAzOSBaIi8+DQo8L2NsaXBQYXRoPg0KPGNsaXBQYXRoIGNsaXBQYXRoVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY2xpcFBhdGgxMSI+DQo8cGF0aCBkPSJNNTYgNDQgTDE3NyA0NCBMMTc3IDk0IEw1NiA5NCBMNTYgNDQgWiIvPg0KPC9jbGlwUGF0aD4NCjxjbGlwUGF0aCBjbGlwUGF0aFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNsaXBQYXRoMTIiPg0KPHBhdGggZD0iTTEwMCA1MCBMMTMzIDUwIEwxMzMgNjYgTDEwMCA2NiBMMTAwIDUwIFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDEzIj4NCjxwYXRoIGQ9Ik01MSAzMDQgTDE4MiAzMDQgTDE4MiAzNjQgTDUxIDM2NCBMNTEgMzA0IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDE0Ij4NCjxwYXRoIGQ9Ik01NiAzMDkgTDE3NyAzMDkgTDE3NyAzNTkgTDU2IDM1OSBMNTYgMzA5IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDE1Ij4NCjxwYXRoIGQ9Ik04NyAzMTUgTDE0NyAzMTUgTDE0NyAzMzEgTDg3IDMzMSBMODcgMzE1IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDE2Ij4NCjxwYXRoIGQ9Ik00NTQgMzA0IEw1OTcgMzA0IEw1OTcgMzY0IEw0NTQgMzY0IEw0NTQgMzA0IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDE3Ij4NCjxwYXRoIGQ9Ik00NTkgMzA5IEw1OTIgMzA5IEw1OTIgMzU5IEw0NTkgMzU5IEw0NTkgMzA5IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDE4Ij4NCjxwYXRoIGQ9Ik01MTUgMzE1IEw1MzYgMzE1IEw1MzYgMzMxIEw1MTUgMzMxIEw1MTUgMzE1IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDE5Ij4NCjxwYXRoIGQ9Ik0tMSAtMSBMNjQ3IC0xIEw2NDcgMzk3IEwtMSAzOTcgTC0xIC0xIFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDIwIj4NCjxwYXRoIGQ9Ik00NDggNjMgTDQ1OCA2MyBMNDU4IDcyIEw0NDggNzIgTDQ0OCA2MyBaIi8+DQo8L2NsaXBQYXRoPg0KPGNsaXBQYXRoIGNsaXBQYXRoVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY2xpcFBhdGgyMSI+DQo8cGF0aCBkPSJNMjc1IDQ1IEwzNTYgNDUgTDM1NiA2MSBMMjc1IDYxIEwyNzUgNDUgWiIvPg0KPC9jbGlwUGF0aD4NCjxjbGlwUGF0aCBjbGlwUGF0aFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNsaXBQYXRoMjIiPg0KPHBhdGggZD0iTTIyNyAyMTEgTDIzNyAyMTEgTDIzNyAyMjAgTDIyNyAyMjAgTDIyNyAyMTEgWiIvPg0KPC9jbGlwUGF0aD4NCjxjbGlwUGF0aCBjbGlwUGF0aFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNsaXBQYXRoMjMiPg0KPHBhdGggZD0iTTE1MSAyMjAgTDE4OCAyMjAgTDE4OCAyMzYgTDE1MSAyMzYgTDE1MSAyMjAgWiIvPg0KPC9jbGlwUGF0aD4NCjxjbGlwUGF0aCBjbGlwUGF0aFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNsaXBQYXRoMjQiPg0KPHBhdGggZD0iTTQxNSAyMTUgTDQyNSAyMTUgTDQyNSAyMjQgTDQxNSAyMjQgTDQxNSAyMTUgWiIvPg0KPC9jbGlwUGF0aD4NCjxjbGlwUGF0aCBjbGlwUGF0aFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNsaXBQYXRoMjUiPg0KPHBhdGggZD0iTTQ1OSAyMjMgTDQ5NiAyMjMgTDQ5NiAyMzkgTDQ1OSAyMzkgTDQ1OSAyMjMgWiIvPg0KPC9jbGlwUGF0aD4NCjxjbGlwUGF0aCBjbGlwUGF0aFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNsaXBQYXRoMjYiPg0KPHBhdGggZD0iTTE3NSAzMjggTDE4NSAzMjggTDE4NSAzMzcgTDE3NSAzMzcgTDE3NSAzMjggWiIvPg0KPC9jbGlwUGF0aD4NCjxjbGlwUGF0aCBjbGlwUGF0aFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNsaXBQYXRoMjciPg0KPHBhdGggZD0iTTI4MCAzNDIgTDM2MSAzNDIgTDM2MSAzNTggTDI4MCAzNTggTDI4MCAzNDIgWiIvPg0KPC9jbGlwUGF0aD4NCjxjbGlwUGF0aCBjbGlwUGF0aFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNsaXBQYXRoMjgiPg0KPHBhdGggZD0iTTE3NSA4MSBMMTg1IDgxIEwxODUgOTAgTDE3NSA5MCBMMTc1IDgxIFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDI5Ij4NCjxwYXRoIGQ9Ik0yMjAgOTIgTDI1NyA5MiBMMjU3IDEwOCBMMjIwIDEwOCBMMjIwIDkyIFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDMwIj4NCjxwYXRoIGQ9Ik0yNTYgMjI3IEwyNjUgMjI3IEwyNjUgMjM3IEwyNTYgMjM3IEwyNTYgMjI3IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDMxIj4NCjxwYXRoIGQ9Ik0yODUgMjcwIEwzNjYgMjcwIEwzNjYgMjg2IEwyODUgMjg2IEwyODUgMjcwIFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDMyIj4NCjxwYXRoIGQ9Ik0yMjcgMTg2IEwyMzcgMTg2IEwyMzcgMTk1IEwyMjcgMTk1IEwyMjcgMTg2IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDMzIj4NCjxwYXRoIGQ9Ik0xNTAgMTY4IEwxODcgMTY4IEwxODcgMTg0IEwxNTAgMTg0IEwxNTAgMTY4IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDM0Ij4NCjxwYXRoIGQ9Ik01MjEgMzAyIEw1MzAgMzAyIEw1MzAgMzEyIEw1MjEgMzEyIEw1MjEgMzAyIFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDM1Ij4NCjxwYXRoIGQ9Ik01MzIgMTg5IEw2MjMgMTg5IEw2MjMgMjE5IEw1MzIgMjE5IEw1MzIgMTg5IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDM2Ij4NCjxwYXRoIGQ9Ik0zMjEgMTcyIEwzMzAgMTcyIEwzMzAgMTgyIEwzMjEgMTgyIEwzMjEgMTcyIFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDM3Ij4NCjxwYXRoIGQ9Ik0xMTIgOTIgTDEyMSA5MiBMMTIxIDEwMiBMMTEyIDEwMiBMMTEyIDkyIFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDM4Ij4NCjxwYXRoIGQ9Ik0yMiAxODkgTDExMyAxODkgTDExMyAyMTkgTDIyIDIxOSBMMjIgMTg5IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDM5Ij4NCjxwYXRoIGQ9Ik00MTUgMTg2IEw0MjUgMTg2IEw0MjUgMTk1IEw0MTUgMTk1IEw0MTUgMTg2IFoiLz4NCjwvY2xpcFBhdGg+DQo8Y2xpcFBhdGggY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjbGlwUGF0aDQwIj4NCjxwYXRoIGQ9Ik00NjAgMTcwIEw0OTcgMTcwIEw0OTcgMTg2IEw0NjAgMTg2IEw0NjAgMTcwIFoiLz4NCjwvY2xpcFBhdGg+DQo8L2RlZnM+DQo8ZyBmaWxsPSJ1cmwoI2xpbmVhckdyYWRpZW50MSkiIGZvbnQtZmFtaWx5PSInVmVyZGFuYSciIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0idXJsKCNsaW5lYXJHcmFkaWVudDEpIiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZS1taXRlcmxpbWl0PSIwIj4NCjxyZWN0IHg9IjEwIiB5PSIxMCIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMSkiIHdpZHRoPSI2MjYiIGhlaWdodD0iMzc2IiBzdHJva2U9Im5vbmUiLz4NCjwvZz4NCjxnIHN0cm9rZS13aWR0aD0iMS4xIiBmb250LWZhbWlseT0iJ1ZlcmRhbmEnIiBzdHJva2UtbGluZWNhcD0iYnV0dCI+DQo8cmVjdCB4PSIxMCIgeT0iMTAiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDEpIiBmaWxsPSJub25lIiB3aWR0aD0iNjI1IiBoZWlnaHQ9IjM3NSIvPg0KPHRleHQgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeD0iMTciIHk9IjI5IiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgyKSIgc3Ryb2tlPSJub25lIj5PcGVyYXRpb248L3RleHQ+DQo8cmVjdCB4PSIyNDAiIHk9IjE4NSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMykiIGZpbGw9Im5vbmUiIHdpZHRoPSIxODAiIHJ4PSI3LjUiIG9wYWNpdHk9IjAuMDc4NCIgcnk9IjcuNSIgaGVpZ2h0PSI0NyIgc3Ryb2tlPSJncmF5IiBzdHJva2Utd2lkdGg9IjIuMSIvPg0KPHJlY3QgeD0iMjM5IiB5PSIxODQiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDMpIiBmaWxsPSJub25lIiB3aWR0aD0iMTgwIiByeD0iNy41IiBvcGFjaXR5PSIwLjExNzYiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjIzOCIgeT0iMTgzIiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgzKSIgZmlsbD0ibm9uZSIgd2lkdGg9IjE4MCIgcng9IjcuNSIgb3BhY2l0eT0iMC4yMzUzIiByeT0iNy41IiBoZWlnaHQ9IjQ3IiBzdHJva2U9ImdyYXkiIHN0cm9rZS13aWR0aD0iMi4xIi8+DQo8cmVjdCB4PSIyMzciIHk9IjE4MiIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMykiIGZpbGw9Im5vbmUiIHdpZHRoPSIxODAiIHJ4PSI3LjUiIG9wYWNpdHk9IjAuMzkyMiIgcnk9IjcuNSIgaGVpZ2h0PSI0NyIgc3Ryb2tlPSJncmF5IiBzdHJva2Utd2lkdGg9IjIuMSIvPg0KPHJlY3QgeD0iMjM2IiB5PSIxODEiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDMpIiBmaWxsPSJub25lIiB3aWR0aD0iMTgwIiByeD0iNy41IiBvcGFjaXR5PSIwLjU4ODIiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjIzNSIgeT0iMTg3IiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGg0KSIgZmlsbD0idXJsKCNsaW5lYXJHcmFkaWVudDIpIiB3aWR0aD0iMTgxIiBoZWlnaHQ9IjMzIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi4xIi8+DQo8cGF0aCBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGg0KSIgZmlsbD0id2hpdGUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTIzNSAyMTkuNSBDMjM1IDIyMy42NDIxIDIzOC4zNTc5IDIyNyAyNDIuNSAyMjcgTDQwNy41IDIyNyBDNDExLjY0MjEgMjI3IDQxNSAyMjMuNjQyMSA0MTUgMjE5LjUiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxwYXRoIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDQpIiBmaWxsPSJ3aGl0ZSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNDE1IDE4Ny41IEM0MTUgMTgzLjM1NzggNDExLjY0MjEgMTgwIDQwNy41IDE4MCBDNDA3LjUgMTgwIDQwNy41IDE4MCA0MDcuNSAxODAgTDI0Mi41IDE4MCBDMjM4LjM1NzggMTgwIDIzNSAxODMuMzU3OSAyMzUgMTg3LjUiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjIzNSIgeT0iMTgwIiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGg0KSIgZmlsbD0ibm9uZSIgd2lkdGg9IjE4MCIgcng9IjcuNSIgcnk9IjcuNSIgaGVpZ2h0PSI0NyIvPg0KPHRleHQgeD0iMzE1IiB5PSIxOTkiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDUpIiBzdHJva2U9Im5vbmUiIGZvbnQtd2VpZ2h0PSJib2xkIiB4bWw6c3BhY2U9InByZXNlcnZlIj5PZmY8L3RleHQ+DQo8Y2lyY2xlIHI9IjYuNSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoNikiIGN4PSIzMjQuNSIgY3k9IjEzMS41IiBzdHJva2U9Im5vbmUiLz4NCjxyZWN0IHg9IjQ2MSIgeT0iNTAiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDcpIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjA3ODQiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjQ2MCIgeT0iNDkiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDcpIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjExNzYiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjQ1OSIgeT0iNDgiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDcpIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjIzNTMiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjQ1OCIgeT0iNDciIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDcpIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjM5MjIiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjQ1NyIgeT0iNDYiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDcpIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjU4ODIiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjQ1NiIgeT0iNTIiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDgpIiBmaWxsPSJ1cmwoI2xpbmVhckdyYWRpZW50MykiIHdpZHRoPSIxMTkiIGhlaWdodD0iMzMiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxwYXRoIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDgpIiBmaWxsPSJ3aGl0ZSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNDU2IDg0LjUgQzQ1NiA4OC42NDIxIDQ1OS4zNTc4IDkyIDQ2My41IDkyIEw1NjYuNSA5MiBDNTcwLjY0MjEgOTIgNTczLjk5OTkgODguNjQyMSA1NzMuOTk5OSA4NC41IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi4xIi8+DQo8cGF0aCBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGg4KSIgZmlsbD0id2hpdGUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTU3My45OTk5IDUyLjUgQzU3My45OTk5IDQ4LjM1NzkgNTcwLjY0MjEgNDUgNTY2LjQ5OTkgNDUgQzU2Ni40OTk5IDQ1IDU2Ni40OTk5IDQ1IDU2Ni40OTk5IDQ1IEw0NjMuNSA0NSBDNDU5LjM1NzggNDUgNDU2IDQ4LjM1NzkgNDU2IDUyLjUiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjQ1NiIgeT0iNDUiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDgpIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiByeT0iNy41IiBoZWlnaHQ9IjQ3Ii8+DQo8dGV4dCB4PSI0ODkiIHk9IjY0IiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGg5KSIgc3Ryb2tlPSJub25lIiBmb250LXdlaWdodD0iYm9sZCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+UHJlcGFyZTwvdGV4dD4NCjxyZWN0IHg9IjYyIiB5PSI1MCIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTApIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjA3ODQiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjYxIiB5PSI0OSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTApIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjExNzYiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjYwIiB5PSI0OCIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTApIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjIzNTMiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjU5IiB5PSI0NyIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTApIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjM5MjIiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjU4IiB5PSI0NiIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTApIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjU4ODIiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjU3IiB5PSI1MiIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTEpIiBmaWxsPSJ1cmwoI2xpbmVhckdyYWRpZW50NCkiIHdpZHRoPSIxMTkiIGhlaWdodD0iMzMiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxwYXRoIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDExKSIgZmlsbD0id2hpdGUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTU3IDg0LjUgQzU3IDg4LjY0MjEgNjAuMzU3OSA5MiA2NC41IDkyIEwxNjcuNSA5MiBDMTcxLjY0MjEgOTIgMTc1IDg4LjY0MjEgMTc1IDg0LjUiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxwYXRoIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDExKSIgZmlsbD0id2hpdGUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE3NSA1Mi41IEMxNzUgNDguMzU3OSAxNzEuNjQyMSA0NSAxNjcuNSA0NSBDMTY3LjUgNDUgMTY3LjUgNDUgMTY3LjUgNDUgTDY0LjUgNDUgQzYwLjM1NzkgNDUgNTcgNDguMzU3OSA1NyA1Mi41IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi4xIi8+DQo8cmVjdCB4PSI1NyIgeT0iNDUiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDExKSIgZmlsbD0ibm9uZSIgd2lkdGg9IjExOCIgcng9IjcuNSIgcnk9IjcuNSIgaGVpZ2h0PSI0NyIvPg0KPHRleHQgeD0iMTAxIiB5PSI2NCIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTIpIiBzdHJva2U9Im5vbmUiIGZvbnQtd2VpZ2h0PSJib2xkIiB4bWw6c3BhY2U9InByZXNlcnZlIj5TdG9wPC90ZXh0Pg0KPHJlY3QgeD0iNjIiIHk9IjMxNSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTMpIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjA3ODQiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjYxIiB5PSIzMTQiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDEzKSIgZmlsbD0ibm9uZSIgd2lkdGg9IjExOCIgcng9IjcuNSIgb3BhY2l0eT0iMC4xMTc2IiByeT0iNy41IiBoZWlnaHQ9IjQ3IiBzdHJva2U9ImdyYXkiIHN0cm9rZS13aWR0aD0iMi4xIi8+DQo8cmVjdCB4PSI2MCIgeT0iMzEzIiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxMykiIGZpbGw9Im5vbmUiIHdpZHRoPSIxMTgiIHJ4PSI3LjUiIG9wYWNpdHk9IjAuMjM1MyIgcnk9IjcuNSIgaGVpZ2h0PSI0NyIgc3Ryb2tlPSJncmF5IiBzdHJva2Utd2lkdGg9IjIuMSIvPg0KPHJlY3QgeD0iNTkiIHk9IjMxMiIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTMpIiBmaWxsPSJub25lIiB3aWR0aD0iMTE4IiByeD0iNy41IiBvcGFjaXR5PSIwLjM5MjIiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjU4IiB5PSIzMTEiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDEzKSIgZmlsbD0ibm9uZSIgd2lkdGg9IjExOCIgcng9IjcuNSIgb3BhY2l0eT0iMC41ODgyIiByeT0iNy41IiBoZWlnaHQ9IjQ3IiBzdHJva2U9ImdyYXkiIHN0cm9rZS13aWR0aD0iMi4xIi8+DQo8cmVjdCB4PSI1NyIgeT0iMzE3IiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxNCkiIGZpbGw9InVybCgjbGluZWFyR3JhZGllbnQ1KSIgd2lkdGg9IjExOSIgaGVpZ2h0PSIzMyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjIuMSIvPg0KPHBhdGggY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTQpIiBmaWxsPSJ3aGl0ZSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNTcgMzQ5LjUgQzU3IDM1My42NDIxIDYwLjM1NzkgMzU3IDY0LjUgMzU3IEwxNjcuNSAzNTcgQzE3MS42NDIxIDM1NyAxNzUgMzUzLjY0MjEgMTc1IDM0OS41IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi4xIi8+DQo8cGF0aCBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxNCkiIGZpbGw9IndoaXRlIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNzUgMzE3LjUgQzE3NSAzMTMuMzU3OCAxNzEuNjQyMSAzMTAgMTY3LjUgMzEwIEMxNjcuNSAzMTAgMTY3LjUgMzEwIDE2Ny41IDMxMCBMNjQuNSAzMTAgQzYwLjM1NzkgMzEwIDU3IDMxMy4zNTc4IDU3IDMxNy41IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi4xIi8+DQo8cmVjdCB4PSI1NyIgeT0iMzEwIiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxNCkiIGZpbGw9Im5vbmUiIHdpZHRoPSIxMTgiIHJ4PSI3LjUiIHJ5PSI3LjUiIGhlaWdodD0iNDciLz4NCjx0ZXh0IHg9Ijg4IiB5PSIzMjkiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDE1KSIgc3Ryb2tlPSJub25lIiBmb250LXdlaWdodD0iYm9sZCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+Q29udGludWU8L3RleHQ+DQo8cmVjdCB4PSI0NjUiIHk9IjMxNSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTYpIiBmaWxsPSJub25lIiB3aWR0aD0iMTMwIiByeD0iNy41IiBvcGFjaXR5PSIwLjA3ODQiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjQ2NCIgeT0iMzE0IiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxNikiIGZpbGw9Im5vbmUiIHdpZHRoPSIxMzAiIHJ4PSI3LjUiIG9wYWNpdHk9IjAuMTE3NiIgcnk9IjcuNSIgaGVpZ2h0PSI0NyIgc3Ryb2tlPSJncmF5IiBzdHJva2Utd2lkdGg9IjIuMSIvPg0KPHJlY3QgeD0iNDYzIiB5PSIzMTMiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDE2KSIgZmlsbD0ibm9uZSIgd2lkdGg9IjEzMCIgcng9IjcuNSIgb3BhY2l0eT0iMC4yMzUzIiByeT0iNy41IiBoZWlnaHQ9IjQ3IiBzdHJva2U9ImdyYXkiIHN0cm9rZS13aWR0aD0iMi4xIi8+DQo8cmVjdCB4PSI0NjIiIHk9IjMxMiIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTYpIiBmaWxsPSJub25lIiB3aWR0aD0iMTMwIiByeD0iNy41IiBvcGFjaXR5PSIwLjM5MjIiIHJ5PSI3LjUiIGhlaWdodD0iNDciIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIyLjEiLz4NCjxyZWN0IHg9IjQ2MSIgeT0iMzExIiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxNikiIGZpbGw9Im5vbmUiIHdpZHRoPSIxMzAiIHJ4PSI3LjUiIG9wYWNpdHk9IjAuNTg4MiIgcnk9IjcuNSIgaGVpZ2h0PSI0NyIgc3Ryb2tlPSJncmF5IiBzdHJva2Utd2lkdGg9IjIuMSIvPg0KPHJlY3QgeD0iNDYwIiB5PSIzMTciIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDE3KSIgZmlsbD0idXJsKCNsaW5lYXJHcmFkaWVudDYpIiB3aWR0aD0iMTMxIiBoZWlnaHQ9IjMzIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi4xIi8+DQo8cGF0aCBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxNykiIGZpbGw9IndoaXRlIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00NjAgMzQ5LjUgQzQ2MCAzNTMuNjQyMSA0NjMuMzU3OCAzNTcgNDY3LjUgMzU3IEw1ODIuNSAzNTcgQzU4Ni42NDIxIDM1NyA1ODkuOTk5OSAzNTMuNjQyMSA1ODkuOTk5OSAzNDkuNSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjIuMSIvPg0KPHBhdGggY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTcpIiBmaWxsPSJ3aGl0ZSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNTg5Ljk5OTkgMzE3LjUgQzU4OS45OTk5IDMxMy4zNTc4IDU4Ni42NDIxIDMxMCA1ODIuNDk5OSAzMTAgQzU4Mi40OTk5IDMxMCA1ODIuNDk5OSAzMTAgNTgyLjQ5OTkgMzEwIEw0NjcuNSAzMTAgQzQ2My4zNTc4IDMxMCA0NjAgMzEzLjM1NzggNDYwIDMxNy41IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi4xIi8+DQo8cmVjdCB4PSI0NjAiIHk9IjMxMCIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTcpIiBmaWxsPSJub25lIiB3aWR0aD0iMTMwIiByeD0iNy41IiByeT0iNy41IiBoZWlnaHQ9IjQ3Ii8+DQo8dGV4dCB4PSI1MTYiIHk9IjMyOSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTgpIiBzdHJva2U9Im5vbmUiIGZvbnQtd2VpZ2h0PSJib2xkIiB4bWw6c3BhY2U9InByZXNlcnZlIj5HbzwvdGV4dD4NCjxsaW5lIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDE5KSIgZmlsbD0ibm9uZSIgeDE9IjE3NiIgeDI9IjQ1NiIgeTE9IjY3IiB5Mj0iNjciLz4NCjxwb2x5Z29uIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDIwKSIgcG9pbnRzPSIgNDU2IDY3IDQ0OSA3MCA0NDkgNjQiIHN0cm9rZT0ibm9uZSIvPg0KPHBvbHlnb24gZmlsbD0ibm9uZSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMjApIiBwb2ludHM9IiA0NTYgNjcgNDQ5IDcwIDQ0OSA2NCIvPg0KPHRleHQgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeD0iMjc2IiB5PSI1OSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMjEpIiBzdHJva2U9Im5vbmUiPnN3aXRjaFBoYXNlPC90ZXh0Pg0KPGxpbmUgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTkpIiBmaWxsPSJub25lIiB4MT0iMTQ2IiB4Mj0iMTQ2IiB5MT0iMzEwIiB5Mj0iMjE1Ii8+DQo8bGluZSBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxOSkiIGZpbGw9Im5vbmUiIHgxPSIxNDYiIHgyPSIyMzUiIHkxPSIyMTUiIHkyPSIyMTUiLz4NCjxwb2x5Z29uIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDIyKSIgcG9pbnRzPSIgMjM1IDIxNSAyMjggMjE4IDIyOCAyMTIiIHN0cm9rZT0ibm9uZSIvPg0KPHBvbHlnb24gZmlsbD0ibm9uZSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMjIpIiBwb2ludHM9IiAyMzUgMjE1IDIyOCAyMTggMjI4IDIxMiIvPg0KPHRleHQgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeD0iMTUyIiB5PSIyMzQiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDIzKSIgc3Ryb2tlPSJub25lIj5vbk9mZjwvdGV4dD4NCjxsaW5lIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDE5KSIgZmlsbD0ibm9uZSIgeDE9IjUwMCIgeDI9IjUwMCIgeTE9IjMxMCIgeTI9IjIxOSIvPg0KPGxpbmUgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTkpIiBmaWxsPSJub25lIiB4MT0iNTAwIiB4Mj0iNDE2IiB5MT0iMjE5IiB5Mj0iMjE5Ii8+DQo8cG9seWdvbiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgyNCkiIHBvaW50cz0iIDQxNiAyMTkgNDIzIDIxNiA0MjMgMjIyIiBzdHJva2U9Im5vbmUiLz4NCjxwb2x5Z29uIGZpbGw9Im5vbmUiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDI0KSIgcG9pbnRzPSIgNDE2IDIxOSA0MjMgMjE2IDQyMyAyMjIiLz4NCjx0ZXh0IHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjQ2MCIgeT0iMjM3IiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgyNSkiIHN0cm9rZT0ibm9uZSI+b25PZmY8L3RleHQ+DQo8bGluZSBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxOSkiIGZpbGw9Im5vbmUiIHgxPSI0NjAiIHgyPSIxNzYiIHkxPSIzMzIiIHkyPSIzMzIiLz4NCjxwb2x5Z29uIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDI2KSIgcG9pbnRzPSIgMTc2IDMzMiAxODMgMzI5IDE4MyAzMzUiIHN0cm9rZT0ibm9uZSIvPg0KPHBvbHlnb24gZmlsbD0ibm9uZSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMjYpIiBwb2ludHM9IiAxNzYgMzMyIDE4MyAzMjkgMTgzIDMzNSIvPg0KPHRleHQgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeD0iMjgxIiB5PSIzNTYiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDI3KSIgc3Ryb2tlPSJub25lIj5zd2l0Y2hQaGFzZTwvdGV4dD4NCjxsaW5lIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDE5KSIgZmlsbD0ibm9uZSIgeDE9IjI2MCIgeDI9IjI2MCIgeTE9IjE4MCIgeTI9Ijg1Ii8+DQo8bGluZSBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxOSkiIGZpbGw9Im5vbmUiIHgxPSIyNjAiIHgyPSIxNzYiIHkxPSI4NSIgeTI9Ijg1Ii8+DQo8cG9seWdvbiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgyOCkiIHBvaW50cz0iIDE3NiA4NSAxODMgODIgMTgzIDg4IiBzdHJva2U9Im5vbmUiLz4NCjxwb2x5Z29uIGZpbGw9Im5vbmUiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDI4KSIgcG9pbnRzPSIgMTc2IDg1IDE4MyA4MiAxODMgODgiLz4NCjx0ZXh0IHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjIyMSIgeT0iMTA2IiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgyOSkiIHN0cm9rZT0ibm9uZSI+b25PZmY8L3RleHQ+DQo8bGluZSBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxOSkiIGZpbGw9Im5vbmUiIHgxPSIzODkiIHgyPSIzODkiIHkxPSIyMjgiIHkyPSIyNjUiLz4NCjxsaW5lIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDE5KSIgZmlsbD0ibm9uZSIgeDE9IjM4OSIgeDI9IjI2MCIgeTE9IjI2NSIgeTI9IjI2NSIvPg0KPGxpbmUgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTkpIiBmaWxsPSJub25lIiB4MT0iMjYwIiB4Mj0iMjYwIiB5MT0iMjY1IiB5Mj0iMjI4Ii8+DQo8cG9seWdvbiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgzMCkiIHBvaW50cz0iIDI2MCAyMjggMjYzIDIzNSAyNTcgMjM1IiBzdHJva2U9Im5vbmUiLz4NCjxwb2x5Z29uIGZpbGw9Im5vbmUiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDMwKSIgcG9pbnRzPSIgMjYwIDIyOCAyNjMgMjM1IDI1NyAyMzUiLz4NCjx0ZXh0IHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjI4NiIgeT0iMjg0IiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgzMSkiIHN0cm9rZT0ibm9uZSI+c3dpdGNoUGhhc2U8L3RleHQ+DQo8bGluZSBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxOSkiIGZpbGw9Im5vbmUiIHgxPSIxNDUiIHgyPSIxNDUiIHkxPSI5MyIgeTI9IjE5MCIvPg0KPGxpbmUgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTkpIiBmaWxsPSJub25lIiB4MT0iMTQ1IiB4Mj0iMjM1IiB5MT0iMTkwIiB5Mj0iMTkwIi8+DQo8cG9seWdvbiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgzMikiIHBvaW50cz0iIDIzNSAxOTAgMjI4IDE5MyAyMjggMTg3IiBzdHJva2U9Im5vbmUiLz4NCjxwb2x5Z29uIGZpbGw9Im5vbmUiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDMyKSIgcG9pbnRzPSIgMjM1IDE5MCAyMjggMTkzIDIyOCAxODciLz4NCjx0ZXh0IHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjE1MSIgeT0iMTgyIiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgzMykiIHN0cm9rZT0ibm9uZSI+b25PZmY8L3RleHQ+DQo8bGluZSBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxOSkiIGZpbGw9Im5vbmUiIHgxPSI1MjUiIHgyPSI1MjUiIHkxPSI5MyIgeTI9IjMxMCIvPg0KPHBvbHlnb24gY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMzQpIiBwb2ludHM9IiA1MjUgMzEwIDUyMiAzMDMgNTI4IDMwMyIgc3Ryb2tlPSJub25lIi8+DQo8cG9seWdvbiBmaWxsPSJub25lIiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgzNCkiIHBvaW50cz0iIDUyNSAzMTAgNTIyIDMwMyA1MjggMzAzIi8+DQo8dGV4dCB4bWw6c3BhY2U9InByZXNlcnZlIiB4PSI1MzMiIHk9IjIwMyIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMzUpIiBzdHJva2U9Im5vbmUiPnN3aXRjaFBoYXNlIC88L3RleHQ+DQo8dGV4dCB4bWw6c3BhY2U9InByZXNlcnZlIiB4PSI1MzMiIHk9IjIxNyIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMzUpIiBzdHJva2U9Im5vbmUiPnJhaXNlIGdvPC90ZXh0Pg0KPGxpbmUgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTkpIiBmaWxsPSJub25lIiB4MT0iMzI1IiB4Mj0iMzI1IiB5MT0iMTQwIiB5Mj0iMTgwIi8+DQo8cG9seWdvbiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgzNikiIHBvaW50cz0iIDMyNSAxODAgMzIyIDE3MyAzMjggMTczIiBzdHJva2U9Im5vbmUiLz4NCjxwb2x5Z29uIGZpbGw9Im5vbmUiIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDM2KSIgcG9pbnRzPSIgMzI1IDE4MCAzMjIgMTczIDMyOCAxNzMiLz4NCjxsaW5lIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDE5KSIgZmlsbD0ibm9uZSIgeDE9IjExNiIgeDI9IjExNiIgeTE9IjMxMCIgeTI9IjkzIi8+DQo8cG9seWdvbiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgzNykiIHBvaW50cz0iIDExNiA5MyAxMTkgMTAwIDExMyAxMDAiIHN0cm9rZT0ibm9uZSIvPg0KPHBvbHlnb24gZmlsbD0ibm9uZSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMzcpIiBwb2ludHM9IiAxMTYgOTMgMTE5IDEwMCAxMTMgMTAwIi8+DQo8dGV4dCB4bWw6c3BhY2U9InByZXNlcnZlIiB4PSIyMyIgeT0iMjAzIiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgzOCkiIHN0cm9rZT0ibm9uZSI+c3dpdGNoUGhhc2UgLzwvdGV4dD4NCjx0ZXh0IHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjIzIiB5PSIyMTciIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDM4KSIgc3Ryb2tlPSJub25lIj5yYWlzZSBzdG9wPC90ZXh0Pg0KPGxpbmUgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMTkpIiBmaWxsPSJub25lIiB4MT0iNTAwIiB4Mj0iNTAwIiB5MT0iOTMiIHkyPSIxOTAiLz4NCjxsaW5lIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDE5KSIgZmlsbD0ibm9uZSIgeDE9IjUwMCIgeDI9IjQxNiIgeTE9IjE5MCIgeTI9IjE5MCIvPg0KPHBvbHlnb24gY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoMzkpIiBwb2ludHM9IiA0MTYgMTkwIDQyMyAxODcgNDIzIDE5MyIgc3Ryb2tlPSJub25lIi8+DQo8cG9seWdvbiBmaWxsPSJub25lIiBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgzOSkiIHBvaW50cz0iIDQxNiAxOTAgNDIzIDE4NyA0MjMgMTkzIi8+DQo8dGV4dCB4bWw6c3BhY2U9InByZXNlcnZlIiB4PSI0NjEiIHk9IjE4NCIgY2xpcC1wYXRoPSJ1cmwoI2NsaXBQYXRoNDApIiBzdHJva2U9Im5vbmUiPm9uT2ZmPC90ZXh0Pg0KPC9nPg0KPC9nPg0KPC9zdmc+DQo=" title="TrafficLight_1" alt="TrafficLight_1" style="width:auto"><span data-line="45"></span>
+</p>
+<hr  class="figureline madoko" data-line="46">
+
+<div data-line="47"><span data-line="47"></span><fig-caption class="figure-caption"><span class="caption-before"><strong><span class="remofigure-label">1</span>.&#160;ábra.</strong> </span>Jelzőlámpa egyzerű állapotgépe</fig-caption><span data-line="47"></span>
+</div></figure>
+<p data-line="48"><span data-line="48"></span>Egy halálfejes hiba: <span data-line="48"></span>&#8230;<span data-line="48"></span> <span data-line="48"></span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAJiS0dEAP+Hj8y/AAAACXBIWXMAAABIAAAASABGyWs+AAACnklEQVRIx83Vb2jVVRzH8de91zt0t+FdmzIZ07aEIsL5Z4XGSHEGpUgEhRhToyDNQYb/IsEHNssZKyLDeqRUD6wJpnsgmqZdrZlbXDMa0nTMEHU48x8Rbk5/PQnXvd79ps/8PDvf7/e8zznfc77fw/2uYUaKhgVEBrFXW2C8uBv6Fcpz1W5Nuu5u1XK7fKgyw1aq1hEN8oeeXuWwh3N6oursGwpRqM3oEH+tbeGA9eYNscP9KsLcrZISg3qjpllgeaYpU9c9ZVzInX2iw/gwwN96Q7YYdcs18TAA5zwzKGCSUypczHxp2TkoV4ViUxQ5rh1Js/VI+8sTfrdYY1gSSzVLWapfINAJPhAI3LTJIi12ZJ8qU2cd0K5aDJwG3f9FzndS0sLcK7+hw2tgosXmCgRumQ7ydQkEGhXZC17WYWUm4DsrtJqKarPQKG2RmC/UK1epxRYJhVIo0SYp9f/pla6YYIJW75li0237fIGvNd0ev2qzeY6bia/MGQDsMVNUTJ46vwmkLDEC9QLb/AnmOCTwhzclRMQVOz1QWEv94gc/+dxETNfpgoNinvaWGd7FRhf0qBM3zvuO+d5RDSLZDeVZqwzzkeFqXdNkn39EPGSS1U7I95llSnxqu77BO9Jkq8zwrWKX9Ep6TKdjyvR73UEb/JgZHrsDcF6zBxS4rldcgSInPehxR+V5xYk7y2NABRhrvXZRNVZoc9Zl9LlkmanO2KvZC+JG5Gq0LQLdrvrYaGUuWpKVnRtqRDxnv8v69Hg+G5BWqUJCwlpdNjin3igwxjpXNGi3wyMoVWKnt7MBNfbgSaeskUCZzbqc163bN6oQ9aKfLcdCX+bInpRSv3o0qwdlnjYubZatxuYqqHec8dJd/BppB+77H/Ve9C8tSbjwLnwuCgAAACV0RVh0Y3JlYXRlLWRhdGUAMjAxMy0wMS0yMVQyMzo1NDowOS0wNjowMM8+NQ0AAAAldEVYdGRhdGU6Y3JlYXRlADIwMTQtMTItMTVUMDg6MDA6MjctMDU6MDD28h6cAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE0LTEyLTE1VDA4OjAwOjI3LTA1OjAwh6+mIAAAACV0RVh0bW9kaWZ5LWRhdGUAMjAxMy0wMS0yMVQyMjo1MDozNS0wNjowMA3dV1EAAAAASUVORK5CYIIA" title="skull" alt="skull" style="width:auto;vertical-align:middle"><span data-line="48"></span>
+</p>
+<div class="remoremark block" data-line="50">
+<p data-line="51"><span data-line="51"></span><span class="remoremark-before"><strong>Megjegyzés</strong>.&#160;</span><span data-line="51"></span>Egy szöveges megjegyzés.</p></div><h2 id="sec-feladatok" data-line="54" ><span data-line="54"></span>Feladatok</h2>
+<div class="remoexercise block" data-line="56" style="border-style:solid;border-color:black;border-width:1px;padding:10px">
+<p data-line="57"><span data-line="57"></span><span class="remoexercise-before"><strong><span class="remoexercise-label">1</span>.&#160;feladat</strong>.&#160;</span><span data-line="57"></span>Egy feladat.</p></div><h2 id="sec-ajnlott-irodalom" data-line="60" ><span data-line="60"></span>Ajánlott irodalom</h2>
+<p data-line="62"><span data-line="62"></span>Hasznos cikkek<span data-line="62"></span>&nbsp;<span class="citations" style="target-element:bibitem">[<a href="#dubrovin08" title="Jori Dubrovin and Tommi Junttila. 
+Symbolic model checking of hierarchical uml state machines." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">1</span></a>, <a href="#latella99" title="Diego Latella, Istv&#225;n Majzik, and Mieke Massink. 
+Automatic verification of a behavioural subset of uml statechart diagrams using the spin model-checker. 
+Formal Aspects of Computing, 11 (6): 637&#8211;664, 1999. 
+ISSN 0934-5043. 
+doi:10.1007/s001659970003." class="bibref localref" style="target-element:bibitem"><span class="bibitem-label">2</span></a>]</span><span data-line="62"></span>.
+</p><h2 id="sec-hivatkozsok" data-line="64" ><span data-line="64"></span>Hivatkozások</h2>
+<div class="bibliography bib-numeric"    data-line="66;00-alap-bib.bbl:2">
+
+<div id="dubrovin08" class="bibitem"   data-line="66;00-alap-bib.bbl:5" style="searchterm:Symbolic+model+checking+hierarchical+state+machines++Jori+Dubrovin+Tommi+Junttila+"><span data-line="66;00-alap-bib.bbl:6"></span><span class="bibitem-before">[<span class="bibitem-label">1</span>]&#160;&#160;</span><span data-line="66;00-alap-bib.bbl:6"></span>Jori Dubrovin and Tommi Junttila.
+<span data-line="66;00-alap-bib.bbl:7"></span><span class="newblock"></span><span data-line="66;00-alap-bib.bbl:7"></span> Symbolic model checking of hierarchical uml state machines.
+<span data-line="66;00-alap-bib.bbl:8"></span><span class="newblock"></span><span data-line="66;00-alap-bib.bbl:8"></span> In <span data-line="66;00-alap-bib.bbl:8"></span><em>Application of Concurrency to System Design, 2008. ACSD
+  2008. 8th International Conference on</em><span data-line="66;00-alap-bib.bbl:9"></span><span data-line="66;00-alap-bib.bbl:9"></span>, pages 108<span data-line="66;00-alap-bib.bbl:9"></span>&#8211;<span data-line="66;00-alap-bib.bbl:9"></span>117, June 2008.
+<span data-line="66;00-alap-bib.bbl:10"></span><span class="newblock"></span><span data-line="66;00-alap-bib.bbl:10"></span> doi:<span data-line="66;00-alap-bib.bbl:10"></span><a href="http://dx.doi.org/10.1109/ACSD.2008.4574602">10.1109/ACSD.2008.4574602</a><span data-line="66;00-alap-bib.bbl:10"></span>.<span data-line="66;00-alap-bib.bbl:10"></span>&nbsp;<a href="http://www.bing.com/search?q=Symbolic+model+checking+hierarchical+state+machines++Jori+Dubrovin+Tommi+Junttila+" class="bibsearch">&#128270;</a></div>
+<div id="latella99" class="bibitem"   data-line="66;00-alap-bib.bbl:13" style="searchterm:Diego+Latella+Istv+Majzik+Mieke+Massink+Automatic+verification+behavioural+subset+statechart+diagrams+using+spin+model+checker+_Formal+Aspects+Computing_+ISSN+s001659970003+http+s001659970003++"><span data-line="66;00-alap-bib.bbl:14"></span><span class="bibitem-before">[<span class="bibitem-label">2</span>]&#160;&#160;</span><span data-line="66;00-alap-bib.bbl:14"></span>Diego Latella, Istv<span data-line="66;00-alap-bib.bbl:14"></span>&#225;<span data-line="66;00-alap-bib.bbl:14"></span>n Majzik, and Mieke Massink.
+<span data-line="66;00-alap-bib.bbl:15"></span><span class="newblock"></span><span data-line="66;00-alap-bib.bbl:15"></span> Automatic verification of a behavioural subset of uml statechart
+  diagrams using the spin model-checker.
+<span data-line="66;00-alap-bib.bbl:17"></span><span class="newblock"></span><span data-line="66;00-alap-bib.bbl:17"></span> <span data-line="66;00-alap-bib.bbl:17"></span><em>Formal Aspects of Computing</em><span data-line="66;00-alap-bib.bbl:17"></span><span data-line="66;00-alap-bib.bbl:17"></span>, 11<span data-line="66;00-alap-bib.bbl:17"></span><span style="penalty:0"></span><span data-line="66;00-alap-bib.bbl:17"></span> (6):<span data-line="66;00-alap-bib.bbl:17"></span><span style="penalty:0"></span><span data-line="66;00-alap-bib.bbl:17"></span>
+  637<span data-line="66;00-alap-bib.bbl:18"></span>&#8211;<span data-line="66;00-alap-bib.bbl:18"></span>664, 1999.
+<span data-line="66;00-alap-bib.bbl:19"></span><span class="newblock"></span><span data-line="66;00-alap-bib.bbl:19"></span> ISSN 0934-5043.
+<span data-line="66;00-alap-bib.bbl:20"></span><span class="newblock"></span><span data-line="66;00-alap-bib.bbl:20"></span> doi:<span data-line="66;00-alap-bib.bbl:20"></span><a href="http://dx.doi.org/10.1007/s001659970003">10.1007/s001659970003</a><span data-line="66;00-alap-bib.bbl:20"></span>.<span data-line="66;00-alap-bib.bbl:20"></span>&nbsp;<a href="http://www.bing.com/search?q=Diego+Latella+Istv+Majzik+Mieke+Massink+Automatic+verification+behavioural+subset+statechart+diagrams+using+spin+model+checker+_Formal+Aspects+Computing_+ISSN+s001659970003+http+s001659970003++" class="bibsearch">&#128270;</a></div></div>
+<p data-line="74"><span data-line="74"></span><a href="https://github.com/FTSRG/remo/blob/gh-pages/00-alap.md">A segédanyag forrása</a><span data-line="74"></span>
+</p>
+<div class="logomadoko block" data-line="76" style="text-align:right;font-size:xx-small;margin-top:4em"><span data-line="77"></span>Created with&nbsp;<a href="https://www.madoko.net">Madoko.net</a>.</div>
+</body>
+
+</html>

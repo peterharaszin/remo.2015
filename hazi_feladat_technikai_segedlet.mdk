@@ -1,0 +1,235 @@
+Title         : Technikai segédlet
+Sub Title   : a Rendszermodellezés (VIMIAA00) házi feladathoz
+
+[INCLUDE="header.mdk"]
+
+# Előszó
+
+Jelen segédanyag a BME VIK elsőéves informatikus hallgatói számára készült a **Méréstechnika és Információs Rendszerek Tanszék**en Lucz Soma és Farkas Rebeka munkájának felhasználásával, és a [Rendszermodellezés (VIMIAA00)][CoursePage] című tárgy kötelező házi feladatának elkészítésében segít. A szöveg a **Yakindu** 2.4.0 verziójával van összhangban, amely egy állapot alapú modellezést, szimulációt és kódgenerálást támogató eszköz.
+
+
+# Alapismeretek
+
+A [Yakindu modellező eszköz][YakinduMain] az Eclipse nevű fejlesztőkörnyezet egy kiterjesztéseként érhető el. Mindkét szoftver nyílt forráskódú és az _Eclipse Public Licence_ keretében ingyen használható. Ez a fejezet egy egy áttekintést ad az Eclipse és a Yakindu főbb fogalmairól. 
+
+## Eclipse bevezető
+
+Az Eclipse egy ingyenes, nyílt forráskódú és többcélú fejlesztőkörnyezet, amely egy közös platformból és arra épülő _plugin_ (beépülő) modulokból áll. A megfelelő pluginek kiválasztásával ill. saját pluginek fejlesztésével az Eclipse képességei szabadon megválaszthatóak. A legtöbben Java fejlesztőkörnyezetként találkoznak vele, pedig többféle előre csomagolt változata is létezik (pl. C/C++ fejlesztéshez, modell alapú szoftvertervezéshez, stb.), melyek mindegyike a célnak megfelelő plugineket tartalmazza.
+
+## Az Eclipse munkaterület
+
+Az Eclipse a munkát _Workspace_-ekbe (munkaterület, munkakönyvtár) szervezi, amely a merevlemezünk egy erre célra kijelölt (de szabadon megválasztható) könyvtára. A workspace-ek _Project_-eket tartalmaznak, amelyeket szükség esetén _Working Set_-ekbe lehet szervezni. Többféle projektet lehet létrehozni, pl Java, C++, Plug-in projekt, stb. Projekteket lehet exportálni (pl. _zip_ fájlba tömörítve), illetve importálni, így egy projekt workspace-ek és számítógépek között hordozható.
+
+## A Eclipse felhasználói felület
+
+Az Eclipse elindítása után a _Workbench_ felület látszik, amely nyitott szerkesztőkből és nézetekből, valamint menüsorból, eszköztárakból, állapotsorból áll. 
+
+A _szerkesztőket_ (Editor) használjuk a munkaterület fájljainak megnyitására és módosítására. Többféle szerkesztő használható egyszerre akár több példányban -- pl egyszerre több Java fájl lehet megnyitva, vagy akár Java és XML szerkeszthető együtt. A szerkesztőterületek igény szerint különféleképpen elrendezhetőek a képernyőn, akár külön ablakba is áthúzhatóak.
+
+A szerkesztők mellett további funkciókat tesznek elérhetőve a különféle _nézetek_ (View). Például a _Console_ nézet a fejlesztőkörnyezetből elindított programok szabványos be- és kimeneti (ill. hibakimeneti) konzolját mutatja, a _Search_ nézet a kereséseink találatait listázza, stb. Talán a legfontosabb nézet a **Project Explorer** (valamint _Package Explorer_, stb.), amelyen keresztül a workspace tartalmát böngészhetjük. 
+
+A nyitott nézetek, eszköztárak, stb. körét és elrendezését az éppen használt _perspektíva_ (Perspective) határozza meg, amelyet valamely munkafázis támogatására válogattak össze. A perspektíva természetesen testreszabható a nyitott nézetek kézi áthelyezésével, bezárásával, valamint újak megnyitásával (**Window** > **Show View**).
+
+<!-- A nézetek elsődleges funkciója az, hogy a navigálni lehessen az információ között. Egy nézet tulajdonképpen a Workspace adatinak egy reprezentációja.  Míg a szerkesztők helye kötött, nézetek bárhová helyezhetők. Saját eszköztárral is rendelkezhetnek. -->
+
+## Yakindu bevezető
+
+A Yakindu egy nyílt forráskódú eszköz reaktív, eseményvezérelt rendszerek specifikálására és fejlesztésére állapotgépek segítségével. Tartalmaz egy könnyen használható grafikus szerkesztőt, eszközöket validációhoz és szimulációhoz, valamint kódgenerátorokat különböző platformokra. A Yakindu Eclipse pluginek csoportjaként van megvalósítva, saját perspektívával, szerkesztőkkel és nézetekkel, amelyeket a következő fejezetek tárgyalnak.
+
+# A modellező eszköz telepítése
+
+## Java környezet
+Ahhoz, hogy az Eclipse alapú Yakindu, továbbá a házi feladathoz segítséget nyújtó további eszközök futni tudjanak, a Java fejlesztőkészlet (Java Development Kit, JDK) előzetes telepítése szükséges (minimálisan 7u6-os verzió).
+
+A JDK telepítőkészletet az [Oracle honlapjáról][JDKDownload] lehet letölteni. Az oldalon a **Java SE Development Kit** feliratú szürke dobozban az **Accept License Agreement** lehetőséget kell kiválasztani, ekkor az alatta lévő listából letölthető a platformunknak megfelelő telepítőfájl. A telepítés _Next - Next - Finish_ típusú, nem igényel különösebb fejtörést. Amennyiben valamilyen további reklámtermék (pl. Ask.com) telepítését is felajánlja, azt nem szükséges elfogadni. 
+
+Figyelem: a hivatalos Oracle JVM-et ajánljuk. OpenJDK-val maga a feladat megoldható, de nem fog működni a kötelező házi feladat kipróbálását segítő grafikus felület (ld. [#sec-a-modell-kiprblsa]. szakasz).
+
+<!--
+Telepítés után érdemes beállítani a JAVA\_HOME változót, valamint hozzáadni a Java elérési útját a PATH-hoz. Ehhez Windowson a követketzőt kell tenni.
+
+ * A számítógép ikonra jobb gombal kattintva válasszuk a **Properties** (Tulajdonságok) lehetőséget. (Elérhető a _Control Panel_ | _System and Security_ | _System_ úton is.)
+ * A bal oldali menü lehetőségei közül kattintsunk az **Advanced System Settings**-re.
+ * Itt nyomjunk rá az **Environment Variables** gombra.
+ * Ha még nincs JAVA\_HOME változó, létre kell hozni. JAVA\_HOME legyen a neve, az értéke pedig a frissen installált Java könyvtár elérési útja. Ha szóközöket tartalmaz, érdemes rövidítéseket használni, pl. C:\Progra~1\Java\jdk1.8.0\_31
+ * Jelöljük ki a _Path_ változót, majd **Edit**. A változó jelenlegi értékét ne töröljük ki, csak írjunk a végére egy pontosvesszőt, majd a JDK-n belüli bin könyvtár elérési útját.
+ 
+ -->
+ 
+## A Yakindu letöltése és beüzemelése
+
+A [linkelt oldalról][YakinduDownload] tölthető le egy teljes Eclipse a Yakinduval kiegészítve. Itt a jobb oldali oszlopban a _Full Eclipse_ alatt lehet kiválasztani az oprendszernek megfelelő verziót. (Alternatívaként természetesen lehetséges egy meglévő Eclipse példány kiegészítése a Yakindu pluginjeivel; ez kezdő Eclipse felhasználóknak nem ajánlott, és nem nyújtunk segítséget hozzá.)
+
+A programot nem kell telepíteni -- letöltés és kicsomagolás után egy futtatásra kész állományt kapunk, amit csak el kell indítanunk az _eclipse.exe/eclipse.app_-re kattintva.
+
+Első indításkor az Eclipse megkérdezi, melyik workspace-ben szeretnénk dolgozni. Adjunk meg neki egy mappát (ha nem létezik, majd az Eclipse létrehozza). Figyeljünk, hogy a mappa elérési útjában ne szerepeljenek ékezetes karakterek, vagy szóközök. Pipáljuk ki, hogy ne kérdezze meg minden indításkor (indulás után bármikor lehet workspace-t váltani).
+Ez a workspace lesz a későbbiekben a projektfájlok helye, ide fog dolgozni alapesetben a program. 
+<!--Természetesen máshonnan is importálható projekt, illetve máshová is lehet menteni, de a workspace kényelmes megoldás arra, hogy egységes helyen tároljuk az aktuális munkáinkat.-->
+
+Amíg az új workspace-ben nincsenek projektjeink, az Eclipse megjelenít egy üdvözlőképernyő fület. Ezt nyugodtan bezárhatjuk.
+
+# Projekt létrehozása, importálása
+
+ 
+## A projekt és modell létrehozása
+Ahhoz, hogy a Yakinduval megkezdhessük a munkát, szükség van egy tetszőleges projektre az Eclipse workspace-ben. A házi feladat támogatására kiadunk megfelelően előkészített projektvázakat, amelyeket csak importálni kell (lásd [#sec-yakindu-projekt-importlsa]-es szakasz). Az alábbiakban viszont leírjuk, hogyan kellene enélkül a projektváz nélkül a "nulláról" elindulni.
+
+Ha Java kódot szeretnénk majd generálni (ami a házi feladat támogatására kiadott segédeszközöknek kelleni is fog), akkor _Java Project_ készítésére van szükség. Ehhez a **File** menü **New** menüpontján belüli **New Java Project** pontra kell kattintanunk. Itt megadhatjuk a projekt nevét, majd egészen nyugodtan nyomhatunk rögtön egy **Finish**-t (a további beállításokra most nem lesz szükségünk). 
+<!--a további beállításokra még Szoftlab 3-on sem lesz szükségünk.-->
+
+<!-- ## A projekten belüli Yakindu-mappa létrehozása -->
+<!--A bal oldali Project Explorerben láthatóak a projektjeink: itt keressük meg a frissen létrehozottat. A projekten belül célszerű lesz egy külön mappát létrehozni a modell számára Erre jobb gombbal kattintva **New** és **Folder**. A létrehozandó mappának adjuk a _model_ nevet. Ez persze bármi lehet, de most a modell nevet adjuk a mappának, hiszen a benne tárolt adat egy Yakinduban létrehozott állapotmodell lesz. A projektünkön belül létrejött egy _model_ nevű mappa. 
+## A Yakindu állapotmodell létrehozása
+-->
+
+A bal oldali Project Explorerben láthatóak a projektjeink: itt keressük meg a frissen létrehozottat. Ide fogjuk elkészíteni a Yakindu állapotmodellünket. Jobb gombbal kattintva a mappára **New**, majd **Other**. Felugrik egy ablak rengeteg választási lehetőséggel, itt válasszuk a **Yakindu** kategóriát, azon belül pedig a **Statechart Model** pontot. Fájlnévként megadhatunk bármit, csak a _.sct_ kiterjesztésre figyeljünk. Aki akarja, természetesen létehozhat előbb a projekten belüle egy mappastruktúrát (jobb gombbal kattintva **New** és **Folder**) a modell elhelyezésére.
+
+## Yakindu projekt importálása
+
+A házi feladat elkészítése során a fenti lépések végrehajtására nem lesz szükség, mivel egy előre megadott projektvázlattal kell dolgozni. Ezt egy _.zip_ fájlban adják ki, amelyet a következőképpen kell Eclipse-be importálni.
+
+
+ * Katt a **File** menü **Import…** pontjára.
+ * A felügró ablakban a **General** mappán belüli **Existing Projects into Workspace** pont fog kelleni nekünk.
+ * Itt a _Select archive file_ lehetőséget választva adjuk meg a letöltött _.zip_ fájl útvonalát. Ekkor az ablak közepén lévő _Projects_ részben láthatóvá kell válnia egyetlen projektnek, amelynek a neve tartalmazza a NEPTUN-kódunkat. Ez lesz a miénk.
+ * A **Finish** után a Project Explorerben láthatóvá válik az imént importált projektünk. Itt a mappát lenyitva, az **.sct** kiterjesztésű fájlra duplán kattintva elkezdhetünk dolgozni a házi feladattal.
+
+
+## A modell megnyitása 
+
+Nyissuk meg az **.sct** fájlt a Yakindu szerkesztőjében! Az Eclipse ekkor fel fogja tenni a kérdést, hogy _„Perspektívát”_ akarunk-e váltani. Ahogy a [#sec-a-eclipse-felhasznli-fellet]. szakaszban írtuk, az Eclipse különböző funkcióihoz az eszközök, nézetek, eszköztárak különféle elrendezései tartoznak, így a Yakindu is olyan elrendezéssel jelenik meg az Eclipse-en belül, ahogy a készítői szerint a legkényelmesebb benne dolgozni. Tehát nyomjunk igent. A perspektíva természetesen később testreszabható a korábban írtak szerint.
+
+## A modell kimentése 
+
+Ha elkészült a megoldás, ne felejtsük el elmenteni (Ctrl+S, illetve floppy ikon az eszköztáron). A kész megoldás elmentése után az **.sct** fájlt kell majd feltölteni a feladatbeadó portálra (ld. [#sec-feladatkiads-s-feladatbeads]. szakasz). Ha a _Project Explorer_ segítségével kitallózzuk a fájlt, egyszerű *drag&drop* művelettel kimásolható a workspace-en belüli helyéről. 
+
+Egy másik megoldás a számos lehetőség közül, hogy jobb gombbal a fájlt képviselő bejegyzésre kattintunk, és a **Properties** menüponttal megnyitjuk a tulajdonságablakot; ott a **Resource** tulajdonságlap **Location** bejegyzése alatt olvasható a fájl teljes elérési útja, amelyet felhasználhatunk pl. a fájlfeltöltési párbeszédablakban.
+
+Ügyeljünk arra, hogy a feladatmegoldás során előállt végleges verziót töltsük fel, semmiképp se az eredetileg kiadott projektvázban található modellkezdeményt.
+
+
+# Modellezés, szimuláció
+
+## Állapot alapú modellezés
+
+Az állapot alapú modellezés tágabb témaköréről szóló Rendszermodellezés előadás fóliái [elérhetőek a honlapon][TheoryTalk] a többi előadási alkalom fóliáival együtt. A Yakindu modellek az állapotgép (_statechart_) formalizmussal írják le a rendszerek működését. Ezen modellezési paradigmához hasznos elméleti bevezetőt adunk az előadás kiegészítő [írásos segédanyagban][TheoryText]; ennek az alapos tanulmányozását mindenképpen javasoljuk, mivel a formalizmus elemeinek többségét bemutatja, és Yakindu modelleket használ hozzá illusztrációnak. 
+
+## Modellezés Yakinduban
+
+A **.sct** fájl szerkesztéséhez megnyíló szerkesztőfül három területre van osztva:
+
+* A bal oldali terület szöveges szintaxissal specifikálja az állapotgép nevét és interfészeit (input/output események ill. interfészváltozók neve és típusa).
+* A középső területen maga a statechart diagram lesz szerkeszthető. A diagram állapot- és pszeudoállapot-csomópontokból áll, amelyek szürke téglalapként jelölt ortogonális régiókba szervezhetőek. A csomópontok között állapotátmeneti szabályokat reprezentáló élek haladnak amelyek megcímkézhetőek a kiváltó okkal (input esemény vagy időzítés), őrfeltétellel, és végrehajtandó akcióval (változóértékek frissítése, output események).
+* A jobb oldali területet a diagramszerkesztéshez használható paletta foglalja el, itt választhatóak ki a diagramra helyezendő modellelemek.
+
+A házi feladat megoldásakor elvárás, hogy az állapotgép külső interfésze az előre kiadottal egyezzen. Így tehát a feladatmegoldás során elsősorban a diagrammal kell dolgozni, **az állapotgép nevének és interfészének módosítása tilos**. Ugyanakkor engedélyezett és ajánlott belső használatú, lokális változókat felvenni; erre a célra fenn van tartva a bal oldali területen egy **internal** megjelölésű szakasz (_Insert additional variables here_ megjegyzéssel). 
+
+A szerkesztőeszköz részletesebb ismertetésére ezen a helyen nincs mód, de ez a tudás más forrásokból könnyen pótolható. A modellszerkesztő felhasználói felület használatát egy [videón mutatjuk be][TrafficLightVideoDemo], amely lépésről lépésre végighalad a fenti elméleti bevezető segédanyag példáin. A modellező eszköz részletesebb megismeréséhez természetesen rendlekezésre áll a Yakindu honlapján angol nyelven publikált [szöveges dokumentáció][YakinduDoc], továbbá a [bemutató videó][YakinduOfficialVideo] is. 
+
+A videóból nem feltétlenül látszik, de hasznos tudnivaló, hogy a szöveges beviteli helyeken (pl. állapotátmeneti szabályok címkézése) gépelés közben a **Ctrl + szóköz** billenytűkombinációval kódkiegészítéseket (_Code completion_) javasol nekünk a Yakindu; ezzel nagymértékben gyorsítható a munka. További hasznos tipp, hogy a modellezés kezdetekor növeljük meg a _main region_ nevű területet, mivel szinte biztos, hogy több helyre lesz szükségünk; a **Ctrl + görgő** kombinációval tudunk kényelmesen nagyítani, illetve kicsinyíteni. 
+
+A Yakindu természetesen jóval szélesebb körű felhasználásra alkalmas, mint a Rendszermodellezés házi feladat. Így vannak olyan modellezési elemei, amelyeket más felhasználási esetkere szántak, a házi feladat szempontjából értelmetlenek, és így használatukat nem engedjük meg. (Konkrétabban: a Rendszermodellezés házi feladat kontextusában, a _Digitális technika_ tárgyból tanult szinkron áramkörökkel ellentétben, nincs meghatározott _órajel_ fogalom, így a kifejezetten erre építő Yakindu nyelvi elemek a szimulációban és tesztelés közben nem fognak helyesen működni.) Ezen **tiltott elemek**:
+
+* ```always```
+* ```oncycle```
+
+
+
+<!--A _default_ ablakrészben tudjuk megadni az interface-eket, illetve a modellezéshez szükséges alapokat. A jobb oldali eszköztárral tudunk hozzáadni az ábrához újabb állapotokat, illetve onnan érünk el mindent, ami a modellezéshez szükséges.-->
+
+
+
+## A modell működésének szimulálása
+Ha már van egy részleges vagy teljes megoldásunk, nyilván szeretnénk meggyőződni annak helyességéről. Ennek egyik eszköze a Yakindu beépített szimulátora.
+
+A szimuláció elindításához válasszuk ki a bal oldali Project Explorerben látható Yakindu statechart fájlt (_.sct_) vagy az erre a célra készített _Simulation.launch_ nevű "launch configot" (indítási konfigurációs állományt), majd jobb gombbal kattintva a **Run As**, majd **Statechart Simulation** pontot válasszuk. Így megnyílik a _Simulation View_ nézet, és a Yakindu elkezdi szimulálni a modellünket. Piros színnel ki lesz(nek) emelve az állapotkonfiguráció aktív állapota(i), a nagyobb összetett állapotoktól egészen a legszűkebb állapotig.
+
+A jobb oldali _Simulation_ fül alatt láthatóak az állapotgép interfészén definiált „változók”, illetve „események”. A házi feladat példáiban ezek gombok, kijelzők, illetve időesemények lesznek majd. A szimuláció indítása után a _gombok_ nyomkodása input eseményeknek felel meg, így ezekkel vezérelhetjük közvetlenül a szimulált állapotgép állapotátmeneteit. A szimulációt a felső eszköztárban lévő piros négyzettel, vagyis a **Terminate** gombbal állíthatjuk le.
+
+
+## A modell működésének tesztelése 
+
+Megoldásunk helyességének ellenőrzésére szolgálnak a kiadott tesztesetek. Ezek lefuttatásával egyszerű helyesírási hibáktól kezdve a bonyolult funkcionális hiányosságokig számos problémára fényt deríthetünk még a házi feladat beadása előtt. Teszteseteink felépítése a következő: először kezdőállapotba állítjuk a vizsgált állapotgépet, majd események sorozatának hatására léptetjük, végül (esetleg közben is) megvizsgáljuk, hogy a feladatkiírásnak megfelelően viselkedett-e. Amennyiben igen, a teszteset *sikeresnek* mondjuk, ellenkező esetben a teszteset *meghiúsul*, és kilistázzuk a hiba okát.
+
+A kötelező házi feladat esetén egy teszteset az alábbi eseményeket tartalmazhatja:
+
+* *Gomb Lenyomása*: a sakkórán lenyomunk egy gombot, amire a rendszernek a feladatkiírásnak megfelelően kell reagálnia.
+
+* *Várakozás:* Idő múlását szimulálhatjuk az állapotgépen. Erre szintén reagálhat az állapotgép.
+
+Események egy sorozata után az alábbi vizsgálatokat tehetjük:
+
+* *Kijelző leolvasása:* A kijelző szövegét betűről betűre összehasonlítjuk egy elvárt értékkel.
+
+* *Játékosok számjelzőinek leolvasása:* A játékosok idejét jelző kijelzőn lévő számot vizsgáljuk.
+
+* *Hangjelzés vizsgálata:* Megnézzük, hogy az ellenőrzés pillanatában elkezdett-e sípolni a sakkóra. (Mivel a modellnek önmagában, az aktuális megvalósításban használt hangjelzések hosszától függetlenül helyesen kell viselkedniük, csak a hangjelzés kezdését mint pillanatszerű eseményt vizsgáljuk.)
+
+A bemelegítő szorgalmi házi feladatban értelemszerűen ennél kevesebb elemből épülnek fel a tesztesetek. 
+
+Teszteseteinket a *Tests.launch* állományra jobb gombbal kattintva futtathatjuk, a *Run as* menüponttal. A tesztek hamar lefutnak, két helyen lehet ellenőrizni az eredményeket: a tesztekről szöveges jelentés jelenik meg a konzolon (**Console** nézet), illetve a tesztfuttató keretrendszer (**JUnit**) egy külön erre a célra szánt nézetben is összefoglalja az eredményeket.
+
+A konzolon a sikeres tesztek kódját egyszerűen csak felsoroljuk:
+
+```
+neptun4 Succeeded!
+```
+
+Meghiúsult tesztek esetén kiírjuk a vizsgált teszt célját, a beadott eseményeket sorrendhelyesen (azok időpontjával feltüntetve), valamint azt a vizsgálatot, ami meghiúsítja a tesztet. Itt a kapott és a helyette elvárt kimenetet is feltüntetjük.
+
+```
+neptun4 Failed:
+	Pressing the button three times shows your Neptun code N3PTUN again
+	----------
+	 - Button at 0s
+	 - Button at 0s
+	 - Button at 0s
+	 - Failed main display check: expected "N3PTUN" but found "Other text"
+ ```
+
+A **JUnit** nézet felsorolja a teszteket, amelyeket színkóddal (zöld ill. piros) lát el annak megfelelően, hogy sikeres volt-e vagy sem. Az összes teszteset lefutásáról összefoglalót olvashatunk a nézet tetején, valamint egy jelzőcsík is mutatja a futtatás kimenetelét. Egy meghiúsult esetre kattintva megnézhetjük a hiba okát a **Failure Trace** ablakban. 
+
+## A modell kipróbálása
+
+A részleges vagy teljes megoldásunk helyességét nem csak a Yakindu beépített szimulátorán keresztül próbálhatjuk ki, hanem saját fejlesztésű programba is beágyazhatjuk. (A bemelegítő házi feladat esetén ez a lehetőség nem érhető el.) A kötelező házi feladat esetén el is készítettünk egy sakkórát imitáló grafikus felületet, amelyen keresztül az elkészített modell működése közvetlenül és látványosan kipróbálható. Az alkalmazást az _Application.launch_ launch config állományra jobb gombbal kattintva indíthatjuk, ha a *Run as* menüpontot választjuk.
+
+*Figyelem!* Olyan modellt nem érdemes kipróbálni, amelyet már a Yakindu szerkesztő is hibásnak mond. Ezekben az esetekben sokszor az alkalmazás már el sem fog tudni indulni, hibaüzenettel azonnal leáll.
+
+## Kódgenerálás
+
+A Yakindu képes az állapotgép-modellből olyan forráskódot generálni (különféle programnyelvekben), amelynek működése az állapotgéppel meg fog egyezni. Az állapotgép szerkesztése és elmentése után a Yakindu automatikusan előállítja ill. frissíti a tárgynyelvi forrásfájlokat.
+
+A kiadott projektvázakban már konfigurálásra került a (Java nyelvű) kódgenerálás, amelynek a beállításait egy **.sgen** kiterjesztésű fájl tárolja. Valójában mind a tesztkészlet, mind a sakkóra grafikus felület az így automatikusan előálló forráskódot hívja meg. A házi feladat megoldása során se a kódgenerálás beállításaival, se a generált forráskóddal nem kell foglalkozni, de érdeklődő hallgatók megnézhetik ezeket.
+
+# Feladatkiadás és feladatbeadás
+
+A [Rendszermodellezés tágy honlapján][CoursePage], a bal oldalt fent látható navigációs fában a **Hírek** rovatra kattintva a tárggyal kapcsolatos aktuális oktatási hírek olvashatóak, amelyekre RSS olvasó segítségével fel is lehet iratkozni. Itt lesz közzétéve a házi feladatokhoz tartozó feladatkiírások és az előre összekészített Yakindu projektvázak letöltésének lehetősége.
+
+A megoldás feltöltése a [feladatbeadó portálon][GraderPage] lehetséges, kizárólag a határidőt megelőző időszakban. A határidőt szigorúan vesszük, a beadási űrlap a határidő elérésekor percre pontosan lezárul. A feladatbeadó portál használata nem bonyolult, de probléma esetén nyugodtan fordulhatunk a [használati útmutató][GraderHelp]t. A megoldás beadásakor egyetlen **.sct** fájl feltöltése szükséges. 
+Vigyázzunk arra, hogy azt a modellt töltsük fel amit szerkesztettünk!
+(A *'Copy project into workspace'* opció hatására a workspace mappába másolódik a projekt.
+Ebben az esetben innen töltsük fel a megoldást. Részletes leírás a [#sec-a-modell-kimentse]. szakaszban olvasható.)
+
+Mivel mindenki egyénileg testreszabott házi feladatot kap, egyéni azonosítás szükséges a házi feladat elemeinek letöltésekor és a megoldás feltöltésekor egyaránt. Az azonosítást a [BME Címtár][GraderAuth] szolgáltatása végzi, ezért aki még nem tette meg, mielőbb regisztráljon magának címtár azonosítót. Ha a portál elérésekor nem történik meg automatikusan az azonosítás, akkor a "nincs jogosultság" hibaüzenetet kaphatjuk; ebben az esetben a bal oldali sávban kattintsunk a **BME Címtár belépés ** linkre.
+
+
+[GitHubRepo]: https://github.com/FTSRG/remo/
+
+[skull]: images/skull.png "skull" { width=auto vertical-align=middle }
+
+[TrafficLight_1]: images/TrafficLight_1.svg "TrafficLight_1" { width=auto }
+
+[JDKDownload]: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+[YakinduDownload]: http://statecharts.org/download.html
+[YakinduDoc]: http://statecharts.org/documentation.html
+[YakinduMain]: http://statecharts.org
+[YakinduOfficialVideo]: https://www.youtube.com/watch?v=uO6MASCBPrg
+[TrafficLightVideoDemo]:  http://youtu.be/ev5wEjvje78
+[TheoryText]: http://docs.inf.mit.bme.hu/remo/out/03-allapot-alapu-modellezes.html 
+[TheoryTalk]: https://inf.mit.bme.hu/edu/courses/remo/materials 
+[CoursePage]: https://inf.mit.bme.hu/edu/courses/remo 
+[GraderPage]: https://inf.mit.bme.hu/user/grader 
+[GraderHelp]: https://inf.mit.bme.hu/wiki/jegyzokonyv 
+[GraderAuth]: https://login.bme.hu/admin/ 
+
+[A segédanyag forrása](https://github.com/FTSRG/remo/blob/gh-pages/00-alap.md)
