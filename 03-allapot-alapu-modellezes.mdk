@@ -25,11 +25,13 @@ Egy adott időpontban a rendszer _pillanatnyi állapota_ az állapottér azon eg
 ~RemoExample
 Kiindulásként a jelzőlámpa alábbi egyszerű állapotterével dolgozunk.
 
-* ![tl_empty] _Off_: kikapcsolt állapot
+* ![tl_empty_png] _Off_: kikapcsolt állapot
 * ![tl_red] _Stop_: vörös jelzés
 * ![tl_redyellow] _Prepare_: vörös-sárga jelzés
 * ![tl_green] _Go_: zöld jelzés
 * ![tl_yellow] _Continue_: sárga jelzés
+
+[tl_empty]: images/tl_empty.png "tl_empty" { width=auto max-width=90% }
 
 [compass_icon]: images/compass_icon.png "compass_icon" { width=auto max-width=90% }
 
@@ -454,6 +456,7 @@ Mivel a különböző interfészeknek lehetne azonos nevű eseménye ill. állap
 [tl_green]: images/tl_green.svg "tl_green" { width=8px vertical-align=middle }
 [tl_yellow]: images/tl_yellow.svg "tl_yellow" { width=8px vertical-align=middle }
 [tl_empty]: images/tl_empty.svg "tl_empty" { width=8px vertical-align=middle }
+[tl_empty_png]: images/tl_empty.png "tl_empty_png" { width=8px vertical-align=middle }
 
 [TrafficLight_1]: images/TrafficLight_1.svg "TrafficLight_1" { width=auto }
 [TrafficLight_1_sim]: images/TrafficLight_1_sim.svg "TrafficLight_1_sim" { width=auto }
